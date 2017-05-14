@@ -31,32 +31,69 @@
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="crown1" />
+		<property name="password" value="d187d8d51fd499acab199530606b0a4f" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="CROWN" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-
 	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="crown2" />
+		<property name="password" value="ba65b62b23e8708a0b43be70480e2413" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="CROWN" />
 				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="crown3" />
+		<property name="password" value="f540093b28b47334d04a4f5187283bdc" />
+		<property name="authorities">
+			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="CROWN" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<!-- CreditCard -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="Trafalgar" />
+		<property name="brand" value="MASTERCARD" />
+		<property name="number" value="6011238943402529" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="19" />
+		<property name="cvv" value="408" />
+	</bean>
+	
+	
+	<!-- Crown -->
+	<bean id="crown1" class="domain.Crown">
+		<property name="name" value="Jose" />
+		<property name="surname" value="Pallero" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/ea/fa/1c/eafa1c7a9d7adfc7bc0ed1082c835232.jpg" />
+		<property name="userAccount" ref="userAccount2"/>
+		<property name="creditCard" ref="creditCard1"/>
+		<property name="projects">
+			<list></list>
+		</property>
+		<property name="favs">
+			<list></list>
+		</property>
+		<property name="rewards">
+			<list></list>
+		</property>
+	</bean>
+	
 	
 </beans>
