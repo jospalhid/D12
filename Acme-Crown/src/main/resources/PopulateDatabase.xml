@@ -73,12 +73,85 @@
 		<property name="expirationYear" value="19" />
 		<property name="cvv" value="408" />
 	</bean>
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="Trafalgar" />
+		<property name="brand" value="MASTERCARD" />
+		<property name="number" value="6011238943402529" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="19" />
+		<property name="cvv" value="408" />
+	</bean>
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holder" value="Trafalgar" />
+		<property name="brand" value="MASTERCARD" />
+		<property name="number" value="6011238943402529" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="19" />
+		<property name="cvv" value="408" />
+	</bean>
 	
+	<!-- Category -->
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="Art" />
+		<property name="description" value="Todo un artista" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Craft" />
+		<property name="description" value="La magia tambien cuenta" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Fashion" />
+		<property name="description" value="¿Que es la moda sin ti?" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Cine" />
+		<property name="description" value="Haz tus propias peliculas" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Games" />
+		<property name="description" value="Jugar solo es siempre mejor" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Music" />
+		<property name="description" value="Un casco para cada persona" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Technology" />
+		<property name="description" value="La vida en si misma" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Others" />
+		<property name="description" value="Todo lo demas" />
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
 	
 	<!-- Crown -->
 	<bean id="crown1" class="domain.Crown">
-		<property name="name" value="Jose" />
-		<property name="surname" value="Pallero" />
+		<property name="name" value="Trafalgar" />
+		<property name="surname" value="Law" />
 		<property name="email" value="jose@us.es" />
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/ea/fa/1c/eafa1c7a9d7adfc7bc0ed1082c835232.jpg" />
@@ -95,5 +168,195 @@
 		</property>
 	</bean>
 	
+	<bean id="crown2" class="domain.Crown">
+		<property name="name" value="Robin" />
+		<property name="surname" value="Nico" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="https://pbs.twimg.com/profile_images/570673930470309888/KPTHOfuA.jpeg" />
+		<property name="userAccount" ref="userAccount3"/>
+		<property name="creditCard" ref="creditCard2"/>
+		<property name="projects">
+			<list></list>
+		</property>
+		<property name="favs">
+			<list></list>
+		</property>
+		<property name="rewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="crown3" class="domain.Crown">
+		<property name="name" value="Franky" />
+		<property name="surname" value="Cyborg" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="http://orig07.deviantart.net/f379/f/2010/252/1/5/1578cb09d42588ece0e69736ccdc28b7-d2yealq.jpg" />
+		<property name="userAccount" ref="userAccount4"/>
+		<property name="creditCard" ref="creditCard3"/>
+		<property name="projects">
+			<list></list>
+		</property>
+		<property name="favs">
+			<list></list>
+		</property>
+		<property name="rewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- Pictures -->
+	<bean id="picture1" class="domain.Picture">
+		<property name="url" value="https://de7i3bh7bgh0d.cloudfront.net/2016/07/05/16/50/17/0ce17b10-565d-4284-a9d0-617d26ee339b/VizBlog_OnePiece.jpg" />
+	</bean>
+	<bean id="picture2" class="domain.Picture">
+		<property name="url" value="https://i.imgbox.com/m72yRmsz.jpg" />
+	</bean>
+	<bean id="picture3" class="domain.Picture">
+		<property name="url" value="http://regionps.com/wp-content/uploads/2016/05/one-piece.jpg" />
+	</bean>
+	
+	<!-- Project -->
+	<bean id="project1" class="domain.Project">
+		<property name="title" value="Save Sanji" />
+		<property name="description" value="Hay que salvarle" />
+		<property name="moment" value="2017/05/18 12:00" />
+		<property name="goal" value="100" />
+		<property name="ttl" value="55"/>
+		<property name="pictures">
+			<list>
+				<ref bean="picture1"/>
+				<ref bean="picture2"/>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category1"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project2" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="moment" value="2017/05/18 12:00" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="75"/>
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project3" class="domain.Project">
+		<property name="title" value="La vida" />
+		<property name="description" value="Se vive como viene" />
+		<property name="moment" value="2017/05/18 12:00" />
+		<property name="goal" value="12000" />
+		<property name="ttl" value="90"/>
+		<property name="pictures">
+			<list>
+				<ref bean="picture2"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown2"/>
+		<property name="category" ref="category6"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	
+	<!-- Reward -->
+	<bean id="rewar1" class="domain.Reward">
+		<property name="title" value="Primera" />
+		<property name="description" value="Creditos" />
+		<property name="cost" value="1.0" />
+		<property name="project" ref="project1"/>		
+		<property name="crowns">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="rewar2" class="domain.Reward">
+		<property name="title" value="Segunda" />
+		<property name="description" value="Mas cosas" />
+		<property name="cost" value="10.0" />
+		<property name="project" ref="project1"/>		
+		<property name="crowns">
+			<list>
+				<ref bean="crown2"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="rewar3" class="domain.Reward">
+		<property name="title" value="Tercera" />
+		<property name="description" value="Muchas mas cosas" />
+		<property name="cost" value="100.0" />
+		<property name="project" ref="project1"/>		
+		<property name="crowns">
+			<list>
+				<ref bean="crown3"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="rewar4" class="domain.Reward">
+		<property name="title" value="Primera" />
+		<property name="description" value="Creditos" />
+		<property name="cost" value="1.0" />
+		<property name="project" ref="project2"/>		
+		<property name="crowns">
+			<list>
+			</list>
+		</property>
+	</bean>
+	<bean id="rewar5" class="domain.Reward">
+		<property name="title" value="Segunda" />
+		<property name="description" value="Mas cosas" />
+		<property name="cost" value="10.0" />
+		<property name="project" ref="project2"/>		
+		<property name="crowns">
+			<list>
+				<ref bean="crown1"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="rewar6" class="domain.Reward">
+		<property name="title" value="Primera" />
+		<property name="description" value="Creditos" />
+		<property name="cost" value="1.0" />
+		<property name="project" ref="project3"/>		
+		<property name="crowns">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Extra Reward -->
+	<bean id="extra1" class="domain.ExtraReward">
+		<property name="title" value="Primera" />
+		<property name="description" value="Cositas chulas" />
+		<property name="goal" value="200" />
+		<property name="project" ref="project1"/>		
+	</bean>
 	
 </beans>

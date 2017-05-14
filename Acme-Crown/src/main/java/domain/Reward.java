@@ -55,7 +55,8 @@ public class Reward extends DomainEntity{
 	//---------------------Relationships--------------------------
 	private Project project;
 	private Collection<Crown> crowns;
-		@Valid
+	
+	@Valid
 	@NotNull
 	@ManyToOne(optional=false)
 	public Project getProject() {
