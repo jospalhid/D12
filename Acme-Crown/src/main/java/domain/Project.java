@@ -128,7 +128,7 @@ public class Project extends DomainEntity{
 	
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", cascade = CascadeType.ALL)
 	public Collection<ExtraReward> getExtraRewards() {
 		return extraRewards;
 	}

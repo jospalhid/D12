@@ -302,6 +302,7 @@
 		<property name="project" ref="project1"/>		
 		<property name="crowns">
 			<list>
+				<ref bean="crown1"/>
 				<ref bean="crown2"/>
 			</list>
 		</property>
