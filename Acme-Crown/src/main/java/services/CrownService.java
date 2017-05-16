@@ -74,8 +74,8 @@ public class CrownService {
 		Assert.notNull(crown, "The chorbi to delete cannot be null.");
 		Assert.isTrue(this.crownRepository.exists(crown.getId()));
 
-		Assert.isNull(crown.getProjects().isEmpty(), "The crown cannot be delete with projects");
-		Assert.isNull(crown.getRewards().isEmpty(), "The crown cannot be delete with rewards");
+		Assert.isTrue(crown.getProjects().isEmpty(), "The crown cannot be delete with projects");
+		Assert.isTrue(crown.getRewards().isEmpty(), "The crown cannot be delete with rewards");
 		
 		this.crownRepository.delete(crown);
 	}

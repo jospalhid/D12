@@ -33,6 +33,7 @@ public class Project extends DomainEntity{
 	private int goal;
 	private int ttl;
 	private Collection<Picture> pictures;
+	private boolean banned;
 	
 	@NotBlank
 	@SafeHtml
@@ -88,6 +89,15 @@ public class Project extends DomainEntity{
 	public void setPictures(Collection<Picture> pictures) {
 		this.pictures = pictures;
 	}
+	
+	public boolean isBanned() {
+		return banned;
+	}
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+
+
 
 
 	//---------------------Relationships--------------------------

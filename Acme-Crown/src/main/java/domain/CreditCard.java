@@ -2,16 +2,19 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 
-@Embeddable
+@Entity
 @Access(AccessType.PROPERTY)
-public class CreditCard {
+public class CreditCard extends DomainEntity{
 
 //-------------Attributes----------------------
 	private String holder;
@@ -58,6 +61,7 @@ public class CreditCard {
 		this.expirationMonth = expirationMonth;
 	}
 	
+	@Range(min=00, max=99)
 	public int getExpirationYear() {
 		return expirationYear;
 	}
@@ -72,7 +76,18 @@ public class CreditCard {
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
-
 	
+	//---------------------Relationships--------------------------
+	private Crown crown;
+
+	@Valid
+	@NotNull
+	@OneToOne(optional=false)
+	public Crown getCrown() {
+		return crown;
+	}
+	public void setCrown(Crown crown) {
+		this.crown = crown;
+	}
 	
 }

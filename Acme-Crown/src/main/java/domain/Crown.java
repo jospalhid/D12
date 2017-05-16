@@ -7,6 +7,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -15,10 +16,24 @@ import javax.validation.constraints.NotNull;
 public class Crown extends Actor{
 
 	//----------------------Attributes-------------------------
+	private boolean banned;
+
+	public boolean isBanned() {
+		return banned;
+	}
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+
+
+	//---------------------Relationships--------------------------
 	private CreditCard creditCard;
+	private Collection<Project> projects;
+	private Collection<Project> favs;
+	private Collection<Reward> rewards;
 
 	@Valid
-	@NotNull
+	@OneToOne(mappedBy="crown", optional=true)
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -26,11 +41,6 @@ public class Crown extends Actor{
 		this.creditCard = creditCard;
 	}
 	
-	//---------------------Relationships--------------------------
-	private Collection<Project> projects;
-	private Collection<Project> favs;
-	private Collection<Reward> rewards;
-
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy="crown")

@@ -22,6 +22,29 @@
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
 		-->
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
+		
+		<bean class="converters.AdminToStringConverter" />
+		<bean class="converters.StringToAdminConverter" />
+		
+		<bean class="converters.CategoryToStringConverter" />
+		<bean class="converters.StringToCategoryConverter" />
+		
+		<bean class="converters.CreditCardToStringConverter" />
+		<bean class="converters.StringToCreditCardConverter" />
+		
+		<bean class="converters.CrownToStringConverter" />
+		<bean class="converters.StringToCrownConverter" />
+		
+		<bean class="converters.ExtraRewardToStringConverter" />
+		<bean class="converters.StringToExtraRewardConverter" />
+		
+		<bean class="converters.ProjectToStringConverter" />
+		<bean class="converters.StringToProjectConverter" />
+		
+		<bean class="converters.RewardToStringConverter" />
+		<bean class="converters.StringToRewardConverter" />
 	</util:list>
 	
 </beans>

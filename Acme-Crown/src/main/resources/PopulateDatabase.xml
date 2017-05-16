@@ -64,32 +64,6 @@
 		</property>
 	</bean>
 	
-	<!-- CreditCard -->
-	<bean id="creditCard1" class="domain.CreditCard">
-		<property name="holder" value="Trafalgar" />
-		<property name="brand" value="MASTERCARD" />
-		<property name="number" value="6011238943402529" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="19" />
-		<property name="cvv" value="408" />
-	</bean>
-	<bean id="creditCard2" class="domain.CreditCard">
-		<property name="holder" value="Trafalgar" />
-		<property name="brand" value="MASTERCARD" />
-		<property name="number" value="6011238943402529" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="19" />
-		<property name="cvv" value="408" />
-	</bean>
-	<bean id="creditCard3" class="domain.CreditCard">
-		<property name="holder" value="Trafalgar" />
-		<property name="brand" value="MASTERCARD" />
-		<property name="number" value="6011238943402529" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="19" />
-		<property name="cvv" value="408" />
-	</bean>
-	
 	<!-- Category -->
 	<bean id="category1" class="domain.Category">
 		<property name="name" value="Art" />
@@ -155,8 +129,8 @@
 		<property name="email" value="jose@us.es" />
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/ea/fa/1c/eafa1c7a9d7adfc7bc0ed1082c835232.jpg" />
+		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount2"/>
-		<property name="creditCard" ref="creditCard1"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -174,8 +148,8 @@
 		<property name="email" value="jose@us.es" />
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://pbs.twimg.com/profile_images/570673930470309888/KPTHOfuA.jpeg" />
+		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount3"/>
-		<property name="creditCard" ref="creditCard2"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -193,8 +167,8 @@
 		<property name="email" value="jose@us.es" />
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="http://orig07.deviantart.net/f379/f/2010/252/1/5/1578cb09d42588ece0e69736ccdc28b7-d2yealq.jpg" />
+		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount4"/>
-		<property name="creditCard" ref="creditCard3"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -205,6 +179,27 @@
 			<list></list>
 		</property>
 	</bean>
+	
+	<!-- CreditCard -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="Trafalgar" />
+		<property name="brand" value="MASTERCARD" />
+		<property name="number" value="6011238943402529" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="19" />
+		<property name="cvv" value="408" />
+		<property name="crown" ref="crown1"/>
+	</bean>
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="Trafalgar" />
+		<property name="brand" value="MASTERCARD" />
+		<property name="number" value="6011238943402529" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="19" />
+		<property name="cvv" value="408" />
+		<property name="crown" ref="crown2"/>
+	</bean>
+	
 	
 	<!-- Pictures -->
 	<bean id="picture1" class="domain.Picture">
@@ -224,6 +219,7 @@
 		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="100" />
 		<property name="ttl" value="55"/>
+		<property name="banned" value="false" />
 		<property name="pictures">
 			<list>
 				<ref bean="picture1"/>
@@ -247,6 +243,7 @@
 		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="3000" />
 		<property name="ttl" value="75"/>
+		<property name="banned" value="false" />
 		<property name="pictures">
 			<list>
 				<ref bean="picture3"/>
@@ -268,6 +265,7 @@
 		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="12000" />
 		<property name="ttl" value="90"/>
+		<property name="banned" value="true" />
 		<property name="pictures">
 			<list>
 				<ref bean="picture2"/>
