@@ -17,13 +17,19 @@
 	<img src="images/logo.png" alt="Acme-Crown Co., Inc." />
 </div>
 
+<nav class="navbar navbar-inverse">
 <div>
-	<ul id="jMenu">
+
+	<div class="navbar-header">
+      <a class="navbar-brand" href="#">Acme-Crown</a>
+    </div>
+
+	<ul id="jMenu" class="nav navbar-nav">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
+			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.administrator" /> <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li></li>
 					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
 					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
 				</ul>
@@ -31,9 +37,9 @@
 		</security:authorize>
 		
 		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
+			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.customer" /><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li></li>
 					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
 					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
 				</ul>
@@ -41,17 +47,17 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown" href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
-			<li>
-				<a class="fNiv"> 
+			<li class="dropdown">
+				<a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"> 
 					<spring:message code="master.page.profile" /> 
 			        (<security:authentication property="principal.username" />)
-				</a>
-				<ul>
-					<li class="arrow"></li>
+				<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li></li>
 					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
 					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
 					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
@@ -60,16 +66,17 @@
 			</li>
 		</security:authorize>
 		
-		<li><a class="fNiv"><spring:message	code="master.page.project" /></a>
-			<ul>
-				<li class="arrow"></li>
+		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.project" /><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li></li>
 				<li><a href="project/available.do"><spring:message code="master.page.project.available" /></a></li>
 			</ul>
 		</li>
 	</ul>
 </div>
 
+</nav>
 <div>
-	<a href="?language=en">en</a> | <a href="?language=es">es</a>
+<kbd><a href="?language=en">en</a> | <a href="?language=es">es</a></kbd>
 </div>
 
