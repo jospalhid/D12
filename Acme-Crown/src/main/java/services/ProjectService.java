@@ -3,12 +3,16 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
 import repositories.ProjectRepository;
@@ -119,6 +123,9 @@ public class ProjectService {
 	}
 
 	public Project reconstruct(ProjectForm project, BindingResult binding) {
+		
+		validator.validate(project, binding);
+		
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		Project res;
 		if(project.getId()==0){
@@ -139,8 +146,26 @@ public class ProjectService {
 		
 		res.setTtl(ttl.getTime());
 		
-		validator.validate(res, binding);
-		
+		return res;
+	}
+
+	public Set<String> getErrores(BindingResult binding) {
+		List<ObjectError> errors = binding.getAllErrors();
+		Set<String> res = new HashSet<String>();
+		for(ObjectError wrong: errors){
+			if(wrong.toString().contains("title")){
+				res.add("Title: "+wrong.getDefaultMessage()+". ");
+			}
+			if(wrong.toString().contains("goal")){
+				res.add("Goal: "+wrong.getDefaultMessage()+". ");
+			}
+			if(wrong.toString().contains("ttl")){
+				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
+			}
+			if(wrong.toString().contains("url")){
+				res.add("Picture: "+wrong.getDefaultMessage()+". ");
+			}
+		}
 		return res;
 	}
 

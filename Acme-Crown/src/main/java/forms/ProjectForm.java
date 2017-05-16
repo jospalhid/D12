@@ -68,7 +68,6 @@ public class ProjectForm{
 	}
 	
 	@URL
-	@NotNull
 	public String getUrl() {
 		return url;
 	}

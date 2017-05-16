@@ -89,7 +89,8 @@ public class ProjectCrownController extends AbstractController {
 			}
 			result.addObject("project", project);
 			result.addObject("categories", this.categoryService.findAll());
-			result.addObject("message", "project.commit.incomplete");
+//			result.addObject("message", "project.commit.incomplete");
+			result.addObject("errors", this.projectService.getErrores(binding));
 		}
 		
 

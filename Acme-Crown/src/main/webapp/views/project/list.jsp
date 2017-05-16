@@ -26,11 +26,6 @@
 <!-- He quitado class="displaytag" del display:table -->
 <display:table name="projects" id="project" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 
-
-	<jsp:useBean id="date" class="java.util.Date" />
-	<fmt:formatDate value="${date}" pattern="dd" var="currentDay" />
-	<fmt:formatDate value="${project.moment}" pattern="dd" var="projectDay"/>
-
 	<thead> 
 		<tr> 
 			<th><spring:message code="project.title" var="titleHeader" /></th>

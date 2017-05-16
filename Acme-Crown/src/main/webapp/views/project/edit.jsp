@@ -41,9 +41,9 @@
 	</jstl:if> --%>
 	
 	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
-	
-	<div>
-		<jstl:out value="${errors}"/>
-	</div>
 
 </form:form>
+<br/>
+<jstl:forEach var="row" items="${errors}">
+	<p class="error"><jstl:out value="${row}"/></p>
+</jstl:forEach>
