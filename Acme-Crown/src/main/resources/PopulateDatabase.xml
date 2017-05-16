@@ -212,13 +212,14 @@
 		<property name="url" value="http://regionps.com/wp-content/uploads/2016/05/one-piece.jpg" />
 	</bean>
 	
+	
 	<!-- Project -->
 	<bean id="project1" class="domain.Project">
 		<property name="title" value="Save Sanji" />
 		<property name="description" value="Hay que salvarle" />
-		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="100" />
-		<property name="ttl" value="55"/>
+		<property name="ttl" value="2017/06/02"/>
+		<property name="moment" value="2017/05/02"/>
 		<property name="banned" value="false" />
 		<property name="pictures">
 			<list>
@@ -240,9 +241,9 @@
 	<bean id="project2" class="domain.Project">
 		<property name="title" value="Proyectillos varios" />
 		<property name="description" value="Cuatnas cosas" />
-		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="3000" />
-		<property name="ttl" value="75"/>
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
 		<property name="banned" value="false" />
 		<property name="pictures">
 			<list>
@@ -262,9 +263,9 @@
 	<bean id="project3" class="domain.Project">
 		<property name="title" value="La vida" />
 		<property name="description" value="Se vive como viene" />
-		<property name="moment" value="2017/05/18 12:00" />
 		<property name="goal" value="12000" />
-		<property name="ttl" value="90"/>
+		<property name="ttl" value="2017/06/18"/>
+		<property name="moment" value="2017/05/18" />
 		<property name="banned" value="true" />
 		<property name="pictures">
 			<list>

@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class ProjectService {
 		res.setExtraRewards(new ArrayList<ExtraReward>());
 		res.setRewards(new ArrayList<Reward>());
 		res.setPictures(new ArrayList<Picture>());
+		res.setMoment(Calendar.getInstance().getTime());
 		return res;
 	}
 
@@ -69,6 +71,8 @@ public class ProjectService {
 		a.setAuthority(Authority.CUSTOMER);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to create a project.");
 		
+		project.setMoment(Calendar.getInstance().getTime());
+		
 		final Project res = this.projectRepository.save(project);
 		return res;
 	}
@@ -89,6 +93,10 @@ public class ProjectService {
 	//Utilites methods
 	public Double getCurrentGoal(int projectId){
 		return this.projectRepository.getCurrentGoal(projectId);
+	}
+	
+	public Collection<Project> findAvailableProjects(){
+		return this.projectRepository.findAvailableProjects();
 	}
 
 }

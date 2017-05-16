@@ -17,7 +17,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -29,9 +28,9 @@ public class Project extends DomainEntity{
 	//----------------------Attributes-------------------------
 	private String title;
 	private String description;
-	private Date moment;
 	private int goal;
-	private int ttl;
+	private Date ttl;
+	private Date moment;
 	private Collection<Picture> pictures;
 	private boolean banned;
 	
@@ -53,17 +52,6 @@ public class Project extends DomainEntity{
 		this.description = description;
 	}
 	
-	@NotNull
-	@Valid
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern="dd/MM/yyyy hh:mm")
-	public Date getMoment() {
-		return moment;
-	}
-	public void setMoment(Date moment) {
-		this.moment = moment;
-	}
-	
 	@Min(0)
 	public int getGoal() {
 		return goal;
@@ -72,12 +60,24 @@ public class Project extends DomainEntity{
 		this.goal = goal;
 	}
 	
-	@Range(min=1, max=90)
-	public int getTtl() {
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	public Date getTtl() {
 		return ttl;
 	}
-	public void setTtl(int ttl) {
+	public void setTtl(Date ttl) {
 		this.ttl = ttl;
+	}
+	
+	@NotNull
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern="dd/MM/yyyy")	
+	public Date getMoment() {
+		return moment;
+	}
+	public void setMoment(Date moment) {
+		this.moment = moment;
 	}
 	
 	@ElementCollection

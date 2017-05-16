@@ -9,7 +9,7 @@ import domain.Project;
 
 @Component
 @Transactional
-public class PorjectToStringConverter implements Converter<Project, String>{
+public class ProjectToStringConverter implements Converter<Project, String>{
 
 	@Override
 	public String convert(Project project) {

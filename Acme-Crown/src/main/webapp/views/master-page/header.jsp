@@ -59,6 +59,13 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<li><a class="fNiv"><spring:message	code="master.page.project" /></a>
+			<ul>
+				<li class="arrow"></li>
+				<li><a href="project/available.do"><spring:message code="master.page.project.available" /></a></li>
+			</ul>
+		</li>
 	</ul>
 </div>
 
