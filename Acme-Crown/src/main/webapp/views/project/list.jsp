@@ -24,7 +24,7 @@
 <div class="container">
 
 <!-- He quitado class="displaytag" del display:table -->
-<display:table name="projects" id="project" requestURI="${requestURI}" pagesize="5" class="table table-hover">
+<display:table name="projects" id="project" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 
 
 	<jsp:useBean id="date" class="java.util.Date" />

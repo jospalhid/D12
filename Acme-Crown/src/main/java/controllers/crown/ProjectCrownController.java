@@ -10,9 +10,6 @@
 
 package controllers.crown;
 
-import java.util.Calendar;
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,15 +62,14 @@ public class ProjectCrownController extends AbstractController {
 		Project res= this.projectService.reconstruct(project, binding);
 		if(!binding.hasErrors()){
 			try{
-				this.projectService.save(res);
+				Project save=this.projectService.save(res);
 				
 				//TODO Redireccionar al display
-				Collection<Project> projects = this.projectService.findAvailableProjects();
-
-				result = new ModelAndView("project/available");
-				result.addObject("projects", projects);
-				result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
-				result.addObject("requestURI", "projects/available.do");
+				result = new ModelAndView("project/display");
+				result.addObject("project", save);
+				result.addObject("currentGoal", this.projectService.getCurrentGoal(save.getId()));
+				result.addObject("days", this.projectService.getDaysToGo(save.getId()));
+				result.addObject("brackers", this.projectService.getBackers(save.getId()));
 			}
 			catch(Throwable oops){
 				if(project.getId()==0){

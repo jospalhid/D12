@@ -46,7 +46,7 @@ public class ProjectController extends AbstractController {
 		result = new ModelAndView("project/available");
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
-		result.addObject("requestURI", "projects/available.do");
+		result.addObject("requestURI", "project/available.do");
 
 		return result;
 	}
