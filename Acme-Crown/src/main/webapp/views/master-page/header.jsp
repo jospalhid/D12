@@ -47,7 +47,7 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
-			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown" href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
+			<li><a class="fNiv"  href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">

@@ -263,6 +263,165 @@
 		</property>
 	</bean>
 	
+	<!-- Prueba carmen paginación -->
+	<bean id="project4" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project5" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project6" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	
+	<bean id="project7" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project8" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project9" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="project10" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+	</bean>
+	
+	
+	<!--  -->
+	
 	<bean id="project3" class="domain.Project">
 		<property name="title" value="La vida" />
 		<property name="description" value="Se vive como viene" />

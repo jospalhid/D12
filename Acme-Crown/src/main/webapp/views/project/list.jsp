@@ -21,25 +21,37 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<display:table name="projects" id="project" requestURI="${requestURI}" pagesize="5" class="displaytag">
+<div class="container">
+
+<!-- He quitado class="displaytag" del display:table -->
+<display:table name="projects" id="project" requestURI="${requestURI}" pagesize="5" class="table table-hover">
+
 
 	<jsp:useBean id="date" class="java.util.Date" />
 	<fmt:formatDate value="${date}" pattern="dd" var="currentDay" />
 	<fmt:formatDate value="${project.moment}" pattern="dd" var="projectDay"/>
 
+	<thead> 
+		<tr> 
+			<th><spring:message code="project.title" var="titleHeader" /></th>
+			<th><spring:message code="project.goal" var="goalHeader" /> </th>
+			<th><spring:message code="project.ttl" var="ttlHeader" /> </th>
+			<th><spring:message code="project.category" var="categoryHeader" /> </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><display:column property="title" title="${titleHeader}" sortable="true" /> </td>
 	
-	<spring:message code="project.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" sortable="true" />
 	
-	<spring:message code="project.goal" var="goalHeader" />
-	<display:column property="goal" title="${goalHeader}" sortable="true" />
+			<td><display:column property="goal" title="${goalHeader}" sortable="true" /> </td>
 	
-	<spring:message code="project.ttl" var="ttlHeader" />
-	<display:column property="ttl" title="${ttlHeader}" sortable="true" />
 	
-	<spring:message code="project.category" var="categoryHeader" />
-	<display:column property="category.name" title="${categoryHeader}" sortable="true" />
-
+			<td><display:column property="ttl" title="${ttlHeader}" sortable="true" /> </td>
+	
+	
+			<td><display:column property="category.name" title="${categoryHeader}" sortable="true" /> </td>
+	</tr>
 	<display:column>
 		<a href="project/display.do?projectId=${project.id}">
 			<spring:message code="project.display" var="displayHeader" />
@@ -77,5 +89,9 @@
 	</display:column>
 	</jstl:if>
 	</security:authorize> --%>
-	
+</tbody>
+
 </display:table>
+
+
+</div>
