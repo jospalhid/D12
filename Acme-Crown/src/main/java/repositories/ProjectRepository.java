@@ -14,6 +14,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	@Query("select sum(r.cost) from Reward r join r.crowns where r.project.id=?1")
 	Double getCurrentGoal(int projectId);
 	
+	@Query("select count(r) from Reward r join r.crowns where r.project.id=?1")
+	Integer getBackers(int projectId);
+	
 	@Query("select p from Project p where p.banned=false and month(current_date)<=month(p.ttl) and year(current_date)=year(p.ttl)")
 	Collection<Project> findAvailableProjects();
 

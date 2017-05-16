@@ -18,12 +18,14 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 	<div>
 		<h1><jstl:out value="${project.title}"/></h1>
 		<p><jstl:out value="${project.description}"/></p>
-		<strong><spring:message code="project.goal"/>:</strong> <jstl:out value="${project.goal}"/><br>
-		<strong><spring:message code="project.currentGoal"/>:</strong> <jstl:out value="${currentGoal}"/><br>
+		<strong><spring:message code="project.goal"/>:</strong> <jstl:out value="${project.goal}"/>$<br>
+		<strong><spring:message code="project.currentGoal"/>:</strong> <jstl:out value="${currentGoal}"/>$<br>
+		<strong><spring:message code="project.brackers"/>:</strong> <jstl:out value="${brackers}"/><br>
 		<jstl:choose>
 			<jstl:when test="${days >0 }">
 				<strong><spring:message code="project.days"/>:</strong> <jstl:out value="${days}"/><br>
@@ -50,10 +52,23 @@
 				<jstl:out value="${row.cost}"/>$
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>
-				<a href="">
-					<spring:message code="project.reward.select" var="selectHeader" />
-					<jstl:out value="${selectHeader}" />
-				</a>
+				<jstl:if test="${days>0}">
+					<a href="">
+						<spring:message code="project.reward.select" var="selectHeader" />
+						<jstl:out value="${selectHeader}" />
+					</a>
+				</jstl:if>
+			</div>
+		</jstl:forEach>
+	</div>
+	
+	<div>
+		<h2><spring:message code="project.extraRewards"/></h2>
+		<jstl:forEach var="row" items="${project.extraRewards}">
+			<div style="border:solid 1px; width:180px; margin:5px; padding:10px">
+				<jstl:out value="${row.goal}"/>$
+				<h3><jstl:out value="${row.title}"/></h3>
+				<p><jstl:out value="${row.description}"/></p>
 			</div>
 		</jstl:forEach>
 	</div>

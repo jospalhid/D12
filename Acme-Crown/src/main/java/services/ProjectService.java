@@ -95,8 +95,22 @@ public class ProjectService {
 		return this.projectRepository.getCurrentGoal(projectId);
 	}
 	
+	public 	Integer getBackers(int projectId){
+		return this.projectRepository.getBackers(projectId);
+	}
+	
 	public Collection<Project> findAvailableProjects(){
 		return this.projectRepository.findAvailableProjects();
+	}
+
+	public Long getDaysToGo(int projectId) {
+		Project project = this.findOne(projectId);
+		Long current = Calendar.getInstance().getTimeInMillis();
+		Long moment = project.getMoment().getTime();
+		Long days = (current-moment)/86400000;
+		Long finish = project.getTtl().getTime();
+		Long ttl = (finish-moment)/86400000;
+		return ttl-days;
 	}
 
 }
