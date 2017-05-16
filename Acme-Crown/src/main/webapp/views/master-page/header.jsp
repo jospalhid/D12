@@ -34,14 +34,6 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.customer" /><span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"  href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
 		</security:authorize>
@@ -63,6 +55,9 @@
 			<ul class="dropdown-menu">
 				<li></li>
 				<li><a href="project/available.do"><spring:message code="master.page.project.available" /></a></li>
+				<security:authorize access="hasRole('CROWN')">
+					<li><a href="project/crown/create.do"><spring:message code="master.page.project.create" /></a></li>
+				</security:authorize>
 			</ul>
 		</li>
 	</ul>

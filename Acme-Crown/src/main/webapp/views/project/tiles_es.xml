@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/project/list.jsp"/>		
 	</definition>
 	
+	<definition name="project/create" extends="master.page">
+		<put-attribute name="title" value="Nuevo Projecto"/>
+		<put-attribute name="body" value="/views/project/edit.jsp"/>		
+	</definition>
+	
 	<definition name="project/display" extends="master.page">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="body" value="/views/project/display.jsp"/>		

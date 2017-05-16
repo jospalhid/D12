@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ProjectRepository;
 import security.Authority;
@@ -19,6 +21,7 @@ import domain.ExtraReward;
 import domain.Picture;
 import domain.Project;
 import domain.Reward;
+import forms.ProjectForm;
 
 @Service
 @Transactional
@@ -30,10 +33,12 @@ public class ProjectService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private CrownService crownService;
 
 	//Constructors
 	public ProjectService() {
@@ -68,7 +73,7 @@ public class ProjectService {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
-		a.setAuthority(Authority.CUSTOMER);
+		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to create a project.");
 		
 		project.setMoment(Calendar.getInstance().getTime());
@@ -111,6 +116,32 @@ public class ProjectService {
 		Long finish = project.getTtl().getTime();
 		Long ttl = (finish-moment)/86400000;
 		return ttl-days;
+	}
+
+	public Project reconstruct(ProjectForm project, BindingResult binding) {
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		Project res;
+		if(project.getId()==0){
+			res = this.create(crown, project.getCategory());
+		}else{
+			res = this.findOne(project.getId());
+		}
+		
+		res.setDescription(project.getDescription());
+		res.setTitle(project.getTitle());
+		res.setGoal(project.getGoal());
+		if(project.getUrl()!=""){
+			res.getPictures().add(new Picture(project.getUrl(), project.getTitle()));
+		}
+		
+		Calendar ttl = Calendar.getInstance();
+		ttl.setTimeInMillis(res.getMoment().getTime()+project.getTtl()*86400000);
+		
+		res.setTtl(ttl.getTime());
+		
+		validator.validate(res, binding);
+		
+		return res;
 	}
 
 }

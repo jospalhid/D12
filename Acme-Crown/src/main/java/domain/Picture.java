@@ -16,7 +16,14 @@ public class Picture {
 //-------------Attributes----------------------
 	private String url;
 	private String alt;
+	
+	public Picture(){}
 
+	public Picture(String url, String alt) {
+		this.url = url;
+		this.alt = alt;
+	}
+	
 	@NotBlank
 	@SafeHtml
 	@URL

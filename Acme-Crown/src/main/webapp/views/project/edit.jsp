@@ -20,31 +20,27 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="event/manager/edit.do" modelAttribute="event">
+<form:form action="project/crown/edit.do" modelAttribute="project">
 	
 	<form:hidden path="id" />
+	
+	<!-- private Category category; -->
 
-	<acme:textbox code="event.title" path="title"/>
-	<acme:textbox code="event.description" path="description"/>
-	<acme:textbox code="event.picture" path="picture"/>
-	<acme:textbox code="event.seatsOffered" path="seatsOffered"/>
-	<br>
-	<spring:message code="event.moment" var="momentHeader" />
-	<jstl:out value="${momentHeader}" />
-	<acme:textbox code="event.day" path="day"/>
-	<acme:textbox code="event.month" path="month"/>
-	<acme:textbox code="event.year" path="year"/>
-	<acme:textbox code="event.hour" path="hour"/>
-	<acme:textbox code="event.minutes" path="minutes"/>
-	<br>
+	<acme:textbox code="project.title" path="title"/>
+	<acme:textarea code="project.description" path="description"/>
+	<acme:textbox code="project.goal" path="goal"/>
+	<acme:textbox code="project.ttl2" path="ttl"/>
+	<acme:textbox code="project.url" path="url"/>
 	
-	<input type="submit" name="save" value="<spring:message code="event.save" />" />
+	<acme:select items="${categories }" itemLabel="name" code="project.category" path="category"/>
+
+	<input type="submit" name="save" value="<spring:message code="project.save" />" />
 	
-	<jstl:if test="${event.id != 0}">
+	<%-- <jstl:if test="${event.id != 0}">
 		<input type="submit" name="delete" value="<spring:message code="event.delete" />" onclick="return confirm('<spring:message code="event.confirm.delete" />')" />&nbsp;
-	</jstl:if>
+	</jstl:if> --%>
 	
-	<input type="button" name="cancel" value="<spring:message code="event.cancel" />" onclick="window.location='event/manager/list.do'" /> <br />
+	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 	
 	<div>
 		<jstl:out value="${errors}"/>
