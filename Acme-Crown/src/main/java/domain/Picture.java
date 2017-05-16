@@ -3,6 +3,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -14,6 +15,7 @@ public class Picture {
 
 //-------------Attributes----------------------
 	private String url;
+	private String alt;
 
 	@NotBlank
 	@SafeHtml
@@ -24,6 +26,17 @@ public class Picture {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+	
+	@NotNull
+	@SafeHtml
+	public String getAlt() {
+		return alt;
+	}
+	public void setAlt(String alt) {
+		this.alt = alt;
+	}
+	
+	
 
 	
 }

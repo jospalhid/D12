@@ -59,11 +59,13 @@ public class ProjectController extends AbstractController {
 		Long current = Calendar.getInstance().getTimeInMillis();
 		Long moment = project.getMoment().getTime();
 		Long days = (current-moment)/86400000;
+		Long finish = project.getTtl().getTime();
+		Long ttl = (finish-moment)/86400000;
 		
 		result = new ModelAndView("project/display");
 		result.addObject("project", project);
 		result.addObject("currentGoal", this.projectService.getCurrentGoal(projectId));
-		result.addObject("days", days);
+		result.addObject("days", ttl-days);
 
 		return result;
 	}

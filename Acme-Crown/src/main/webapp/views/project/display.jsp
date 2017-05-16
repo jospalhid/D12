@@ -22,7 +22,23 @@
 	<div>
 		<h1><jstl:out value="${project.title}"/></h1>
 		<p><jstl:out value="${project.description}"/></p>
-		<spring:message code="project.goal"/>: <jstl:out value="${project.goal}"/><br>
-		<spring:message code="project.currentGoal"/>: <jstl:out value="${currentGoal}"/><br>
-		<spring:message code="project.days"/>: <jstl:out value="${days}"/><br>
+		<strong><spring:message code="project.goal"/>:</strong> <jstl:out value="${project.goal}"/><br>
+		<strong><spring:message code="project.currentGoal"/>:</strong> <jstl:out value="${currentGoal}"/><br>
+		<jstl:choose>
+			<jstl:when test="${days >0 }">
+				<strong><spring:message code="project.days"/>:</strong> <jstl:out value="${days}"/><br>
+			</jstl:when>
+			<jstl:otherwise>
+				<spring:message code="project.finish"/> <jstl:out value="${project.ttl}"/>.
+				<jstl:if test="${currentGoal>=project.goal}">
+					<spring:message code="project.exito"/><img src="./images/smile.png" width="25px" alt="smail"/>
+				</jstl:if>
+			</jstl:otherwise>
+		</jstl:choose>
+	</div>
+		
+	<div>
+		<jstl:forEach var="row" items="${project.pictures}">
+		<img src="${row.url}" width="300px" alt="${row.alt}">	
+		</jstl:forEach>
 	</div>

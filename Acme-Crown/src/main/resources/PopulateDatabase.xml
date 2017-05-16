@@ -204,12 +204,15 @@
 	<!-- Pictures -->
 	<bean id="picture1" class="domain.Picture">
 		<property name="url" value="https://de7i3bh7bgh0d.cloudfront.net/2016/07/05/16/50/17/0ce17b10-565d-4284-a9d0-617d26ee339b/VizBlog_OnePiece.jpg" />
+		<property name="alt" value="Empereors"/>
 	</bean>
 	<bean id="picture2" class="domain.Picture">
 		<property name="url" value="https://i.imgbox.com/m72yRmsz.jpg" />
+		<property name="alt" value="Allies and Enemies"/>
 	</bean>
 	<bean id="picture3" class="domain.Picture">
 		<property name="url" value="http://regionps.com/wp-content/uploads/2016/05/one-piece.jpg" />
+		<property name="alt" value="Brothers"/>
 	</bean>
 	
 	
@@ -218,7 +221,7 @@
 		<property name="title" value="Save Sanji" />
 		<property name="description" value="Hay que salvarle" />
 		<property name="goal" value="100" />
-		<property name="ttl" value="2017/06/02"/>
+		<property name="ttl" value="2017/05/12"/>
 		<property name="moment" value="2017/05/02"/>
 		<property name="banned" value="false" />
 		<property name="pictures">
@@ -264,9 +267,9 @@
 		<property name="title" value="La vida" />
 		<property name="description" value="Se vive como viene" />
 		<property name="goal" value="12000" />
-		<property name="ttl" value="2017/06/18"/>
-		<property name="moment" value="2017/05/18" />
-		<property name="banned" value="true" />
+		<property name="ttl" value="2017/04/28"/>
+		<property name="moment" value="2017/04/01" />
+		<property name="banned" value="false" />
 		<property name="pictures">
 			<list>
 				<ref bean="picture2"/>
