@@ -86,11 +86,11 @@ public class ProjectCrownController extends AbstractController {
 	public ModelAndView edit(ProjectForm project, BindingResult binding) {
 		ModelAndView result;
 		
-//		try{
-			Project res= this.projectService.reconstruct(project, binding);
+		try{
+			ProjectForm res= this.projectService.validate(project, binding);
 			if(!binding.hasErrors()){
 				try{
-					Project save=this.projectService.save(res);
+					Project save=this.projectService.reconstructAndSave(res);
 					
 					//TODO Redireccionar al display
 					result = new ModelAndView("project/display");
@@ -108,7 +108,11 @@ public class ProjectCrownController extends AbstractController {
 					}
 					result.addObject("projectForm", project);
 					result.addObject("categories", this.categoryService.findAll());
-					result.addObject("message", "project.commit.error");
+					if(project.getId()!=0 && !this.projectService.isValidTtl(project.getId(), project.getTtl())){
+						result.addObject("message", "project.days.error");
+					}else{
+						result.addObject("message", "project.commit.error");
+					}
 				}
 			}else{
 				if(project.getId()==0){
@@ -118,19 +122,25 @@ public class ProjectCrownController extends AbstractController {
 				}
 				result.addObject("projectForm", project);
 				result.addObject("categories", this.categoryService.findAll());
-//				result.addObject("message", "project.commit.incomplete");
-//				result.addObject("errors", this.projectService.getErrores(binding));
 			}
-//		}catch(Throwable opps){
-//			if(project.getId()==0){
-//				result = new ModelAndView("project/create");
-//			}else{
-//				result = new ModelAndView("project/edit");
-//			}
-//			result.addObject("project", project);
-//			result.addObject("categories", this.categoryService.findAll());
-////			result.addObject("errors", this.projectService.getErrores(binding));
-//		}
+		}catch(Throwable opps){
+			if(project.getId()==0){
+				result = new ModelAndView("project/create");
+			}else{
+				result = new ModelAndView("project/edit");
+			}
+			result.addObject("project", project);
+			result.addObject("categories", this.categoryService.findAll());
+			try{
+				if(project.getId()!=0 && !this.projectService.isValidTtl(project.getId(), project.getTtl())){
+					result.addObject("message", "project.days.error");
+				}else{
+					result.addObject("message", "project.commit.error");
+				}
+			}catch(Throwable opss){
+				result.addObject("message", "project.commit.error");
+			}
+		}
 
 		return result;
 	}

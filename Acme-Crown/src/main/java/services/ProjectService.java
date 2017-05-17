@@ -3,16 +3,12 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
 import repositories.ProjectRepository;
@@ -78,9 +74,12 @@ public class ProjectService {
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
-		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to create a project.");
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to save a project.");
 		
-		project.setMoment(Calendar.getInstance().getTime());
+		Integer days=this.getDaysToLive(project);
+		Assert.isTrue(days<=90 && days>0,"The ttl must be 90 or less");
+		
+//		project.setMoment(Calendar.getInstance().getTime());
 		
 		final Project res = this.projectRepository.save(project);
 		return res;
@@ -122,6 +121,15 @@ public class ProjectService {
 		return ttl-days;
 	}
 	
+	public Long getDaysToGo(Project project) {
+		Long current = Calendar.getInstance().getTimeInMillis();
+		Long moment = project.getMoment().getTime();
+		Long days = (current-moment)/86400000;
+		Long finish = project.getTtl().getTime();
+		Long ttl = (finish-moment)/86400000;
+		return ttl-days;
+	}
+	
 	public Integer getDaysToLive(int projectId){
 		Project project = this.findOne(projectId);
 		Long moment = project.getMoment().getTime();
@@ -129,16 +137,31 @@ public class ProjectService {
 		Integer ttl = (int) ((finish-moment)/86400000);
 		return ttl;
 	}
+	public Integer getDaysToLive(Project project){
+		Long moment = project.getMoment().getTime();
+		Long finish = project.getTtl().getTime();
+		Integer ttl = (int) ((finish-moment)/86400000);
+		return ttl;
+	}
+	public boolean isValidTtl(int projectId, long ttl){
+		Project res = this.findOne(projectId);
+		Integer oldTtl = this.getDaysToLive(res.getId());
+		Long days = this.getDaysToGo(res.getId());
+		Long realTtl=oldTtl-days+ttl;
+		return realTtl<0 && realTtl>90;
+	}
 
-	public Project reconstruct(ProjectForm project, BindingResult binding) {
+	public Project reconstructAndSave(ProjectForm project) {
+		Assert.notNull(project, "The project to save cannot be null.");
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to save a project.");
 		
-		if(project.getId()==0){
-			validator.validate(project, binding);
-		}
-		
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		Project res;
 		if(project.getId()==0){
+			Crown crown = this.crownService.findByUserAccountId(ua.getId());
 			res = this.create(crown, project.getCategory());
 		}else{
 			res = this.findOne(project.getId());
@@ -147,40 +170,49 @@ public class ProjectService {
 		res.setDescription(project.getDescription());
 		res.setTitle(project.getTitle());
 		res.setGoal(project.getGoal());
-		if(project.getUrl()!=null && project.getUrl()!=""){
-			res.getPictures().add(new Picture(project.getUrl(), project.getTitle()));
-		}
 		
 		Calendar ttl = Calendar.getInstance();
-		ttl.setTimeInMillis(res.getMoment().getTime()+project.getTtl()*86400000);
-		
-		res.setTtl(ttl.getTime());
-		
-		if(project.getId()!=0){
-			validator.validate(res, binding);
+		if(project.getId()==0){
+			ttl.setTimeInMillis(res.getMoment().getTime()+project.getTtl()*86400000);
+		}else{
+			Integer oldTtl = this.getDaysToLive(res.getId());
+			Long days = this.getDaysToGo(res.getId());
+			Long realTtl=oldTtl-days+project.getTtl();
+			ttl.setTimeInMillis(res.getMoment().getTime()+realTtl*86400000);
 		}
+		res.setTtl(ttl.getTime());
+		Integer days=this.getDaysToLive(res);
 		
-		return res;
+		Assert.isTrue(days<=90 && days>0,"The ttl must be 90 or less");
+		
+		final Project fin = this.projectRepository.save(res);
+		
+		return fin;
+	}
+	
+	public ProjectForm validate(ProjectForm project, BindingResult binding){
+		validator.validate(project, binding);
+		return project;
 	}
 
-	public Set<String> getErrores(BindingResult binding) {
-		List<ObjectError> errors = binding.getAllErrors();
-		Set<String> res = new HashSet<String>();
-		for(ObjectError wrong: errors){
-			if(wrong.toString().contains("title")){
-				res.add("Title: "+wrong.getDefaultMessage()+". ");
-			}
-			if(wrong.toString().contains("goal")){
-				res.add("Goal: "+wrong.getDefaultMessage()+". ");
-			}
-			if(wrong.toString().contains("ttl")){
-				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
-			}
-			if(wrong.toString().contains("url")){
-				res.add("Picture: "+wrong.getDefaultMessage()+". ");
-			}
-		}
-		return res;
-	}
+//	public Set<String> getErrores(BindingResult binding) {
+//		List<ObjectError> errors = binding.getAllErrors();
+//		Set<String> res = new HashSet<String>();
+//		for(ObjectError wrong: errors){
+//			if(wrong.toString().contains("title")){
+//				res.add("Title: "+wrong.getDefaultMessage()+". ");
+//			}
+//			if(wrong.toString().contains("goal")){
+//				res.add("Goal: "+wrong.getDefaultMessage()+". ");
+//			}
+//			if(wrong.toString().contains("ttl")){
+//				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
+//			}
+//			if(wrong.toString().contains("url")){
+//				res.add("Picture: "+wrong.getDefaultMessage()+". ");
+//			}
+//		}
+//		return res;
+//	}
 
 }

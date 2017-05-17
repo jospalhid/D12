@@ -38,7 +38,7 @@
 	
 	<form:hidden path="id" />
 	
-	<input type="submit" name="save" value="<spring:message code="project.join" />" onclick="return confirm('<spring:message code="event.confirm.join" />')" />&nbsp;
+	<input type="submit" name="save" value="<spring:message code="project.join" />" onclick="return confirm('<spring:message code="project.confirm.join" />')" />&nbsp;
 	
 	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${reward.project.id}'" /> <br />
 
