@@ -27,9 +27,10 @@
 	<div>
 		<h1><jstl:out value="${project.title}"/></h1>
 		<p><jstl:out value="${project.description}"/></p>
-		<strong><spring:message code="project.goal"/>:</strong> <jstl:out value="${project.goal}"/>$<br>
-		<strong><spring:message code="project.currentGoal"/>:</strong> <jstl:out value="${currentGoal}"/>$<br>
-		<strong><spring:message code="project.brackers"/>:</strong> <jstl:out value="${brackers}"/><br>
+		<strong><spring:message code="project.category"/>: </strong><jstl:out value="${project.category.name }"></jstl:out><br/>
+		<strong><spring:message code="project.goal"/>: </strong> <jstl:out value="${project.goal}"/>$<br>
+		<strong><spring:message code="project.currentGoal"/>: </strong> <jstl:out value="${currentGoal}"/>$<br>
+		<strong><spring:message code="project.brackers"/>: </strong> <jstl:out value="${brackers}"/><br>
 		<jstl:choose>
 			<jstl:when test="${days >0 }">
 				<strong><spring:message code="project.days"/>:</strong> <jstl:out value="${days}"/><br>

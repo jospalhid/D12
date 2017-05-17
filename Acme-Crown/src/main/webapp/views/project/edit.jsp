@@ -38,12 +38,14 @@
 
 	<input type="submit" name="save" value="<spring:message code="project.save" />" />
 	
-	<%-- <jstl:if test="${event.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="event.delete" />" onclick="return confirm('<spring:message code="event.confirm.delete" />')" />&nbsp;
-	</jstl:if> --%>
-	
-	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
-
+	<jstl:choose>
+			<jstl:when test="${projectForm.id==0}">
+				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+			</jstl:when>
+			<jstl:otherwise>
+				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${projectForm.id}'" /> <br />
+			</jstl:otherwise>
+	</jstl:choose>
 </form:form>
 <br/>
 <jstl:forEach var="row" items="${errors}">
