@@ -13,8 +13,6 @@ package controllers.crown;
 import java.util.Calendar;
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -63,7 +61,7 @@ public class ProjectCrownController extends AbstractController {
 		ProjectForm project = new ProjectForm();
 
 		result = new ModelAndView("project/create");
-		result.addObject("project", project);
+		result.addObject("projectForm", project);
 		result.addObject("categories", this.categoryService.findAll());
 
 		return result;
@@ -78,14 +76,14 @@ public class ProjectCrownController extends AbstractController {
 		ProjectForm res = new ProjectForm(projectId, project.getTitle(), project.getDescription(), project.getGoal(), this.projectService.getDaysToGo(projectId), project.getCategory());
 
 		result = new ModelAndView("project/edit");
-		result.addObject("project", res);
+		result.addObject("projectForm", res);
 		result.addObject("categories", this.categoryService.findAll());
 
 		return result;
 	}
 	
 	@RequestMapping(value="/edit", method = RequestMethod.POST, params="save")
-	public ModelAndView edit(@Valid ProjectForm project, BindingResult binding) {
+	public ModelAndView edit(ProjectForm project, BindingResult binding) {
 		ModelAndView result;
 		
 //		try{
@@ -108,7 +106,7 @@ public class ProjectCrownController extends AbstractController {
 					}else{
 						result = new ModelAndView("project/edit");
 					}
-					result.addObject("project", project);
+					result.addObject("projectForm", project);
 					result.addObject("categories", this.categoryService.findAll());
 					result.addObject("message", "project.commit.error");
 				}
@@ -118,10 +116,10 @@ public class ProjectCrownController extends AbstractController {
 				}else{
 					result = new ModelAndView("project/edit");
 				}
-				result.addObject("project", project);
+				result.addObject("projectForm", project);
 				result.addObject("categories", this.categoryService.findAll());
 //				result.addObject("message", "project.commit.incomplete");
-				result.addObject("errors", this.projectService.getErrores(binding));
+//				result.addObject("errors", this.projectService.getErrores(binding));
 			}
 //		}catch(Throwable opps){
 //			if(project.getId()==0){

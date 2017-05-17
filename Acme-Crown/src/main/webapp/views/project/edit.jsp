@@ -20,7 +20,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="project/crown/edit.do" modelAttribute="project">
+<form:form action="project/crown/edit.do" modelAttribute="projectForm">
 	
 	<form:hidden path="id" />
 	
