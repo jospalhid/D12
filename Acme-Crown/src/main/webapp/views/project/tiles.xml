@@ -26,9 +26,19 @@
 		<put-attribute name="body" value="/views/project/edit.jsp"/>		
 	</definition>
 	
+	<definition name="project/edit" extends="master.page">
+		<put-attribute name="title" value="Edit Project"/>
+		<put-attribute name="body" value="/views/project/edit.jsp"/>		
+	</definition>
+	
 	<definition name="project/display" extends="master.page">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="body" value="/views/project/display.jsp"/>		
+	</definition>
+	
+	<definition name="project/reward" extends="master.page">
+		<put-attribute name="title" value="Reward"/>
+		<put-attribute name="body" value="/views/project/reward.jsp"/>		
 	</definition>
 	
 </tiles-definitions>

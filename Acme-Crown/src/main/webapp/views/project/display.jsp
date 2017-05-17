@@ -20,6 +20,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+	<div class="error">
+		<jstl:out value="${patron}"/>
+	</div>
+
 	<div>
 		<h1><jstl:out value="${project.title}"/></h1>
 		<p><jstl:out value="${project.description}"/></p>
@@ -38,6 +42,15 @@
 			</jstl:otherwise>
 		</jstl:choose>
 	</div>
+	
+	<jstl:if test="${crown.id == project.crown.id}">
+	<jstl:if test="${days>5}">
+		<a href="project/crown/edit.do?projectId=${project.id}">
+	 		<spring:message code="project.edit" var="edtiProjectHeader" />
+			<jstl:out value="${edtiProjectHeader}" />
+		</a>
+	</jstl:if>
+	</jstl:if>
 		
 	<div>
 		<jstl:forEach var="row" items="${project.pictures}">
@@ -53,7 +66,7 @@
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>
 				<jstl:if test="${days>0}">
-					<a href="">
+					<a href="project/crown/reward.do?rewardId=${row.id }">
 						<spring:message code="project.reward.select" var="selectHeader" />
 						<jstl:out value="${selectHeader}" />
 					</a>

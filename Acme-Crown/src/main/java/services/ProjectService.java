@@ -121,10 +121,20 @@ public class ProjectService {
 		Long ttl = (finish-moment)/86400000;
 		return ttl-days;
 	}
+	
+	public Integer getDaysToLive(int projectId){
+		Project project = this.findOne(projectId);
+		Long moment = project.getMoment().getTime();
+		Long finish = project.getTtl().getTime();
+		Integer ttl = (int) ((finish-moment)/86400000);
+		return ttl;
+	}
 
 	public Project reconstruct(ProjectForm project, BindingResult binding) {
 		
-		validator.validate(project, binding);
+		if(project.getId()==0){
+			validator.validate(project, binding);
+		}
 		
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		Project res;
@@ -137,7 +147,7 @@ public class ProjectService {
 		res.setDescription(project.getDescription());
 		res.setTitle(project.getTitle());
 		res.setGoal(project.getGoal());
-		if(project.getUrl()!=""){
+		if(project.getUrl()!=null && project.getUrl()!=""){
 			res.getPictures().add(new Picture(project.getUrl(), project.getTitle()));
 		}
 		
@@ -145,6 +155,10 @@ public class ProjectService {
 		ttl.setTimeInMillis(res.getMoment().getTime()+project.getTtl()*86400000);
 		
 		res.setTtl(ttl.getTime());
+		
+		if(project.getId()!=0){
+			validator.validate(res, binding);
+		}
 		
 		return res;
 	}

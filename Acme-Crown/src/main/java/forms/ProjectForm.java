@@ -21,10 +21,24 @@ public class ProjectForm{
 	private String title;
 	private String description;
 	private int goal;
-	private int ttl;
+	private long ttl;
 	private String url;
 	private Category category;
 	
+	public ProjectForm(){}
+	
+	public ProjectForm(int id, String title, String description, int goal, long ttl, Category category) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.goal = goal;
+		this.ttl = ttl;
+		this.category = category;
+	}
+
+
+
 	@Min(0)
 	public int getId() {
 		return id;
@@ -60,10 +74,10 @@ public class ProjectForm{
 	}
 	
 	@Range(min=1, max=90)
-	public int getTtl() {
+	public long getTtl() {
 		return ttl;
 	}
-	public void setTtl(int ttl) {
+	public void setTtl(long ttl) {
 		this.ttl = ttl;
 	}
 	

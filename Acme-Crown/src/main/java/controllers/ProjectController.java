@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.CrownService;
 import services.ProjectService;
+import domain.Crown;
 import domain.Project;
 
 @Controller
@@ -28,6 +31,8 @@ public class ProjectController extends AbstractController {
 	
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private CrownService crownService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -58,12 +63,14 @@ public class ProjectController extends AbstractController {
 		Project project = this.projectService.findOne(projectId);
 		Long days = this.projectService.getDaysToGo(projectId);
 		Integer brackers = this.projectService.getBackers(projectId);
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		
 		result = new ModelAndView("project/display");
 		result.addObject("project", project);
 		result.addObject("currentGoal", this.projectService.getCurrentGoal(projectId));
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
+		result.addObject("crown", crown);
 
 		return result;
 	}

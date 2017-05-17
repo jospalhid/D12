@@ -30,7 +30,9 @@
 	<acme:textarea code="project.description" path="description"/>
 	<acme:textbox code="project.goal" path="goal"/>
 	<acme:textbox code="project.ttl2" path="ttl"/>
-	<acme:textbox code="project.url" path="url"/>
+	<jstl:if test="${event.id == 0}">
+		<acme:textbox code="project.url" path="url"/>
+	</jstl:if>
 	
 	<acme:select items="${categories }" itemLabel="name" code="project.category" path="category"/>
 

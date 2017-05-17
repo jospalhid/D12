@@ -30,6 +30,8 @@ public class RewardService {
 //	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private CrownService crownService;
 
 	//Constructors
 	public RewardService() {
@@ -84,6 +86,13 @@ public class RewardService {
 		Assert.isNull(reward.getCrowns().isEmpty(), "The reward cannot be delete with Crowns");
 		
 		this.rewardRepository.delete(reward);
+	}
+
+	public void newCrown(int id) {
+		Reward reward = this.findOne(id);
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		reward.getCrowns().add(crown);
+		this.save(reward);
 	}
 
 	//Utilites methods
