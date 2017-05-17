@@ -30,7 +30,7 @@
 	<acme:textarea code="project.description" path="description"/>
 	<acme:textbox code="project.goal" path="goal"/>
 	<acme:textbox code="project.ttl2" path="ttl"/>
-	<jstl:if test="${event.id == 0}">
+	<jstl:if test="${projectForm.id == 0}">
 		<acme:textbox code="project.url" path="url"/>
 	</jstl:if>
 	

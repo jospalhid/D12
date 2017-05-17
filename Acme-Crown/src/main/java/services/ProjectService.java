@@ -183,6 +183,11 @@ public class ProjectService {
 		res.setTtl(ttl.getTime());
 		Integer days=this.getDaysToLive(res);
 		
+		if(project.getUrl()!=null && project.getUrl()!=""){
+			Picture picture = new Picture(project.getUrl(), project.getTitle());
+			res.getPictures().add(picture);
+		}
+		
 		Assert.isTrue(days<=90 && days>0,"The ttl must be 90 or less");
 		
 		final Project fin = this.projectRepository.save(res);
