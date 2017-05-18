@@ -69,7 +69,7 @@ public class ProjectCrownController extends AbstractController {
 		result = new ModelAndView("project/available");
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
-		result.addObject("requestURI", "project/available.do");
+		result.addObject("requestURI", "project/crown/list.do");
 
 		return result;
 	}
@@ -98,6 +98,9 @@ public class ProjectCrownController extends AbstractController {
 		result = new ModelAndView("project/edit");
 		result.addObject("projectForm", res);
 		result.addObject("categories", this.categoryService.findAll());
+		if(this.projectService.getBackers(projectId)==0){
+			result.addObject("borrar", true);
+		}
 
 		return result;
 	}
@@ -112,7 +115,6 @@ public class ProjectCrownController extends AbstractController {
 				try{
 					Project save=this.projectService.reconstructAndSave(res);
 					
-					//TODO Redireccionar al display
 					result = new ModelAndView("project/display");
 					result.addObject("project", save);
 					Double currentGoal =  this.projectService.getCurrentGoal(save.getId());
@@ -164,6 +166,37 @@ public class ProjectCrownController extends AbstractController {
 			}catch(Throwable opss){
 				result.addObject("message", "project.commit.error");
 			}
+		}
+
+		return result;
+	}
+	
+	@RequestMapping(value="/edit", method = RequestMethod.POST, params="delete")
+	public ModelAndView delete(ProjectForm project) {
+		ModelAndView result;
+		
+		try{
+			if(this.projectService.getBackers(project.getId())==0){
+				this.projectService.reconstructAndDelete(project);
+				
+				Collection<Project> projects = this.projectService.findMyProjects();
+
+				result = new ModelAndView("project/available");
+				result.addObject("projects", projects);
+				result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+				result.addObject("requestURI", "project/crown/list.do");
+				result.addObject("message", "project.delete.success");
+			}else{
+				result = new ModelAndView("project/edit");
+				result.addObject("projectForm", project);
+				result.addObject("categories", this.categoryService.findAll());
+				result.addObject("message", "project.backer.error");
+			}
+		}catch(Throwable opps){
+			result = new ModelAndView("project/edit");
+			result.addObject("projectForm", project);
+			result.addObject("categories", this.categoryService.findAll());
+			result.addObject("message", "project.commit.error");
 		}
 
 		return result;

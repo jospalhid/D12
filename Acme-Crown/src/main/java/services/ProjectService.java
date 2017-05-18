@@ -90,7 +90,8 @@ public class ProjectService {
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
-		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a customer to delete an project.");
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to delete an project.");
+		Assert.isTrue(project.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
 
 		Assert.notNull(project, "The project to delete cannot be null.");
 		Assert.isTrue(this.projectRepository.exists(project.getId()));
@@ -176,6 +177,7 @@ public class ProjectService {
 			res = this.create(crown, project.getCategory());
 		}else{
 			res = this.findOne(project.getId());
+			Assert.isTrue(res.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
 		}
 		
 		res.setDescription(project.getDescription());
@@ -204,6 +206,25 @@ public class ProjectService {
 		final Project fin = this.projectRepository.save(res);
 		
 		return fin;
+	}
+	
+	public void reconstructAndDelete(ProjectForm project) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to delete an project.");
+
+		Assert.notNull(project, "The project to delete cannot be null.");
+		Assert.isTrue(this.projectRepository.exists(project.getId()));
+
+		Project res = this.findOne(project.getId());
+		
+		Assert.isTrue(res.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
+		Assert.isTrue(this.getBackers(project.getId())==0,"The project cannot be delete with backers");
+		
+		this.projectRepository.delete(res);
+		
 	}
 	
 	public ProjectForm validate(ProjectForm project, BindingResult binding){

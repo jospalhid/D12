@@ -38,10 +38,17 @@
 
 	<input type="submit" name="save" value="<spring:message code="project.save" />" />
 	
+	<jstl:if test="${projectForm.id != 0}">
+	<jstl:if test="${borrar == true}">
+		<input type="submit" name="delete" value="<spring:message code="project.delete" />" onclick="return confirm('<spring:message code="project.confirm.delete" />')" />&nbsp;
+	</jstl:if>
+	</jstl:if>
+	
 	<jstl:choose>
 			<jstl:when test="${projectForm.id==0}">
 				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 			</jstl:when>
+			
 			<jstl:otherwise>
 				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${projectForm.id}'" /> <br />
 			</jstl:otherwise>
