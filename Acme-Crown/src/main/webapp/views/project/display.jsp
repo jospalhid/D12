@@ -53,12 +53,10 @@
 	</jstl:if>
 	</jstl:if>
 		
-	<div>
 		<jstl:forEach var="row" items="${project.pictures}">
 		<img src="${row.url}" width="300px" alt="${row.alt}">	
 		</jstl:forEach>
-	</div>
-	
+		
 	<div>
 		<h2><spring:message code="project.rewards"/></h2>
 		
@@ -72,7 +70,7 @@
 		</jstl:if>
 		
 		<jstl:forEach var="row" items="${project.rewards}">
-			<div style="border:solid 1px; width:180px; margin:5px; padding:10px">
+			<div class="recompensas">
 				<jstl:out value="${row.cost}"/>$
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>
