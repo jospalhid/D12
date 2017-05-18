@@ -19,5 +19,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	
 	@Query("select p from Project p where p.banned=false and month(current_date)<=month(p.ttl) and year(current_date)=year(p.ttl)")
 	Collection<Project> findAvailableProjects();
+	
+	@Query("select p from Project p where p.banned=false and p.crown.userAccount.id=?1")
+	Collection<Project> findMyProjects(int id);
 
 }

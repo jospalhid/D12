@@ -11,6 +11,7 @@
 package controllers.crown;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +55,21 @@ public class ProjectCrownController extends AbstractController {
 		super();
 	}
 
-	// Actions ---------------------------------------------------------------		
+	// Actions ---------------------------------------------------------------	
+	
+	@RequestMapping("/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		
+		Collection<Project> projects = this.projectService.findMyProjects();
+
+		result = new ModelAndView("project/available");
+		result.addObject("projects", projects);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("requestURI", "project/available.do");
+
+		return result;
+	}
 
 	@RequestMapping(value="/create",method = RequestMethod.GET)
 	public ModelAndView create() {

@@ -44,6 +44,7 @@
 		<security:intercept-url pattern="/project/available.do" access="permitAll" /> 
 		<security:intercept-url pattern="/project/display.do" access="hasRole('CROWN')" /> 
 		
+		<security:intercept-url pattern="/project/crown/list.do" access="hasRole('CROWN')" />
 		<security:intercept-url pattern="/project/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/edit.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/reward.do" access="hasRole('CROWN')" /> 

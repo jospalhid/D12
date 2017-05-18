@@ -89,7 +89,7 @@ public class ProjectService {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
-		a.setAuthority(Authority.CUSTOMER);
+		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a customer to delete an project.");
 
 		Assert.notNull(project, "The project to delete cannot be null.");
@@ -109,6 +109,16 @@ public class ProjectService {
 	
 	public Collection<Project> findAvailableProjects(){
 		return this.projectRepository.findAvailableProjects();
+	}
+	
+	public Collection<Project> findMyProjects(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
+		
+		return this.projectRepository.findMyProjects(ua.getId());
 	}
 
 	public Long getDaysToGo(int projectId) {
