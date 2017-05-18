@@ -94,7 +94,8 @@ public class ProjectService {
 
 		Assert.notNull(project, "The project to delete cannot be null.");
 		Assert.isTrue(this.projectRepository.exists(project.getId()));
-
+		Assert.isTrue(this.getBackers(project.getId())==0,"The project cannot be delete with backers");
+		
 		this.projectRepository.delete(project);
 	}
 

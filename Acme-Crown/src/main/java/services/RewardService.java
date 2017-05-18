@@ -98,7 +98,7 @@ public class RewardService {
 		
 		Assert.isTrue(reward.getProject().getCrown().getUserAccount().equals(ua), "You are not the owner of the project");
 
-		Assert.isNull(reward.getCrowns().isEmpty(), "The reward cannot be delete with Crowns");
+		Assert.isTrue(reward.getCrowns().isEmpty(), "The reward cannot be delete with Crowns");
 		
 		this.rewardRepository.delete(reward);
 	}
