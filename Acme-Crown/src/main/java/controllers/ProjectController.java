@@ -67,7 +67,11 @@ public class ProjectController extends AbstractController {
 		
 		result = new ModelAndView("project/display");
 		result.addObject("project", project);
-		result.addObject("currentGoal", this.projectService.getCurrentGoal(projectId));
+		Double currentGoal =  this.projectService.getCurrentGoal(projectId);
+		if(currentGoal==null){
+			currentGoal=0.0;
+		}
+		result.addObject("currentGoal", currentGoal);
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);

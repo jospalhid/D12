@@ -112,7 +112,11 @@ public class ProjectCrownController extends AbstractController {
 					//TODO Redireccionar al display
 					result = new ModelAndView("project/display");
 					result.addObject("project", save);
-					result.addObject("currentGoal", this.projectService.getCurrentGoal(save.getId()));
+					Double currentGoal =  this.projectService.getCurrentGoal(save.getId());
+					if(currentGoal==null){
+						currentGoal=0.0;
+					}
+					result.addObject("currentGoal", currentGoal);
 					result.addObject("days", this.projectService.getDaysToGo(save.getId()));
 					result.addObject("brackers", this.projectService.getBackers(save.getId()));
 					result.addObject("crown", this.crownService.findByUserAccountId(LoginService.getPrincipal().getId()));
@@ -206,7 +210,11 @@ public class ProjectCrownController extends AbstractController {
 			
 			result = new ModelAndView("project/display");
 			result.addObject("project", project);
-			result.addObject("currentGoal", this.projectService.getCurrentGoal(projectId));
+			Double currentGoal=this.projectService.getCurrentGoal(projectId);
+			if(currentGoal==null){
+				currentGoal=0.0;
+			}
+			result.addObject("currentGoal", currentGoal);
 			result.addObject("days", days);
 			result.addObject("brackers", brackers);
 			result.addObject("crown", crown);
