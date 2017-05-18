@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ExtraRewardRepository;
 import security.Authority;
@@ -24,8 +26,8 @@ public class ExtraRewardService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
 	@Autowired
@@ -84,6 +86,17 @@ public class ExtraRewardService {
 		Assert.isTrue(reward.getProject().getCrown().getUserAccount().equals(ua), "You are not the owner of the project");
 
 		this.extraRewardRepository.delete(reward);
+	}
+
+	public ExtraReward reconstruct(ExtraReward extrareward, BindingResult binding) {
+		Project project = this.projectService.findOne(extrareward.getProject().getId());
+		ExtraReward res = this.create(project);
+		res.setTitle(extrareward.getTitle());
+		res.setDescription(extrareward.getDescription());
+		res.setGoal(extrareward.getGoal());
+		
+		validator.validate(res, binding);
+		return res;
 	}
 
 	//Utilites methods

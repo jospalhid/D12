@@ -20,18 +20,18 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="reward/crown/edit.do" modelAttribute="reward">
+<form:form action="extrareward/crown/edit.do" modelAttribute="extraReward">
 	
 	<form:hidden path="id" />
 	<form:hidden path="project" />
 	
-	<acme:textbox code="reward.title" path="title"/>
-	<acme:textarea code="reward.description" path="description"/>
-	<acme:textbox code="reward.cost" path="cost"/>
+	<acme:textbox code="extrareward.title" path="title"/>
+	<acme:textarea code="extrareward.description" path="description"/>
+	<acme:textbox code="extrareward.goal" path="goal"/>
 
 	<input type="submit" name="save" value="<spring:message code="project.save" />" />
 	
-	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${reward.project.id}'" /> <br />
+	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${extraReward.project.id}'" /> <br />
 
 </form:form>
 <br/>

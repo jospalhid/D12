@@ -20,27 +20,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CrownService;
+import services.ExtraRewardService;
 import services.ProjectService;
-import services.RewardService;
 import controllers.AbstractController;
 import domain.Crown;
+import domain.ExtraReward;
 import domain.Project;
-import domain.Reward;
 
 @Controller
-@RequestMapping("/reward/crown")
-public class RewardCrownController extends AbstractController {
+@RequestMapping("/extrareward/crown")
+public class ExtraRewardCrownController extends AbstractController {
 	
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
 	private CrownService crownService;
 	@Autowired
-	private RewardService rewardService;
+	private ExtraRewardService extrarewardService;
 	
 	// Constructors -----------------------------------------------------------
 
-	public RewardCrownController() {
+	public ExtraRewardCrownController() {
 		super();
 	}
 
@@ -51,22 +51,22 @@ public class RewardCrownController extends AbstractController {
 		ModelAndView result;
 		
 		Project project = this.projectService.findOne(projectId);
-		Reward reward = this.rewardService.create(project);
+		ExtraReward reward = this.extrarewardService.create(project);
 		
-		result = new ModelAndView("reward/create");
-		result.addObject("reward", reward);
+		result = new ModelAndView("extrareward/create");
+		result.addObject("extraReward", reward);
 
 		return result;
 	}
 	
 	@RequestMapping(value="/edit", method = RequestMethod.POST, params="save")
-	public ModelAndView edit(Reward reward, BindingResult binding) {
+	public ModelAndView edit(ExtraReward extrareward, BindingResult binding) {
 		ModelAndView result;
 		
-		Reward res = this.rewardService.reconstruct(reward, binding);
+		ExtraReward res = this.extrarewardService.reconstruct(extrareward, binding);
 		if(!binding.hasErrors()){
 			try{
-				this.rewardService.save(res);
+				this.extrarewardService.save(res);
 				
 				int projectId = res.getProject().getId();
 				Project project = this.projectService.findOne(projectId);
@@ -85,13 +85,13 @@ public class RewardCrownController extends AbstractController {
 				result.addObject("brackers", brackers);
 				result.addObject("crown", crown);
 			}catch(Throwable oops){
-				result = new ModelAndView("reward/create");
-				result.addObject("reward", reward);
-				result.addObject("message", "reward.commint.error");
+				result = new ModelAndView("extrareward/create");
+				result.addObject("extraReward", extrareward);
+				result.addObject("message", "extrareward.commint.error");
 			}
 		}else{
-			result = new ModelAndView("reward/create");
-			result.addObject("reward", reward);
+			result = new ModelAndView("extrareward/create");
+			result.addObject("extraReward", extrareward);
 		}
 		
 		return result;
