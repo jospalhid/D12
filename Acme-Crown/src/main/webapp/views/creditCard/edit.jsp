@@ -20,7 +20,9 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
-<form:form action="creditCard/edit.do" modelAttribute="creditCard">
+
+
+<form:form action="creditCard/edit.do" modelAttribute="creditCard" style="width:300px; margin-left:550px; margin-top:20px">
 	
 	<form:hidden path="id" />
 	
@@ -31,8 +33,13 @@
 	<acme:textbox code="creditCard.expirationYear" path="expirationYear"/>
 	<acme:textbox code="creditCard.cvv" path="cvv"/>
 	
-	<input type="submit" name="save" value="<spring:message code="creditCard.save" />" />
-	
-	<input type="button" name="cancel" value="<spring:message code="creditCard.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+		
+	<div class="row">
+	 	<div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+			<input type="submit" name="save" value="<spring:message code="creditCard.save" />" class="btn btn-warning btn-block"  />
+		</div>
+		<div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
+			<input type="button" name="cancel" value="<spring:message code="creditCard.cancel" />"  class="btn btn-danger" onclick="window.location='welcome/index.do'" /> <br />
+		</div>
+	</div>
 </form:form>
-<br/>
