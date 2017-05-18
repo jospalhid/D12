@@ -29,6 +29,7 @@
 		
 		<value>/views/project/messages</value>
 		<value>/views/creditCard/messages</value>
+		<value>/views/reward/messages</value>
 	</util:list>
 
 </beans>

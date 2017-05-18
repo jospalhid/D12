@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.RewardRepository;
 import security.Authority;
@@ -26,12 +28,14 @@ public class RewardService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private ProjectService projectService;
 
 	//Constructors
 	public RewardService() {
@@ -98,7 +102,8 @@ public class RewardService {
 		
 		this.rewardRepository.delete(reward);
 	}
-
+	
+	//Utilites methods
 	public void newCrown(int id) {
 		Reward reward = this.findOne(id);
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
@@ -106,6 +111,16 @@ public class RewardService {
 		this.saveReward(reward);
 	}
 
-	//Utilites methods
+	public Reward reconstruct(Reward reward, BindingResult binding) {
+		Project project = this.projectService.findOne(reward.getProject().getId());
+		Reward res = this.create(project);
+		res.setTitle(reward.getTitle());
+		res.setDescription(reward.getDescription());
+		res.setCost(reward.getCost());
+		
+		validator.validate(res, binding);
+		
+		return res;
+	}
 
 }

@@ -29,6 +29,7 @@
 		
 		<value>/views/project/tiles.xml</value>
 		<value>/views/creditCard/tiles.xml</value>
+		<value>/views/reward/tiles.xml</value>
 	</util:list>
 
 </beans>

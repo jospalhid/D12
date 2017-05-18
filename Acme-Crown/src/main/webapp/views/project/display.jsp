@@ -61,6 +61,16 @@
 	
 	<div>
 		<h2><spring:message code="project.rewards"/></h2>
+		
+		<jstl:if test="${crown.id == project.crown.id}">
+		<jstl:if test="${days>5}">
+			<p><a href="reward/crown/create.do?projectId=${project.id }">
+	 			<spring:message code="project.reward.add" var="addRewardHeader" />
+				<jstl:out value="${addRewardHeader}" />
+			</a></p>
+		</jstl:if>
+		</jstl:if>
+		
 		<jstl:forEach var="row" items="${project.rewards}">
 			<div style="border:solid 1px; width:180px; margin:5px; padding:10px">
 				<jstl:out value="${row.cost}"/>$
