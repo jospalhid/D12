@@ -59,11 +59,12 @@
 	</jstl:if>
 	
 	<div class="form-group" style="margin-top:15px;">
-	 <div class="col-sm-12 controls">
-	 	 <input type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" />
-	 
-                        </div>
+	 	<div class="col-sm-12 controls">
+	 	 	<input type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" />
+     	</div>
 	</div>
+	
+	
 </form:form>
 </div>
 </div>
