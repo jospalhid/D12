@@ -70,6 +70,17 @@ public class RewardService {
 		final Reward res = this.rewardRepository.save(reward);
 		return res;
 	}
+	public Reward saveReward(final Reward reward) {
+		Assert.notNull(reward, "The reward to save cannot be null.");
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to create a reward.");
+		
+		final Reward res = this.rewardRepository.save(reward);
+		return res;
+	}
 
 	public void delete(final Reward reward) {
 		final UserAccount ua = LoginService.getPrincipal();
@@ -92,7 +103,7 @@ public class RewardService {
 		Reward reward = this.findOne(id);
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		reward.getCrowns().add(crown);
-		this.save(reward);
+		this.saveReward(reward);
 	}
 
 	//Utilites methods

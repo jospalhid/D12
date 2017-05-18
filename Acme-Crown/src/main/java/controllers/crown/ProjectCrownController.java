@@ -11,7 +11,6 @@
 package controllers.crown;
 
 import java.util.Calendar;
-import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CategoryService;
+import services.CreditCardService;
 import services.CrownService;
 import services.ProjectService;
 import services.RewardService;
@@ -45,6 +45,8 @@ public class ProjectCrownController extends AbstractController {
 	private CrownService crownService;
 	@Autowired
 	private RewardService rewardService;
+	@Autowired
+	private CreditCardService creditCardService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -150,21 +152,26 @@ public class ProjectCrownController extends AbstractController {
 		ModelAndView result;
 		
 		Reward reward = this.rewardService.findOne(rewardId);
-		CreditCard card = crownService.findByUserAccountId(LoginService.getPrincipal().getId()).getCreditCard();
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		CreditCard card = crown.getCreditCard();
 		
 		if(card!=null){
-			result = new ModelAndView("project/reward");
-			result.addObject("reward", reward);
-			result.addObject("card", card);
-			result.addObject("number", card.getNumber().substring(12));
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			int month = Calendar.getInstance().get(Calendar.MONTH)+1;
+			if((card.getExpirationYear()+2000)<year || (card.getExpirationYear()+2000)==year && card.getExpirationMonth()<=month){
+				result = new ModelAndView("creditCard/edit");
+				result.addObject("creditCard", card);
+				result.addObject("message", "reward.invalid.creditCard");
+			}else{
+				result = new ModelAndView("project/reward");
+				result.addObject("reward", reward);
+				result.addObject("card", card);
+				result.addObject("number", card.getNumber().substring(12));
+			}
 		}else{
-			Collection<Project> projects = this.projectService.findAvailableProjects();
-
-			result = new ModelAndView("project/available");
-			result.addObject("projects", projects);
-			result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
-			result.addObject("requestURI", "project/available.do");
-			result.addObject("message", "project.card.error");
+			result = new ModelAndView("creditCard/edit");
+			result.addObject("creditCard", this.creditCardService.create(crown));
+			result.addObject("message", "reward.invalid.creditCard");
 		}
 		
 		return result;
@@ -190,7 +197,14 @@ public class ProjectCrownController extends AbstractController {
 			result.addObject("crown", crown);
 			result.addObject("patron", "CROWNED!");
 		}catch(Throwable oops){
-			result = new ModelAndView("redirect:reward.do");
+			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			CreditCard card = crown.getCreditCard();
+			result = new ModelAndView("project/reward");
+			result.addObject("reward", this.rewardService.findOne(reward.getId()));
+			result.addObject("card", card);
+			result.addObject("number", card.getNumber().substring(12));
+			result.addObject("message", "project.commit.error");
+			
 		}
 		
 		return result;
