@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CategoryRepository;
 import security.Authority;
@@ -25,8 +27,8 @@ public class CategoryService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
 
@@ -75,9 +77,35 @@ public class CategoryService {
 		Assert.notNull(category, "The category to delete cannot be null.");
 		Assert.isTrue(this.categoryRepository.exists(category.getId()));
 
-		Assert.isNull(category.getProjects().isEmpty(), "The category cannot be delete with projects");
+		Assert.isTrue(category.getProjects().isEmpty(), "The category cannot be delete with projects");
 		
 		this.categoryRepository.delete(category);
+	}
+
+	public Category validate(Category category, BindingResult binding) {
+		Category res = this.create();
+		res.setName(category.getName());
+		res.setDescription(category.getDescription());
+		
+		validator.validate(res, binding);
+		
+		return res;
+	}
+
+	public Category reconstructAndSave(Category category) {
+		Category res;
+		if(category.getId()!=0){
+			res=this.findOne(category.getId());
+		}else{
+			res=this.create();
+		}
+		
+		res.setName(category.getName());
+		res.setDescription(category.getDescription());
+		
+		Category save = this.save(res);
+		
+		return save;
 	}
 
 	//Utilites methods

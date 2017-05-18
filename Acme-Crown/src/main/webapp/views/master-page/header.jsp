@@ -26,13 +26,6 @@
 
 	<ul id="jMenu" class="nav navbar-nav">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
-			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.administrator" /> <span class="caret"></span></a>
-				<ul class="dropdown-menu">
-					<li></li>
-				</ul>
-			</li>
-		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"  href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
@@ -46,10 +39,22 @@
 				<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li></li>
-					<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
+					<security:authorize access="hasRole('CROWN')">
+						<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMIN')">
+		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.category" /><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li></li>
+				<li><a href="category/admin/list.do"><spring:message code="master.page.category.list" /></a></li>
+				<li><a href="category/admin/create.do"><spring:message code="master.page.category.new" /></a></li>
+			</ul>
+		</li>
 		</security:authorize>
 		
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.project" /><span class="caret"></span></a>
