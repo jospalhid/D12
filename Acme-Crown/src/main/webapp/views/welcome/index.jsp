@@ -16,6 +16,38 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<p><spring:message code="welcome.greeting.prefix" /> ${name}<spring:message code="welcome.greeting.suffix" /></p>
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:90%">
 
-<p><spring:message code="welcome.greeting.current.time" /> ${moment}</p> 
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  
+ <!-- Wrapper for slides -->
+  <div class="carousel-inner" >
+    <div class="item active">
+		<img src="images/crowdfounding.png">
+    </div>
+
+    <div class="item">
+		<img src="images/bocadillos.png">
+    </div>
+
+    <div class="item">
+		<img src="images/historia.png">
+    </div>
+  </div>
+
+
+<!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="sr-only">Next</span>
+  </a>
+
+</div>
+
