@@ -48,6 +48,3 @@
 	</jstl:choose>
 </form:form>
 <br/>
-<jstl:forEach var="row" items="${errors}">
-	<p class="error"><jstl:out value="${row}"/></p>
-</jstl:forEach>

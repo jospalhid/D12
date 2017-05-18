@@ -28,6 +28,7 @@
 		<value>/views/profile/tiles.xml</value>
 		
 		<value>/views/project/tiles.xml</value>
+		<value>/views/creditCard/tiles.xml</value>
 	</util:list>
 
 </beans>

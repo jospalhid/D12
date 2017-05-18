@@ -1,11 +1,14 @@
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CreditCardRepository;
 import security.LoginService;
@@ -23,11 +26,13 @@ public class CreditCardService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
-
+	@Autowired
+	private CrownService crownService;
+	
 	//Constructors
 	public CreditCardService() {
 		super();
@@ -54,6 +59,11 @@ public class CreditCardService {
 	public CreditCard save(final CreditCard card) {
 		Assert.notNull(card, "The crown to save cannot be null.");
 		
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH)+1;
+		
+		Assert.isTrue((card.getExpirationYear()+2000)>year || (card.getExpirationYear()+2000)==year && card.getExpirationMonth()>month,"The credit card is invalid");
+		
 		final CreditCard res = this.creditCardRepository.save(card);
 		return res;
 	}
@@ -67,6 +77,36 @@ public class CreditCardService {
 		Assert.isTrue(card.getCrown().getUserAccount().equals(ua),"You are not the owner of this card");
 		
 		this.creditCardRepository.delete(card);
+	}
+
+	public CreditCard validate(CreditCard creditCard, BindingResult binding) {
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		CreditCard res =this.create(crown);
+		res.setHolder(creditCard.getHolder());
+		res.setBrand(creditCard.getBrand());
+		res.setNumber(creditCard.getNumber());
+		res.setExpirationMonth(creditCard.getExpirationMonth());
+		res.setExpirationYear(creditCard.getExpirationYear());
+		res.setCvv(creditCard.getCvv());
+		
+		validator.validate(res, binding);
+		
+		return res;
+	}
+	
+	public CreditCard reconstructAndSave(CreditCard creditCard){
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		CreditCard res = crown.getCreditCard();
+		if(res!=null){
+			res.setHolder(creditCard.getHolder());
+			res.setBrand(creditCard.getBrand());
+			res.setNumber(creditCard.getNumber());
+			res.setExpirationMonth(creditCard.getExpirationMonth());
+			res.setExpirationYear(creditCard.getExpirationYear());
+			res.setCvv(creditCard.getCvv());
+		}
+		CreditCard fin=this.save(res);
+		return fin;
 	}
 
 	//Utilites methods
