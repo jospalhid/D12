@@ -57,6 +57,10 @@
 		<jstl:forEach var="row" items="${project.pictures}">
 			<img src="${row.url}" width="300px" alt="${row.alt}">	
 		</jstl:forEach>
+		<p><a href="project/crown/picture.do?projectId=${project.id }">
+	 		<spring:message code="project.picture.add" var="addPictureHeader" />
+			<jstl:out value="${addPictureHeader}" />
+		</a></p>
 	</div>	
 		
 	<div>

@@ -41,4 +41,9 @@
 		<put-attribute name="body" value="/views/project/reward.jsp"/>		
 	</definition>
 	
+	<definition name="project/picture" extends="master.page">
+		<put-attribute name="title" value="New Picture"/>
+		<put-attribute name="body" value="/views/project/picture.jsp"/>		
+	</definition>
+	
 </tiles-definitions>

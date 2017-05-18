@@ -13,6 +13,8 @@ package controllers.crown;
 import java.util.Calendar;
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -30,6 +32,7 @@ import services.RewardService;
 import controllers.AbstractController;
 import domain.CreditCard;
 import domain.Crown;
+import domain.Picture;
 import domain.Project;
 import domain.Reward;
 import forms.ProjectForm;
@@ -228,6 +231,59 @@ public class ProjectCrownController extends AbstractController {
 			result.addObject("number", card.getNumber().substring(12));
 			result.addObject("message", "project.commit.error");
 			
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/picture",method = RequestMethod.GET)
+	public ModelAndView picture(@RequestParam int projectId) {
+		ModelAndView result;
+		
+		Picture picture = new Picture();
+		
+		result = new ModelAndView("project/picture");
+		result.addObject("picture", picture);
+		result.addObject("projectId", projectId);
+
+		return result;
+	}
+	
+	@RequestMapping(value="/picture", method = RequestMethod.POST, params="save")
+	public ModelAndView picture(int projectId, @Valid Picture picture, BindingResult binding) {
+		ModelAndView result;
+		
+		if(!binding.hasErrors()){
+			try{
+				Project project = this.projectService.findOne(projectId);
+				project.getPictures().add(picture);
+				this.projectService.save(project);
+				
+				
+				Long days = this.projectService.getDaysToGo(projectId);
+				Integer brackers = this.projectService.getBackers(projectId);
+				Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+				
+				result = new ModelAndView("project/display");
+				result.addObject("project", project);
+				Double currentGoal =  this.projectService.getCurrentGoal(projectId);
+				if(currentGoal==null){
+					currentGoal=0.0;
+				}
+				result.addObject("currentGoal", currentGoal);
+				result.addObject("days", days);
+				result.addObject("brackers", brackers);
+				result.addObject("crown", crown);
+			}catch(Throwable oops){
+				result = new ModelAndView("project/picture");
+				result.addObject("picture", picture);
+				result.addObject("projectId", projectId);
+				result.addObject("message", "project.commint.error");
+			}
+		}else{
+			result = new ModelAndView("project/picture");
+			result.addObject("picture", picture);
+			result.addObject("projectId", projectId);
 		}
 		
 		return result;
