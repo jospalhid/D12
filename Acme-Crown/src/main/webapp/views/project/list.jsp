@@ -26,6 +26,18 @@
 <!-- He quitado class="displaytag" del display:table -->
 <display:table name="projects" id="project" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 
+	<jsp:useBean id="currentDate" class="java.util.Date" />
+	<fmt:formatDate value="${currentDate}" pattern="MM" var="currentMonth" />
+	<fmt:formatDate value="${currentDate}" pattern="dd" var="currentDay" />
+	<fmt:formatDate value="${project.ttl}" pattern="MM" var="projectMonth" />
+	<fmt:formatDate value="${project.ttl}" pattern="dd" var="projectDay" />
+
+	<display:column>
+		<jstl:if test="${currentMonth==projectMonth && currentDay>projectDay}">
+			<img src="./images/skull.png" alt="Greyed" width="25">
+		</jstl:if>
+	</display:column>
+
 	<thead> 
 		<tr> 
 			<th><spring:message code="project.title" var="titleHeader" /></th>
