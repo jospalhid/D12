@@ -60,7 +60,7 @@
 	
 	<div class="form-group" style="margin-top:15px;">
 	 	<div class="col-sm-12 controls">
-	 	 	<input type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" />
+	 	 	<input type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" style="margin-top:-10px"/>
      	</div>
 	</div>
 	
