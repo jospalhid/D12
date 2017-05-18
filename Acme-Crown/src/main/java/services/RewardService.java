@@ -90,8 +90,8 @@ public class RewardService {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
-		a.setAuthority(Authority.CUSTOMER);
-		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a customer to delete a reward.");
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to delete a reward.");
 
 		Assert.notNull(reward, "The reward to delete cannot be null.");
 		Assert.isTrue(this.rewardRepository.exists(reward.getId()));

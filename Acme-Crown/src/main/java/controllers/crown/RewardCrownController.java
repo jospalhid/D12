@@ -97,4 +97,55 @@ public class RewardCrownController extends AbstractController {
 		return result;
 	}
 	
+	@RequestMapping(value="/delete",method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam int rewardId) {
+		ModelAndView result;
+		Reward reward = this.rewardService.findOne(rewardId);
+//		try{
+			int projectId = reward.getProject().getId();
+			Project project = this.projectService.findOne(projectId);
+			Long days = this.projectService.getDaysToGo(projectId);
+			Integer brackers = this.projectService.getBackers(projectId);
+			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			
+			result = new ModelAndView("project/display");
+			result.addObject("project", project);
+			Double currentGoal =  this.projectService.getCurrentGoal(projectId);
+			if(currentGoal==null){
+				currentGoal=0.0;
+			}
+			result.addObject("currentGoal", currentGoal);
+			result.addObject("days", days);
+			result.addObject("brackers", brackers);
+			result.addObject("crown", crown);
+			
+			if(reward.getCrowns().isEmpty()){
+				this.rewardService.delete(reward);
+			}else{
+				result.addObject("message", "project.backer.error");
+			}
+//		}catch(Throwable oops){
+//			int projectId = reward.getProject().getId();
+//			Project project = this.projectService.findOne(projectId);
+//			Long days = this.projectService.getDaysToGo(projectId);
+//			Integer brackers = this.projectService.getBackers(projectId);
+//			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+//			
+//			result = new ModelAndView("project/display");
+//			result.addObject("project", project);
+//			Double currentGoal =  this.projectService.getCurrentGoal(projectId);
+//			if(currentGoal==null){
+//				currentGoal=0.0;
+//			}
+//			result.addObject("currentGoal", currentGoal);
+//			result.addObject("days", days);
+//			result.addObject("brackers", brackers);
+//			result.addObject("crown", crown);
+//			
+//			result.addObject("message", "project.commit.error");
+//		}
+
+		return result;
+	}
+	
 }

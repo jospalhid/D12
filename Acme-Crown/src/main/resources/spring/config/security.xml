@@ -51,7 +51,9 @@
 		<security:intercept-url pattern="/project/crown/picture.do" access="hasRole('CROWN')" /> 
 		
 		<security:intercept-url pattern="/reward/crown/create.do" access="hasRole('CROWN')" /> 
-		<security:intercept-url pattern="/reward/crown/edit.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/reward/crown/edit.do" access="hasRole('CROWN')" />
+		<security:intercept-url pattern="/reward/crown/delete.do" access="hasRole('CROWN')" /> 
+		
 		<security:intercept-url pattern="/extrareward/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/extrareward/crown/edit.do" access="hasRole('CROWN')" /> 
 		

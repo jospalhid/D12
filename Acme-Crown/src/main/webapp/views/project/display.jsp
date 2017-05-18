@@ -79,10 +79,19 @@
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>
 				<jstl:if test="${days>0}">
-					<a href="project/crown/reward.do?rewardId=${row.id }">
+					<p><a href="project/crown/reward.do?rewardId=${row.id }">
 						<spring:message code="project.reward.select" var="selectHeader" />
 						<jstl:out value="${selectHeader}" />
-					</a>
+					</a></p>
+					<jstl:if test="${crown.id == project.crown.id}">
+						<jstl:set var="bb" value="${fn:length(row.crowns)}"/>
+						<jstl:if test="${bb==0}">
+						<p><a href="reward/crown/delete.do?rewardId=${row.id }">
+	 						<spring:message code="project.reward.delete" var="deleteRewardHeader" />
+							<jstl:out value="${deleteRewardHeader}" />
+						</a></p>
+						</jstl:if>
+					</jstl:if>
 				</jstl:if>
 			</div>
 		</jstl:forEach>
