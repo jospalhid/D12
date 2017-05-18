@@ -17,7 +17,7 @@
 <tiles-definitions>
 	
 	<definition name="project/available" extends="master.page">
-		<put-attribute name="title" value="¡Actuales!"/>
+		<put-attribute name="title" value="¡Actuales!"/> 
 		<put-attribute name="body" value="/views/project/list.jsp"/>		
 	</definition>
 	
