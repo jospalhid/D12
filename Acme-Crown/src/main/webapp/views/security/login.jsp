@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<img src="images/munecote.png" class="img-rounded" alt="Cinque Terre"  style="position:absolute; width:25%; margin-top:-60px;">
+<img src="images/munecote.png" class="img-rounded" alt="Cinque Terre"  style="position:absolute; width:25%; margin-top:-1em;">
 
 <div class="container">
 
@@ -60,7 +60,7 @@
 	
 	<div class="form-group" style="margin-top:15px;">
 	 	<div class="col-sm-12 controls">
-	 	 	<input type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" style="margin-top:-10px"/>
+	 	 	<input  type="submit" value="<spring:message code="security.login"  />" class="btn btn-primary pull-right" style="margin-top:-10px"/>
      	</div>
 	</div>
 	

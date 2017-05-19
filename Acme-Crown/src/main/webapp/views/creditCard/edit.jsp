@@ -36,7 +36,7 @@
 		
 	<div class="row">
 	 	<div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
-			<input type="submit" name="save" value="<spring:message code="creditCard.save" />" class="btn btn-warning btn-block"  />
+			<input type="submit" name="save" value="<spring:message code="creditCard.save" />" class="btn btn-succes btn-block"  />
 		</div>
 		<div class="col-md-6 col-sm-6 col-xs-6 pad-adjust">
 			<input type="button" name="cancel" value="<spring:message code="creditCard.cancel" />"  class="btn btn-danger" onclick="window.location='welcome/index.do'" /> <br />

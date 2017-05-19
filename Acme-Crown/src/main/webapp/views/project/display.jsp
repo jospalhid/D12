@@ -20,6 +20,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
+<div class="container">
 	<div class="error">
 		<jstl:out value="${patron}"/>
 	</div>
@@ -46,28 +48,28 @@
 	
 	<jstl:if test="${crown.id == project.crown.id}">
 	<jstl:if test="${days>5}">
-		<a href="project/crown/edit.do?projectId=${project.id}">
+	 		<a href="project/crown/edit.do?projectId=${project.id}" class="btn btn-primary" style="margin:5px;">
 	 		<spring:message code="project.edit" var="edtiProjectHeader" />
 			<jstl:out value="${edtiProjectHeader}" />
 		</a>
 	</jstl:if>
 	</jstl:if>
 	
-	<div>
+	<div style="max-width:200px; height:auto; margin:10px; ">
 		<jstl:forEach var="row" items="${project.pictures}">
 			<img src="${row.url}" width="300px" alt="${row.alt}">	
 		</jstl:forEach>
-		<p><a href="project/crown/picture.do?projectId=${project.id }">
+		<p><a href="project/crown/picture.do?projectId=${project.id }" class="btn btn-primary">
 	 		<spring:message code="project.picture.add" var="addPictureHeader" />
 			<jstl:out value="${addPictureHeader}" />
 		</a></p>
 	</div>	
 		
-	<div>
+	<div style="position: relative; left:500px; top:-600px; margin:30px; max-width:200px;">
 		<h2><spring:message code="project.rewards"/></h2>
 		
 		<jstl:if test="${crown.id == project.crown.id}">
-			<p><a href="reward/crown/create.do?projectId=${project.id }">
+			<p><a href="reward/crown/create.do?projectId=${project.id }" class="btn btn-primary">
 	 			<spring:message code="project.reward.add" var="addRewardHeader" />
 				<jstl:out value="${addRewardHeader}" />
 			</a></p>
@@ -79,14 +81,14 @@
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>
 				<jstl:if test="${days>0}">
-					<p><a href="project/crown/reward.do?rewardId=${row.id }">
+					<p><a href="project/crown/reward.do?rewardId=${row.id }" <a href="#" class="btn btn-sm btn-success">Default text here</a>>
 						<spring:message code="project.reward.select" var="selectHeader" />
 						<jstl:out value="${selectHeader}" />
 					</a></p>
 					<jstl:if test="${crown.id == project.crown.id}">
 						<jstl:set var="bb" value="${fn:length(row.crowns)}"/>
 						<jstl:if test="${bb==0}">
-						<p><a href="reward/crown/delete.do?rewardId=${row.id }">
+						<p><a href="reward/crown/delete.do?rewardId=${row.id }" class="btn btn-sm btn-danger">
 	 						<spring:message code="project.reward.delete" var="deleteRewardHeader" />
 							<jstl:out value="${deleteRewardHeader}" />
 						</a></p>
@@ -117,3 +119,4 @@
 		</jstl:forEach>
 	</div>
 	</jstl:if>
+</div>
