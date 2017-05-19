@@ -81,6 +81,8 @@ public class CategoryService {
 		
 		this.categoryRepository.delete(category);
 	}
+	
+	//------------------Utility Methdos--------------------
 
 	public Category validate(Category category, BindingResult binding) {
 		Category res = this.create();
