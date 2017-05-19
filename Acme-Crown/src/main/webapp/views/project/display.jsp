@@ -55,15 +55,53 @@
 	</jstl:if>
 	</jstl:if>
 	
-	<div style="max-width:200px; height:auto; margin:10px; ">
-		<jstl:forEach var="row" items="${project.pictures}">
-			<img src="${row.url}" width="300px" alt="${row.alt}">	
-		</jstl:forEach>
-		<p><a href="project/crown/picture.do?projectId=${project.id }" class="btn btn-primary">
+	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:500px; heigth:300px">
+		<ol class="carousel-indicators">
+			<jstl:set var="index" value="0"/>
+			<jstl:set var="active" value="true"/>
+			<jstl:forEach var="row" items="${project.pictures}">
+				<jstl:choose>
+					<jstl:when test="${active==true}">
+						<li data-target="project/display.do?projectId=${project.id}#myCarousel" data-slide-to="${index }" class="active"></li>
+						<jstl:set var="active" value="false"/>
+					</jstl:when>
+					<jstl:otherwise>
+						<li data-target="project/display.do?projectId=${project.id}#myCarousel" data-slide-to="${index }"></li>
+					</jstl:otherwise>
+				</jstl:choose>
+				<jstl:set var="index" value="${index+1}"/>
+			</jstl:forEach>
+		</ol>
+		
+    	<jstl:set var="active" value="true"/>
+  		<div class="carousel-inner" >
+			<jstl:forEach var="row" items="${project.pictures}">
+				<jstl:choose>
+					<jstl:when test="${active==true}">
+						<div class="item active">
+							<img src="${row.url}" width="500px" alt="${row.alt}">
+							<jstl:set var="active" value="false"/>
+   						</div>
+					</jstl:when>
+					<jstl:otherwise>
+						<div class="item">
+							<img src="${row.url}" width="500px" alt="${row.alt}">
+   						</div>
+					</jstl:otherwise>
+				</jstl:choose>
+			</jstl:forEach>
+			<a class="left carousel-control" href="project/display.do?projectId=${project.id}#myCarousel" data-slide="prev">
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="project/display.do?projectId=${project.id}#myCarousel" data-slide="next">
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>	
+	<p><a href="project/crown/picture.do?projectId=${project.id }" class="btn btn-primary">
 	 		<spring:message code="project.picture.add" var="addPictureHeader" />
 			<jstl:out value="${addPictureHeader}" />
-		</a></p>
-	</div>	
+	</a></p>
 		
 	<div style="position: relative; left:500px; top:-600px; margin:30px; max-width:200px;">
 		<h2><spring:message code="project.rewards"/></h2>
