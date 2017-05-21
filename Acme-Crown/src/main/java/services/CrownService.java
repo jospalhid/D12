@@ -45,6 +45,7 @@ public class CrownService {
 		res.setFavs(new ArrayList<Project>());
 		res.setProjects(new ArrayList<Project>());
 		res.setRewards(new ArrayList<Reward>());
+		res.setAmount(0);
 		return res;
 	}
 

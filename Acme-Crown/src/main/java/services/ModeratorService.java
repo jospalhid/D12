@@ -40,6 +40,7 @@ public class ModeratorService {
 		Moderator res;
 		res = new Moderator();
 		res.setUserAccount(ua);
+		res.setBanned(false);
 		return res;
 	}
 

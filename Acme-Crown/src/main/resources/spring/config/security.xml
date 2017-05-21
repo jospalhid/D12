@@ -42,13 +42,14 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/project/available.do" access="permitAll" /> 
-		<security:intercept-url pattern="/project/display.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/project/display.do" access="hasRole('CROWN') or hasRole('MODERATOR')" /> 
 		
 		<security:intercept-url pattern="/project/crown/list.do" access="hasRole('CROWN')" />
 		<security:intercept-url pattern="/project/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/edit.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/reward.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/picture.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/project/crown/promote.do" access="hasRole('CROWN')" /> 
 		
 		<security:intercept-url pattern="/reward/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/reward/crown/edit.do" access="hasRole('CROWN')" />
@@ -62,6 +63,10 @@
 		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')" /> 
 		
 		<security:intercept-url pattern="/creditCard/edit.do" access="hasRole('CROWN')" /> 
+		
+		<security:intercept-url pattern="/project/moderator/list.do" access="hasRole('MODERATOR')" />
+		<security:intercept-url pattern="/project/moderator/ban.do" access="hasRole('MODERATOR')" />
+		<security:intercept-url pattern="/project/moderator/unban.do" access="hasRole('MODERATOR')" /> 
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

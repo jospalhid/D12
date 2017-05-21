@@ -34,7 +34,10 @@
 
 	<display:column>
 		<jstl:if test="${currentMonth==projectMonth && currentDay>projectDay}">
-			<img src="./images/skull.png" alt="Greyed" width="25">
+			<img src="./images/lock.png" alt="Lock" width="16">
+		</jstl:if>
+		<jstl:if test="${project.promoted==true}">
+			<img src="./images/crown.png" alt="Promoted" width="16">
 		</jstl:if>
 	</display:column>
 

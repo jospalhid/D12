@@ -13,16 +13,25 @@ import org.hibernate.validator.constraints.Range;
 public class Moderator extends Actor{
 
 	//----------------------Attributes-------------------------
-	private int range;
+	private int level;
+	private boolean banned;
 
 	@Range(min=1, max=2)
-	public int getRange() {
-		return range;
+	public int getLevel() {
+		return level;
 	}
-	public void setRange(int range) {
-		this.range = range;
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
+	public boolean isBanned() {
+		return banned;
+	}
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+
+
 	//---------------------Relationships--------------------------
 	public Crown crown;
 

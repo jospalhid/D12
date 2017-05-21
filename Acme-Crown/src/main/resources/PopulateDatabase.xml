@@ -16,8 +16,13 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 	
+	<!-- Config -->
+	<bean id="config1" class="domain.Config">
+		<property name="auction" value="2.5" />
+		<property name="fee" value="0.50" />
+	</bean>
+	
 	<!-- User accounts -->
-
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
@@ -152,6 +157,7 @@
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/ea/fa/1c/eafa1c7a9d7adfc7bc0ed1082c835232.jpg" />
 		<property name="banned" value="false" />
+		<property name="amount" value="0" />
 		<property name="userAccount" ref="userAccount2"/>
 		<property name="projects">
 			<list></list>
@@ -171,6 +177,7 @@
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://pbs.twimg.com/profile_images/570673930470309888/KPTHOfuA.jpeg" />
 		<property name="banned" value="false" />
+		<property name="amount" value="0" />
 		<property name="userAccount" ref="userAccount3"/>
 		<property name="projects">
 			<list></list>
@@ -190,6 +197,7 @@
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="http://orig07.deviantart.net/f379/f/2010/252/1/5/1578cb09d42588ece0e69736ccdc28b7-d2yealq.jpg" />
 		<property name="banned" value="false" />
+		<property name="amount" value="0" />
 		<property name="userAccount" ref="userAccount4"/>
 		<property name="projects">
 			<list></list>
@@ -200,6 +208,29 @@
 		<property name="rewards">
 			<list></list>
 		</property>
+	</bean>
+	
+	<!-- Moderator -->
+	<bean id="moderator1" class="domain.Moderator">
+		<property name="name" value="Trafalgar" />
+		<property name="surname" value="Law" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="https://s-media-cache-ak0.pinimg.com/originals/ea/fa/1c/eafa1c7a9d7adfc7bc0ed1082c835232.jpg" />
+		<property name="level" value="2" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount5"/>
+		<property name="crown" ref="crown1"/>
+	</bean>
+	<bean id="moderator2" class="domain.Moderator">
+		<property name="name" value="Prueba" />
+		<property name="surname" value="Prueba" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321614" />
+		<property name="picture" value="http://1.bp.blogspot.com/-Plx_r7N_ncQ/TaWXtolvKmI/AAAAAAAAAAw/An42UiZ_k9I/s760/prueba_piloto_gratis.jpg" />
+		<property name="level" value="1" />
+		<property name="banned" value="false" />
+		<property name="userAccount" ref="userAccount6"/>
 	</bean>
 	
 	<!-- CreditCard -->
@@ -262,7 +293,7 @@
 		<property name="extraRewards">
 			<list></list>
 		</property>
-		<property name="contest">
+		<property name="contests">
 			<list></list>
 		</property>
 	</bean>
@@ -288,7 +319,7 @@
 		<property name="extraRewards">
 			<list></list>
 		</property>
-		<property name="contest">
+		<property name="contests">
 			<list></list>
 		</property>
 	</bean>
@@ -315,7 +346,7 @@
 		<property name="extraRewards">
 			<list></list>
 		</property>
-		<property name="contest">
+		<property name="contests">
 			<list></list>
 		</property>
 	</bean>
@@ -395,6 +426,33 @@
 		<property name="description" value="Cositas chulas" />
 		<property name="goal" value="200" />
 		<property name="project" ref="project1"/>		
+	</bean>
+	
+	<!-- Contest -->
+	<bean id="contest1" class="domain.Contest">
+		<property name="title" value="Boats" />
+		<property name="topic" value="Navegar" />
+		<property name="description" value="Subete a bordo" />
+		<property name="moment" value="2017/05/02"/>
+		<property name="award" value="100" />
+		<property name="winner" ref="project1"/>	
+		<property name="projects">
+			<list>
+				<ref bean="project1"/>
+				<ref bean="project2"/>
+			</list>
+		</property>
+	</bean>
+	<bean id="contest2" class="domain.Contest">
+		<property name="title" value="Contest1" />
+		<property name="topic" value="Prueba" />
+		<property name="description" value="Descripcion" />
+		<property name="moment" value="2017/05/25"/>
+		<property name="award" value="300" />
+		<property name="projects">
+			<list>
+			</list>
+		</property>
 	</bean>
 	
 </beans>

@@ -45,6 +45,9 @@
 		
 		<bean class="converters.RewardToStringConverter" />
 		<bean class="converters.StringToRewardConverter" />
+		
+		<bean class="converters.ContestToStringConverter" />
+		<bean class="converters.StringToContestConverter" />
 	</util:list>
 	
 </beans>

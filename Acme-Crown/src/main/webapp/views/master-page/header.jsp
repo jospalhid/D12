@@ -65,6 +65,9 @@
 					<li><a href="project/crown/create.do"><spring:message code="master.page.project.create" /></a></li>
 					<li><a href="project/crown/list.do"><spring:message code="master.page.project.list" /></a></li>
 				</security:authorize>
+				<security:authorize access="hasRole('MODERATOR')">
+					<li><a href="project/moderator/list.do"><spring:message code="master.page.project.mod" /></a></li>
+				</security:authorize>
 			</ul>
 		</li>
 	</ul>

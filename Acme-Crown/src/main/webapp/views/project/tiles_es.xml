@@ -45,5 +45,10 @@
 		<put-attribute name="title" value="Nueva Imagen"/>
 		<put-attribute name="body" value="/views/project/picture.jsp"/>		
 	</definition>
+	
+	<definition name="project/all" extends="master.page">
+		<put-attribute name="title" value="Todos los Proyectos"/>
+		<put-attribute name="body" value="/views/project/list.jsp"/>		
+	</definition>
 		
 </tiles-definitions>

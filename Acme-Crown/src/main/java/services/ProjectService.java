@@ -88,6 +88,18 @@ public class ProjectService {
 		final Project res = this.projectRepository.save(project);
 		return res;
 	}
+	
+	public Project saveBan(Project project) {
+		Assert.notNull(project, "The project to save cannot be null.");
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator to ban/unban a project.");
+		
+		final Project res = this.projectRepository.save(project);
+		return res;
+	}
 
 	public void delete(final Project project) {
 		final UserAccount ua = LoginService.getPrincipal();

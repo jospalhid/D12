@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -17,6 +18,7 @@ public class Crown extends Actor{
 
 	//----------------------Attributes-------------------------
 	private boolean banned;
+	private double amount;
 
 	public boolean isBanned() {
 		return banned;
@@ -24,6 +26,16 @@ public class Crown extends Actor{
 	public void setBanned(boolean banned) {
 		this.banned = banned;
 	}
+	
+	@Min(0)
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+
 
 
 	//---------------------Relationships--------------------------

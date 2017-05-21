@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CategoryService;
+import services.ConfigService;
 import services.CreditCardService;
 import services.CrownService;
 import services.ProjectService;
@@ -51,6 +52,8 @@ public class ProjectCrownController extends AbstractController {
 	private RewardService rewardService;
 	@Autowired
 	private CreditCardService creditCardService;
+	@Autowired
+	private ConfigService configService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -322,6 +325,38 @@ public class ProjectCrownController extends AbstractController {
 		return result;
 	}
 	
+	
+	@RequestMapping(value="/promote",method = RequestMethod.GET)
+	public ModelAndView promote(@RequestParam int projectId) {
+		ModelAndView result;
+		
+		Project project = this.projectService.findOne(projectId);
+		project.setPromoted(true);
+		Project res = this.projectService.save(project);
+		
+		Long days = this.projectService.getDaysToGo(projectId);
+		Integer brackers = this.projectService.getBackers(projectId);
+		Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		
+		crown1.setAmount(crown1.getAmount()+this.configService.find().getFee());
+		Crown crown = this.crownService.save(crown1);
+		
+		result = new ModelAndView("project/display");
+		result.addObject("project", res);
+		Double currentGoal =  this.projectService.getCurrentGoal(projectId);
+		if(currentGoal==null){
+			currentGoal=0.0;
+		}
+		result.addObject("currentGoal", currentGoal);
+		result.addObject("days", days);
+		result.addObject("brackers", brackers);
+		result.addObject("crown", crown);
+		result.addObject("promotedSMS", "proyect.promoted.success");
+		result.addObject("promoted", true);
+		
+
+		return result;
+	}
 	
 	
 
