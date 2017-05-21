@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -105,6 +106,7 @@ public class Project extends DomainEntity{
 	private Category category;
 	private Collection<Reward> rewards;
 	private Collection<ExtraReward> extraRewards;
+	private Collection<Contest> contests;
 
 	@Valid
 	@NotNull
@@ -145,5 +147,21 @@ public class Project extends DomainEntity{
 	public void setExtraRewards(Collection<ExtraReward> extraRewards) {
 		this.extraRewards = extraRewards;
 	}
+	
+	@Valid
+	@NotNull
+	@ManyToMany(
+			cascade={javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE},
+			mappedBy="projects",
+			targetEntity=Contest.class
+			)
+	public Collection<Contest> getContests() {
+		return contests;
+	}
+	public void setContests(Collection<Contest> contests) {
+		this.contests = contests;
+	}
+	
+	
 	
 }
