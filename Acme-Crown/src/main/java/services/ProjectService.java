@@ -16,6 +16,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Category;
+import domain.Contest;
 import domain.Crown;
 import domain.ExtraReward;
 import domain.Picture;
@@ -54,6 +55,7 @@ public class ProjectService {
 		res.setExtraRewards(new ArrayList<ExtraReward>());
 		res.setRewards(new ArrayList<Reward>());
 		res.setPictures(new ArrayList<Picture>());
+		res.setContests(new ArrayList<Contest>());
 		res.setMoment(Calendar.getInstance().getTime());
 		return res;
 	}

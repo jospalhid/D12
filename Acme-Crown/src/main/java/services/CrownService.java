@@ -38,6 +38,7 @@ public class CrownService {
 
 	//Simple CRUD methods
 	public Crown create(final UserAccount ua) {
+		Assert.notNull(ua);
 		Crown res;
 		res = new Crown();
 		res.setUserAccount(ua);
