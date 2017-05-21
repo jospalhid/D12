@@ -5,7 +5,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Range;
 
@@ -28,8 +27,7 @@ public class Moderator extends Actor{
 	public Crown crown;
 
 	@Valid
-	@NotNull
-	@OneToOne(optional=false)
+	@OneToOne(optional=true)
 	public Crown getCrown() {
 		return crown;
 	}

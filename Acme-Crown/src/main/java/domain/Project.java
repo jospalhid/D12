@@ -34,6 +34,7 @@ public class Project extends DomainEntity{
 	private Date moment;
 	private Collection<Picture> pictures;
 	private boolean banned;
+	private boolean promoted;
 	
 	@NotBlank
 	@SafeHtml
@@ -96,6 +97,13 @@ public class Project extends DomainEntity{
 	}
 	public void setBanned(boolean banned) {
 		this.banned = banned;
+	}
+
+		public boolean isPromoted() {
+		return promoted;
+	}
+	public void setPromoted(boolean promoted) {
+		this.promoted = promoted;
 	}
 
 

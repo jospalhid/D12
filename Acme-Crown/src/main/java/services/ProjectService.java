@@ -57,6 +57,8 @@ public class ProjectService {
 		res.setPictures(new ArrayList<Picture>());
 		res.setContests(new ArrayList<Contest>());
 		res.setMoment(Calendar.getInstance().getTime());
+		res.setBanned(false);
+		res.setPromoted(false);
 		return res;
 	}
 
