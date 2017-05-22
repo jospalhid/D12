@@ -53,12 +53,12 @@
 	
 			<td><display:column property="award" title="${awardHeader}" sortable="true" /> </td>
 	</tr>
-	<%-- <display:column>
-		<a href="project/display.do?projectId=${project.id}">
-			<spring:message code="project.display" var="displayHeader" />
+	<display:column>
+		<a href="contest/display.do?contestId=${contest.id}">
+			<spring:message code="contest.display" var="displayHeader" />
 			<jstl:out value="${displayHeader}" />
 		</a>
-	</display:column> --%>
+	</display:column>
 
 	<%-- <security:authorize access="hasRole('CHORBI')">
 	<jstl:if test="${own == true }">
