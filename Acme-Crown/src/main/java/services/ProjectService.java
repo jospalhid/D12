@@ -148,6 +148,16 @@ public class ProjectService {
 		return projects;
 	}
 	
+	public boolean canJoin(int contestId) {
+		boolean res = false;
+		List<Project> projects = new ArrayList<Project>();
+		projects.addAll(this.findMyContestProjects(contestId));
+		if(projects.size()>0){
+			res=true;
+		}
+		return res;
+	}
+	
 	public Collection<Project> findMyProjects(){
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);

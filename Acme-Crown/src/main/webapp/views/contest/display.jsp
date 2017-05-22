@@ -30,6 +30,7 @@
 		<strong><spring:message code="contest.award"/>: </strong><jstl:out value="${contest.award}"></jstl:out><br/>
 	</div>
 	
+	<jstl:if test="${canJoin==true}">
 	<security:authorize access="hasRole('CROWN')">
 	<div>
 		<a href="contest/crown/join.do?contestId=${contest.id}" class="btn btn-primary" style="margin:5px;">
@@ -38,9 +39,10 @@
 		</a>
 	</div>
 	</security:authorize>
+	</jstl:if>
 	
 	<br/>
-	<display:table name="projects" id="project" class="table table-hover">
+	<display:table name="projects" id="project" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 	<display:caption><h2><spring:message code="contest.projects"/></h2></display:caption>
 	<thead> 
 		<tr> 

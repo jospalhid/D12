@@ -66,10 +66,16 @@ public class ContestCrownController extends AbstractController {
 		try{
 			Contest contest = this.contestService.join(contestForm);
 			Collection<Project> projects = contest.getProjects();
+			Boolean canJoin = false;
+			if(this.projectService.canJoin(contestForm.getContestId())){
+				canJoin=true;
+			}
 			
 			result = new ModelAndView("contest/display");
 			result.addObject("contest", contest);
 			result.addObject("projects", projects);
+			result.addObject("canJoin", canJoin);
+			result.addObject("requestURI", "/contest/display.do?contestId="+contestForm.getContestId());
 			
 		}catch(Throwable oops){
 			Collection<Project> projects = this.projectService.findMyAvailableProjects();

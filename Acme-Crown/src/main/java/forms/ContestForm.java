@@ -15,6 +15,8 @@ public class ContestForm{
 	private int contestId;
 	private Project project;
 	
+	public ContestForm(){}
+	
 	public ContestForm(int contestId) {
 		this.contestId = contestId;
 	}

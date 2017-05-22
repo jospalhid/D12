@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ContestService;
+import services.CrownService;
+import services.ProjectService;
 import domain.Contest;
+import domain.Crown;
 import domain.Project;
 
 @Controller
@@ -29,6 +33,10 @@ public class ContestController extends AbstractController {
 	
 	@Autowired
 	private ContestService contestService;
+	@Autowired
+	private CrownService crownService;
+	@Autowired
+	private ProjectService projectService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -58,10 +66,19 @@ public class ContestController extends AbstractController {
 		
 		Contest contest = this.contestService.findOne(contestId);
 		Collection<Project> projects = contest.getProjects();
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		Boolean canJoin = false;
+		if(crown!=null){
+			if(this.projectService.canJoin(contestId)){
+				canJoin=true;
+			}
+		}
 		
 		result = new ModelAndView("contest/display");
 		result.addObject("contest", contest);
 		result.addObject("projects", projects);
+		result.addObject("canJoin", canJoin);
+		result.addObject("requestURI", "/contest/display.do?contestId="+contestId);
 
 		return result;
 	}
