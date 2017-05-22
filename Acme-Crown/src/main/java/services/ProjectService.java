@@ -129,6 +129,15 @@ public class ProjectService {
 		return this.projectRepository.findAvailableProjects();
 	}
 	
+	public Collection<Project> findMyAvailableProjects(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
+		return this.projectRepository.findMyAvailableProjects(LoginService.getPrincipal().getId());
+	}
+	
 	public Collection<Project> findMyProjects(){
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);

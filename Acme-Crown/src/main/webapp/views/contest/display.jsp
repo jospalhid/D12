@@ -30,6 +30,15 @@
 		<strong><spring:message code="contest.award"/>: </strong><jstl:out value="${contest.award}"></jstl:out><br/>
 	</div>
 	
+	<security:authorize access="hasRole('CROWN')">
+	<div>
+		<a href="contest/crown/join.do?contestId=${contest.id}" class="btn btn-primary" style="margin:5px;">
+	 		<spring:message code="contest.join" var="joinHeader" />
+			<jstl:out value="${joinHeader}" />
+		</a>
+	</div>
+	</security:authorize>
+	
 	<br/>
 	<display:table name="projects" id="project" class="table table-hover">
 	<display:caption><h2><spring:message code="contest.projects"/></h2></display:caption>
