@@ -3,6 +3,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,6 @@ public class ProjectService {
 	@Autowired
 	private ProjectRepository	projectRepository;
 
-
 	//Validator
 	@Autowired
 	private Validator validator;
@@ -40,6 +40,8 @@ public class ProjectService {
 	//Supporting services
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private ContestService contestService;
 
 	//Constructors
 	public ProjectService() {
@@ -136,6 +138,14 @@ public class ProjectService {
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
 		return this.projectRepository.findMyAvailableProjects(LoginService.getPrincipal().getId());
+	}
+	
+	public Collection<Project> findMyContestProjects(int contestId) {
+		List<Project> projects = new ArrayList<Project>();
+		projects.addAll(this.findMyAvailableProjects());
+		Contest contest = this.contestService.findOne(contestId);
+		projects.removeAll(contest.getProjects());
+		return projects;
 	}
 	
 	public Collection<Project> findMyProjects(){

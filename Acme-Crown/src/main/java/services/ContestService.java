@@ -12,6 +12,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Contest;
+import forms.ContestForm;
 
 @Service
 @Transactional
@@ -61,6 +62,12 @@ public class ContestService {
 		final Contest res = this.contestRepository.save(contest);
 		return res;
 	}
+	public Contest saveAndEdit(final Contest contest) {
+		Assert.notNull(contest, "The crown to save cannot be null.");
+		
+		final Contest res = this.contestRepository.save(contest);
+		return res;
+	}
 
 	public void delete(final Contest contest) {
 		final UserAccount ua = LoginService.getPrincipal();
@@ -80,6 +87,12 @@ public class ContestService {
 	//Utilites methods
 	public Collection<Contest> findAvailableContest(){
 		return this.contestRepository.findAvailableContest();
+	}
+
+	public Contest join(ContestForm contestForm) {
+		Contest contest = this.findOne(contestForm.getContestId());
+		contest.getProjects().add(contestForm.getProject());
+		return this.saveAndEdit(contest);
 	}
 
 }
