@@ -6912,19 +6912,10 @@ button.close {
 }
 											/*# Display project*/
 											
-
-
-
-
-			/*# Campos display project*/
 .titleDisplay{
 	font-weight: bold;
 }
 	
-	
-
-
-
 .display{
 	margin: 10px;
     text-align: center;
@@ -6936,12 +6927,16 @@ button.close {
    	align-content: center;
 }
 
-
 .titleProject{
-	 font-size: 60px;
+	font-size: 60px;
     color: #FF9800;
+    font-style: italic;
+    text-decoration: underline;
 }
 
 .descriptionProject{
-	
+	    font-weight: bold;
+    margin: 0 auto;
+    font-size: larger;
+    color: #FF9800;
 }
