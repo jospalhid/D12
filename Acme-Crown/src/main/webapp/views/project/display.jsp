@@ -51,6 +51,17 @@
 		</jstl:if>
 	</div>
 	</security:authorize>
+	
+	<security:authorize access="hasRole('CROWN')">
+	<jstl:if test="${crown.id == project.crown.id}">
+	<jstl:if test="${days>5}">
+	 	<a href="project/crown/edit.do?projectId=${project.id}" class="btn btn-primary" style="margin:5px;">
+	 		<spring:message code="project.edit" var="edtiProjectHeader" />
+			<jstl:out value="${edtiProjectHeader}" />
+		</a>
+	</jstl:if>
+	</jstl:if>
+	</security:authorize>
 	<security:authorize access="hasRole('MODERATOR')">
 	<div>
 		<jstl:if test="${project.banned==false}">
@@ -71,13 +82,13 @@
 	<div>
 		<h1><jstl:out value="${project.title}"/></h1>
 		<p><jstl:out value="${project.description}"/></p>
-		<strong><spring:message code="project.category"/>: </strong><jstl:out value="${project.category.name }"></jstl:out><br/>
-		<strong><spring:message code="project.goal"/>: </strong> <jstl:out value="${project.goal}"/>$<br>
-		<strong><spring:message code="project.currentGoal"/>: </strong> <jstl:out value="${currentGoal}"/>$<br>
-		<strong><spring:message code="project.brackers"/>: </strong> <jstl:out value="${brackers}"/><br>
+		<strong class="display"> <strong class="titleDisplay"><spring:message code="project.category"/>: </strong>  <jstl:out value="${project.category.name }" ></jstl:out><br/> </strong>
+		<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.goal"/>: </strong><jstl:out value="${project.goal}"/>$<br> </strong>
+		<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.currentGoal"/>: </strong><jstl:out value="${currentGoal}"/>$<br> </strong>
+		<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.brackers"/>: </strong><jstl:out value="${brackers}"/><br> </strong>
 		<jstl:choose>
 			<jstl:when test="${days >0 }">
-				<strong><spring:message code="project.days"/>:</strong> <jstl:out value="${days}"/><br>
+				<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.days"/>: </strong><jstl:out value="${days}"/><br> </strong>
 			</jstl:when>
 			<jstl:otherwise>
 				<spring:message code="project.finish"/> <jstl:out value="${project.ttl}"/>.
@@ -88,18 +99,9 @@
 		</jstl:choose>
 	</div>
 	
-	<security:authorize access="hasRole('CROWN')">
-	<jstl:if test="${crown.id == project.crown.id}">
-	<jstl:if test="${days>5}">
-	 	<a href="project/crown/edit.do?projectId=${project.id}" class="btn btn-primary" style="margin:5px;">
-	 		<spring:message code="project.edit" var="edtiProjectHeader" />
-			<jstl:out value="${edtiProjectHeader}" />
-		</a>
-	</jstl:if>
-	</jstl:if>
-	</security:authorize>
 	
-	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:500px; heigth:300px">
+	
+	<div id="myCarousel" class="carousel slide"  data-ride="carousel">
 		<ol class="carousel-indicators">
 			<jstl:set var="index" value="0"/>
 			<jstl:set var="active" value="true"/>
@@ -118,22 +120,23 @@
 		</ol>
 		
     	<jstl:set var="active" value="true"/>
-  		<div class="carousel-inner" >
+  		<div class="carousel-inner" id="imgDisplay">
 			<jstl:forEach var="row" items="${project.pictures}">
 				<jstl:choose>
 					<jstl:when test="${active==true}">
 						<div class="item active">
-							<img src="${row.url}" width="500px" alt="${row.alt}">
+							<img src="${row.url}"  alt="${row.alt}">
 							<jstl:set var="active" value="false"/>
    						</div>
 					</jstl:when>
 					<jstl:otherwise>
 						<div class="item">
-							<img src="${row.url}" width="500px" alt="${row.alt}">
-   						</div>
+							<img src="${row.url}"  alt="${row.alt}">
+						</div>
 					</jstl:otherwise>
 				</jstl:choose>
 			</jstl:forEach>
+			
 			<a class="left carousel-control" href="project/display.do?projectId=${project.id}#myCarousel" data-slide="prev">
 				<span class="sr-only">Previous</span>
 			</a>
@@ -154,7 +157,7 @@
 	</jstl:if>
 	</security:authorize>
 		
-	<div style="position: relative; left:500px; top:-600px; margin:30px; max-width:200px;">
+	<div class="containerRecompensas">
 		<h2><spring:message code="project.rewards"/></h2>
 		
 		<security:authorize access="hasRole('CROWN')">
@@ -176,7 +179,7 @@
 				
 				<security:authorize access="hasRole('CROWN')">
 				<jstl:if test="${days>0}">
-					<p><a href="project/crown/reward.do?rewardId=${row.id }" <a href="#" class="btn btn-sm btn-success">Default text here</a>>
+					<p><a href="project/crown/reward.do?rewardId=${row.id }"  class="btn btn-sm btn-success">
 						<spring:message code="project.reward.select" var="selectHeader" />
 						<jstl:out value="${selectHeader}" />
 					</a></p>
@@ -195,9 +198,12 @@
 		</jstl:forEach>
 	</div>
 	
+	
+
 	<jstl:if test="${currentGoal>=project.goal}">
-	<div>
+	<div class="containerRecompensas">
 		<h2><spring:message code="project.extraRewards"/></h2>
+		
 		
 		<security:authorize access="hasRole('CROWN')">
 		<jstl:if test="${crown.id == project.crown.id}">
@@ -210,6 +216,8 @@
 		</jstl:if>
 		</security:authorize>
 		
+		
+		
 		<jstl:forEach var="row" items="${project.extraRewards}">
 			<div style="border:solid 1px; width:180px; margin:5px; padding:10px">
 				<jstl:out value="${row.goal}"/>$
@@ -217,6 +225,8 @@
 				<p><jstl:out value="${row.description}"/></p>
 			</div>
 		</jstl:forEach>
+		
 	</div>
 	</jstl:if>
+	
 </div>

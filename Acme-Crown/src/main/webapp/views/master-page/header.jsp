@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<img src="images/logo.png" alt="Acme-Crown Co., Inc." />
+	<img src="images/logoLetra.png"  style="height: 150px;" class="img-responsive"  alt="Acme-Crown Co., Inc." />
 </div>
 
 <nav class="navbar navbar-inverse">
@@ -57,16 +57,6 @@
 		</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR')">
-		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.sms" /><span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li></li>
-				<li><a href="sms/received.do"><spring:message code="master.page.sms.list.received" /></a></li>
-				<li><a href="sms/send.do"><spring:message code="master.page.sms.list.send" /></a></li>
-			</ul>
-		</li>
-		</security:authorize>
-		
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.project" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
@@ -78,13 +68,6 @@
 				<security:authorize access="hasRole('MODERATOR')">
 					<li><a href="project/moderator/list.do"><spring:message code="master.page.project.mod" /></a></li>
 				</security:authorize>
-			</ul>
-		</li>
-		
-		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.contest" /><span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li></li>
-				<li><a href="contest/available.do"><spring:message code="master.page.contest.available" /></a></li>
 			</ul>
 		</li>
 	</ul>
