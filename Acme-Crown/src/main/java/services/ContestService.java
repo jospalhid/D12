@@ -78,5 +78,8 @@ public class ContestService {
 	}
 
 	//Utilites methods
+	public Collection<Contest> findAvailableContest(){
+		return this.contestRepository.findAvailableContest();
+	}
 
 }
