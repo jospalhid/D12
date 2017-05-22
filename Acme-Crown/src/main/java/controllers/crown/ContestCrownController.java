@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ProjectService;
 import controllers.AbstractController;
 import domain.Project;
+import forms.ContestForm;
 
 @Controller
 @RequestMapping("/contest/crown")
@@ -43,7 +44,10 @@ public class ContestCrownController extends AbstractController {
 		
 		Collection<Project> projects = this.projectService.findMyAvailableProjects();
 		
+		ContestForm contestForm = new ContestForm(contestId);
+		
 		result = new ModelAndView("contest/join");
+		result.addObject("contestForm", contestForm);
 		result.addObject("projects", projects);
 
 		return result;
