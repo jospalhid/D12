@@ -70,7 +70,8 @@
 		
 		<security:intercept-url pattern="/contest/available.do" access="permitAll" />
 		
-		<security:intercept-url pattern="/sms/list.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/sms/send.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/sms/received.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
 		 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
