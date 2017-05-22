@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -56,6 +57,18 @@ public class SmsController extends AbstractController {
 		result = new ModelAndView("sms/list");
 		result.addObject("sms", sms);
 		result.addObject("requestURI", "/sms/send.do");
+
+		return result;
+	}
+
+	@RequestMapping("/display")
+	public ModelAndView display(@RequestParam final int smsId) {
+		ModelAndView result;
+
+		final Sms sms = this.smsService.findOne(smsId);
+
+		result = new ModelAndView("sms/display");
+		result.addObject("sms", sms);
 
 		return result;
 	}

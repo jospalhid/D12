@@ -21,5 +21,10 @@
 		<put-attribute name="body" value="/views/sms/list.jsp"/>		
 	</definition>
 	
+	<definition name="sms/display" extends="master.page">
+		<put-attribute name="title" value="Display"/>
+		<put-attribute name="body" value="/views/sms/display.jsp"/>		
+	</definition>
+	
 	
 </tiles-definitions>

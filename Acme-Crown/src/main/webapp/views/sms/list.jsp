@@ -25,17 +25,27 @@
 
 	<thead> 
 		<tr> 
-			<th><spring:message code="sms.subject" var="titleHeader" /></th>
+			<th><spring:message code="sms.subject" var="subjectHeader" /></th>
 			<th><spring:message code="sms.moment" var="momentHeader" /></th>
-			<th><spring:message code="sms.body" var="bodyHeader" /></th>
+			<th><spring:message code="sms.recipient" var="recipientHeader" /></th>
+			<th><spring:message code="sms.sender" var="senderHeader" /></th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
 			<td><display:column property="subject" title="${subjectHeader}" sortable="true" /> </td>
 			<td><display:column property="moment" title="${momentHeader}" sortable="true" /> </td>
-			<td><display:column property="body" title="${bodyHeader}" sortable="false" /> </td>
+			<td><display:column property="recipient.name" title="${recipientHeader}" sortable="false" /> </td>
+			<td><display:column property="sender.name" title="${senderHeader}" sortable="false" /> </td>
+
 	</tr>
+	
+	<display:column>
+		<a href="sms/display.do?smsId=${sms.id}">
+			<spring:message code="sms.display" var="displayHeader" />
+			<jstl:out value="${displayHeader}" />
+		</a>
+	</display:column>
 	
 	<%-- <display:column>
 	  	<div>
