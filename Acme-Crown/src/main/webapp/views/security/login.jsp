@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<img src="images/munecote.png" class="img-rounded" alt="Cinque Terre"  style="position:relative; width:25%; margin-top:-1em;">
+<!-- <img src="images/munecote.png" class="img-rounded" alt="Cinque Terre"  style="position:relative; width:25%; margin-top:-1em;"> -->
 
 <div class="container">
 
