@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import repositories.AdminRepository;
 import repositories.CrownRepository;
+import repositories.ModeratorRepository;
 import domain.Actor;
 
 @Component
@@ -17,7 +18,8 @@ public class StringToActorConverter implements Converter<String, Actor>{
 	AdminRepository adminRepository;
 	@Autowired
 	CrownRepository crownRepository;
-	
+	@Autowired
+	ModeratorRepository moderatorRepository;
 
 	@Override
 	public Actor convert(String text) {
@@ -31,6 +33,9 @@ public class StringToActorConverter implements Converter<String, Actor>{
 			
 			if(result == null){
 				result = crownRepository.findOne(id);
+			}
+			if(result==null){
+				result = moderatorRepository.findOne(id);
 			}
 			
 			

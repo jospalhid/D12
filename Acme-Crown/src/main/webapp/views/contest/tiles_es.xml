@@ -25,5 +25,10 @@
 		<put-attribute name="title" value=""/>
 		<put-attribute name="body" value="/views/contest/display.jsp"/>		
 	</definition>
+	
+	<definition name="contest/join" extends="master.page">
+		<put-attribute name="title" value="¡Participa!"/>
+		<put-attribute name="body" value="/views/contest/join.jsp"/>		
+	</definition>
 		
 </tiles-definitions>
