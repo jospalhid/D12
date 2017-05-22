@@ -42,6 +42,7 @@ public class SmsService {
 		res.setSender(sender);
 		res.setRecipient(recipient);
 		res.setMoment(Calendar.getInstance().getTime());
+		res.setReaded(false);
 		return res;
 	}
 
@@ -94,5 +95,11 @@ public class SmsService {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		return this.smsRepository.findMySendMessages(ua.getId());
+	}
+
+	public void setReaded(final int smsId) {
+		final Sms sms = this.smsRepository.findOne(smsId);
+		sms.setReaded(true);
+		this.smsRepository.save(sms);
 	}
 }

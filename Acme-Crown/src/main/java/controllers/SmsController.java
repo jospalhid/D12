@@ -66,7 +66,7 @@ public class SmsController extends AbstractController {
 		ModelAndView result;
 
 		final Sms sms = this.smsService.findOne(smsId);
-
+		this.smsService.setReaded(smsId);
 		result = new ModelAndView("sms/display");
 		result.addObject("sms", sms);
 

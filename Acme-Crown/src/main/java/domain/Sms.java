@@ -22,6 +22,7 @@ public class Sms extends DomainEntity {
 	private Date	moment;
 	private String	subject;
 	private String	body;
+	private boolean	readed;
 
 
 	@NotNull
@@ -47,6 +48,14 @@ public class Sms extends DomainEntity {
 	}
 	public void setBody(final String body) {
 		this.body = body;
+	}
+
+	public boolean isReaded() {
+		return this.readed;
+	}
+
+	public void setReaded(final boolean readed) {
+		this.readed = readed;
 	}
 
 

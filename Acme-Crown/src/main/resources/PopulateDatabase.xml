@@ -493,6 +493,7 @@
 		<property name="body" value="Me gustaría contarte" />
 		<property name="sender" ref="crown1" />
 		<property name="recipient" ref="crown3" />
+		<property name="readed" value="false" />
 	</bean>
 	
 	<bean id="sms2" class="domain.Sms">
@@ -501,6 +502,7 @@
 		<property name="body" value="¿Cual es el mejor sitio para publicitarme?" />
 		<property name="sender" ref="crown1" />
 		<property name="recipient" ref="crown2" />
+		<property name="readed" value="false" />
 	</bean>
 	
 	
@@ -510,5 +512,6 @@
 		<property name="body" value="Necesito más información sobre la normativa." />
 		<property name="sender" ref="crown1" />
 		<property name="recipient" ref="moderator1" />
+		<property name="readed" value="false" />
 	</bean>
 </beans>
