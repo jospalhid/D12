@@ -60,6 +60,13 @@
 
 </display:table>
 
+<div>
+	<a href="sms/create.do">
+		<spring:message code="sms.create" var="createHeader" />
+		<jstl:out value="${createHeader}" />
+	</a>
+</div>
+
 </div>
 
 

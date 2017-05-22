@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SmsRepository;
 import security.LoginService;
@@ -21,12 +23,19 @@ public class SmsService {
 
 	//Managed repository
 	@Autowired
-	private SmsRepository	smsRepository;
+	private SmsRepository		smsRepository;
 
+	@Autowired
+	private CrownService		crownService;
+	@Autowired
+	private ModeratorService	moderatorService;
+	@Autowired
+	private AdminService		adminService;
 
 	//Validator
-	//	@Autowired
-	//	private Validator validator;
+	@Autowired
+	private Validator			validator;
+
 
 	//Constructors
 	public SmsService() {
@@ -101,5 +110,23 @@ public class SmsService {
 		final Sms sms = this.smsRepository.findOne(smsId);
 		sms.setReaded(true);
 		this.smsRepository.save(sms);
+	}
+
+	public Sms reconstruct(final Sms sms, final BindingResult binding) {
+
+		Actor sender = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if (sender == null)
+			sender = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if (sender == null)
+			sender = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
+
+		final Sms res = this.create(sender, sms.getRecipient());
+		res.setMoment(Calendar.getInstance().getTime());
+		res.setSubject(sms.getSubject());
+		res.setBody(sms.getBody());
+
+		this.validator.validate(res, binding);
+
+		return res;
 	}
 }

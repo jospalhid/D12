@@ -1,17 +1,23 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.AdminService;
+import services.CrownService;
+import services.ModeratorService;
 import services.SmsService;
+import domain.Actor;
 import domain.Sms;
 
 @Controller
@@ -19,13 +25,15 @@ import domain.Sms;
 public class SmsController extends AbstractController {
 
 	@Autowired
-	private SmsService	smsService;
+	private SmsService			smsService;
 
+	@Autowired
+	private CrownService		crownService;
+	@Autowired
+	private ModeratorService	moderatorService;
+	@Autowired
+	private AdminService		adminService;
 
-	//	@Autowired
-	//	private CrownService		crownService;
-	//	@Autowired
-	//	private ModeratorService	moderatorService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -73,4 +81,52 @@ public class SmsController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+
+		Actor sender = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if (sender == null)
+			sender = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if (sender == null)
+			sender = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
+
+		final Sms res = this.smsService.create(sender, sender);
+		final Collection<Actor> actors = new ArrayList<Actor>();
+		actors.addAll(this.crownService.findAll());
+		actors.addAll(this.moderatorService.findAll());
+		actors.addAll(this.adminService.findAll());
+
+		result = new ModelAndView("sms/create");
+		result.addObject("sms", res);
+		result.addObject("actors", actors);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "save")
+	public ModelAndView sendSms(final Sms sms, final BindingResult binding) {
+		ModelAndView result;
+		final Sms res = this.smsService.reconstruct(sms, binding);
+
+		if (!binding.hasErrors())
+			try {
+				this.smsService.save(res);
+				final Collection<Sms> smss = this.smsService.findMyReceivedMessages(LoginService.getPrincipal().getId());
+				result = new ModelAndView("sms/list");
+				result.addObject("sms", smss);
+				result.addObject("message", "sms.commit.success");
+			} catch (final Throwable opps) {
+				result = new ModelAndView("sms/create");
+				result.addObject("sms", sms);
+				result.addObject("message", "sms.commit.incomplete");
+			}
+		else {
+			result = new ModelAndView("sms/create");
+			result.addObject("sms", sms);
+			result.addObject("message", "sms.commit.error");
+		}
+
+		return result;
+	}
 }
