@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ContestService;
 import domain.Contest;
+import domain.Project;
 
 @Controller
 @RequestMapping("/contest")
@@ -56,9 +57,11 @@ public class ContestController extends AbstractController {
 		ModelAndView result;
 		
 		Contest contest = this.contestService.findOne(contestId);
+		Collection<Project> projects = contest.getProjects();
 		
 		result = new ModelAndView("contest/display");
 		result.addObject("contest", contest);
+		result.addObject("projects", projects);
 
 		return result;
 	}

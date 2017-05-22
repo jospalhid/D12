@@ -29,4 +29,28 @@
 		<strong><spring:message code="contest.moment"/>: </strong><jstl:out value="${contest.moment}"></jstl:out><br/>
 		<strong><spring:message code="contest.award"/>: </strong><jstl:out value="${contest.award}"></jstl:out><br/>
 	</div>
+	
+	<br/>
+	<display:table name="projects" id="project" class="table table-hover">
+	<display:caption><h2><spring:message code="contest.projects"/></h2></display:caption>
+	<thead> 
+		<tr> 
+			<th><spring:message code="project.title" var="titleHeader" /></th>
+			<th><spring:message code="project.goal" var="goalHeader" /> </th>
+			<th><spring:message code="project.ttl" var="ttlHeader" /> </th>
+			<th><spring:message code="project.category" var="categoryHeader" /> </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><display:column property="title" title="${titleHeader}" sortable="true" /> </td>
+	
+			<td><display:column property="goal" title="${goalHeader}" sortable="true" /> </td>
+	
+			<td><display:column property="ttl" title="${ttlHeader}" sortable="true" /> </td>
+	
+			<td><display:column property="category.name" title="${categoryHeader}" sortable="true" /> </td>
+	</tr>
+	
+	</display:table>
 </div>
