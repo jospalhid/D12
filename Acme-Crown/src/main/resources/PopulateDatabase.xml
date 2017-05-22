@@ -168,6 +168,12 @@
 		<property name="rewards">
 			<list></list>
 		</property>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="crown2" class="domain.Crown">
@@ -186,6 +192,12 @@
 			<list></list>
 		</property>
 		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
 			<list></list>
 		</property>
 	</bean>
@@ -208,6 +220,12 @@
 		<property name="rewards">
 			<list></list>
 		</property>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
 	</bean>
 	
 	<!-- Moderator -->
@@ -221,6 +239,12 @@
 		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount5"/>
 		<property name="crown" ref="crown1"/>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
 	</bean>
 	<bean id="moderator2" class="domain.Moderator">
 		<property name="name" value="Prueba" />
@@ -231,6 +255,12 @@
 		<property name="level" value="1" />
 		<property name="banned" value="false" />
 		<property name="userAccount" ref="userAccount6"/>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
 	</bean>
 	
 	<!-- CreditCard -->
@@ -455,4 +485,22 @@
 		</property>
 	</bean>
 	
+	<!-- Message -->
+	
+	<bean id="message1" class="domain.Message">
+		<property name="moment" value="2017/02/01 12:30" />
+		<property name="subject" value="Nuevo proyecto" />
+		<property name="body" value="Me gustaría contarte" />
+		<property name="sender" ref="crown1" />
+		<property name="recipient" ref="crown3" />
+	</bean>
+	
+	<bean id="message2" class="domain.Message">
+		<property name="moment" value="2017/03/06 13:30" />
+		<property name="subject" value="Duda" />
+		<property name="body" value="¿Cual es el mejor sitio para publicitarme?" />
+		<property name="sender" ref="crown1" />
+		<property name="recipient" ref="crown2" />
+		
+	</bean>
 </beans>
