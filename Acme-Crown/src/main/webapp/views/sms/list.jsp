@@ -47,15 +47,6 @@
 		</a>
 	</display:column>
 	
-	<%-- <display:column>
-	  	<div>
-	  	<a href="sms/delete.do?smsId=${sms.id}">
-	  		<spring:message code="sms.delete" var="smsHeader" />
-	  		<jstl:out value="${smsHeader}" />
-	  	</a>
-	  	</div>
-  	</display:column> --%>
-
 </tbody>
 
 </display:table>

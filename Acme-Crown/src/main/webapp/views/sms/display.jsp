@@ -38,4 +38,13 @@
 		<strong><spring:message code="sms.body"/>: </strong><jstl:out value="${sms.body }"></jstl:out><br/>
 	</div>
 	
+	<%-- <form:form action="sms/delete.do" modelAttribute="sms">
+	<form:hidden path="id" />
+	
+	<input type="submit" name="delete"
+			value="<spring:message code="sms.delete" />"
+			onclick="return confirm('<spring:message code="sms.confirm.delete" />')" />&nbsp;
+	
+	</form:form>
+	 --%>
 </div>
