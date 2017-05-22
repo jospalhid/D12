@@ -477,7 +477,7 @@
 		<property name="title" value="Contest1" />
 		<property name="topic" value="Prueba" />
 		<property name="description" value="Descripcion" />
-		<property name="moment" value="2017/05/25"/>
+		<property name="moment" value="2017/07/25"/>
 		<property name="award" value="300" />
 		<property name="projects">
 			<list>

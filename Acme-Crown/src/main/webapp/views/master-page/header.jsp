@@ -70,6 +70,13 @@
 				</security:authorize>
 			</ul>
 		</li>
+		
+		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.contest" /><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li></li>
+				<li><a href="contest/available.do"><spring:message code="master.page.contest.available" /></a></li>
+			</ul>
+		</li>
 	</ul>
 </div>
 
