@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Message extends DomainEntity {
+public class Sms extends DomainEntity {
 
 	//----------------------Attributes-------------------------
 	private Date	moment;

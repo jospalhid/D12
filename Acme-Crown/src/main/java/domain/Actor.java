@@ -80,8 +80,8 @@ public abstract class Actor extends DomainEntity {
 
 	//----------------Relationships------------------------------------------
 	private UserAccount			userAccount;
-	private Collection<Message>	sendMessages;
-	private Collection<Message>	receivedMessages;
+	private Collection<Sms>	sendMessages;
+	private Collection<Sms>	receivedMessages;
 
 
 	@Valid
@@ -97,22 +97,22 @@ public abstract class Actor extends DomainEntity {
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSendMessages() {
+	public Collection<Sms> getSendMessages() {
 		return this.sendMessages;
 	}
 
-	public void setSendMessages(final Collection<Message> sendMessages) {
+	public void setSendMessages(final Collection<Sms> sendMessages) {
 		this.sendMessages = sendMessages;
 	}
 
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "recipient")
-	public Collection<Message> getReceivedMessages() {
+	public Collection<Sms> getReceivedMessages() {
 		return this.receivedMessages;
 	}
 
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
+	public void setReceivedMessages(final Collection<Sms> receivedMessages) {
 		this.receivedMessages = receivedMessages;
 	}
 

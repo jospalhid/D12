@@ -49,8 +49,8 @@
 		<bean class="converters.ContestToStringConverter" />
 		<bean class="converters.StringToContestConverter" />
 		
-		<bean class="converters.MessageToStringConverter" />
-		<bean class="converters.StringToMessageConverter" />
+		<bean class="converters.SmsToStringConverter" />
+		<bean class="converters.StringToSmsConverter" />
 	</util:list>
 	
 </beans>

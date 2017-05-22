@@ -485,9 +485,9 @@
 		</property>
 	</bean>
 	
-	<!-- Message -->
+	<!-- Sms -->
 	
-	<bean id="message1" class="domain.Message">
+	<bean id="sms1" class="domain.Sms">
 		<property name="moment" value="2017/02/01 12:30" />
 		<property name="subject" value="Nuevo proyecto" />
 		<property name="body" value="Me gustaría contarte" />
@@ -495,12 +495,20 @@
 		<property name="recipient" ref="crown3" />
 	</bean>
 	
-	<bean id="message2" class="domain.Message">
+	<bean id="sms2" class="domain.Sms">
 		<property name="moment" value="2017/03/06 13:30" />
 		<property name="subject" value="Duda" />
 		<property name="body" value="¿Cual es el mejor sitio para publicitarme?" />
 		<property name="sender" ref="crown1" />
 		<property name="recipient" ref="crown2" />
-		
+	</bean>
+	
+	
+	<bean id="sms3" class="domain.Sms">
+		<property name="moment" value="2017/05/05 17:30" />
+		<property name="subject" value="Información" />
+		<property name="body" value="Necesito más información sobre la normativa." />
+		<property name="sender" ref="crown1" />
+		<property name="recipient" ref="moderator1" />
 	</bean>
 </beans>

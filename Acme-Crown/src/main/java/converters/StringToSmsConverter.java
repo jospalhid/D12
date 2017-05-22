@@ -6,20 +6,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.MessageRepository;
-import domain.Message;
+import repositories.SmsRepository;
+import domain.Sms;
 
 @Component
 @Transactional
-public class StringToMessageConverter implements Converter<String, Message> {
+public class StringToSmsConverter implements Converter<String, Sms> {
 
 	@Autowired
-	MessageRepository	messageRepository;
+	SmsRepository	messageRepository;
 
 
 	@Override
-	public Message convert(final String text) {
-		Message result;
+	public Sms convert(final String text) {
+		Sms result;
 		int id;
 
 		try {
