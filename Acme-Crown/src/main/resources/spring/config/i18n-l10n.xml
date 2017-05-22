@@ -33,6 +33,7 @@
 		<value>/views/extrareward/messages</value>
 		<value>/views/category/messages</value>
 		<value>/views/contest/messages</value>
+		<value>/views/sms/messages</value>
 	</util:list>
 
 </beans>

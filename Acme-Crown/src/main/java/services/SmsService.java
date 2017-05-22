@@ -90,7 +90,7 @@ public class SmsService {
 		return this.smsRepository.findMyReceivedMessages(ua.getId());
 	}
 
-	public Collection<Sms> findMySentChirps(final int uaId) {
+	public Collection<Sms> findMySendMessages(final int uaId) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		return this.smsRepository.findMySendMessages(ua.getId());
