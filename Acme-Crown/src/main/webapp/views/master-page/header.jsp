@@ -21,7 +21,7 @@
 <div>
 
 	<div class="navbar-header">
-      <a class="navbar-brand" href="#">Acme-Crown</a>
+      <a class="navbar-brand" href="#"><spring:message code="master.page.home" /> </a>
     </div>
 
 	<ul id="jMenu" class="nav navbar-nav">
