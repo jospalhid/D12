@@ -42,8 +42,14 @@
 	
 	<display:column>
 		<a href="sms/display.do?smsId=${sms.id}">
-			<spring:message code="sms.display" var="displayHeader" />
-			<jstl:out value="${displayHeader}" />
+		<jstl:choose>
+			<jstl:when test="${sms.readed==false }">
+			<img src="./images/sms.png" alt="Display" width="16">
+			</jstl:when>
+			<jstl:when test="${sms.readed==true }">
+			<img src="./images/sms_open.png" alt="Display" width="16">
+			</jstl:when>
+		</jstl:choose>
 		</a>
 	</display:column>
 	

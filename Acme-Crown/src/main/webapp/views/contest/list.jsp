@@ -57,8 +57,7 @@
 	</tr>
 	<display:column>
 		<a href="contest/display.do?contestId=${contest.id}">
-			<spring:message code="contest.display" var="displayHeader" />
-			<jstl:out value="${displayHeader}" />
+			<img src="./images/eye.png" alt="Display" width="25">
 		</a>
 	</display:column>
 	

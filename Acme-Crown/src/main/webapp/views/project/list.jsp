@@ -69,8 +69,7 @@
 	</tr>
 	<display:column>
 		<a href="project/display.do?projectId=${project.id}">
-			<spring:message code="project.display" var="displayHeader" />
-			<jstl:out value="${displayHeader}" />
+			<img src="./images/eye.png" alt="Display" width="25">
 		</a>
 	</display:column>
 
