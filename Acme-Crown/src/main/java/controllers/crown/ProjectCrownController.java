@@ -41,20 +41,21 @@ import forms.ProjectForm;
 @Controller
 @RequestMapping("/project/crown")
 public class ProjectCrownController extends AbstractController {
-	
+
 	@Autowired
-	private ProjectService projectService;
+	private ProjectService		projectService;
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService		categoryService;
 	@Autowired
-	private CrownService crownService;
+	private CrownService		crownService;
 	@Autowired
-	private RewardService rewardService;
+	private RewardService		rewardService;
 	@Autowired
-	private CreditCardService creditCardService;
+	private CreditCardService	creditCardService;
 	@Autowired
-	private ConfigService configService;
-	
+	private ConfigService		configService;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public ProjectCrownController() {
@@ -62,40 +63,40 @@ public class ProjectCrownController extends AbstractController {
 	}
 
 	// Actions ---------------------------------------------------------------	
-	
+
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		int id=LoginService.getPrincipal().getId();
-		Collection<Project> projects = this.projectService.findMyProjects(id);
+		final int id = LoginService.getPrincipal().getId();
+		final Collection<Project> projects = this.projectService.findMyProjects(id);
 
 		result = new ModelAndView("project/mine");
 		result.addObject("projects", projects);
-		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
 		result.addObject("requestURI", "project/crown/list.do");
 
 		return result;
 	}
-	
+
 	@RequestMapping("/contributions")
 	public ModelAndView contributions() {
 		ModelAndView result;
-		int id=LoginService.getPrincipal().getId();
-		Collection<Project> projects = this.projectService.findMyContributions(id);
+		final int id = LoginService.getPrincipal().getId();
+		final Collection<Project> projects = this.projectService.findMyContributions(id);
 
 		result = new ModelAndView("project/contributions");
 		result.addObject("projects", projects);
-		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
 		result.addObject("requestURI", "project/crown/list.do");
 
 		return result;
 	}
 
-	@RequestMapping(value="/create",method = RequestMethod.GET)
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		
-		ProjectForm project = new ProjectForm();
+
+		final ProjectForm project = new ProjectForm();
 
 		result = new ModelAndView("project/create");
 		result.addObject("projectForm", project);
@@ -103,113 +104,105 @@ public class ProjectCrownController extends AbstractController {
 
 		return result;
 	}
-	
-	@RequestMapping(value="/edit",method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam int projectId) {
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Project project = this.projectService.findOne(projectId);
-		
-		ProjectForm res = new ProjectForm(projectId, project.getTitle(), project.getDescription(), project.getGoal(), this.projectService.getDaysToGo(projectId), project.getCategory());
+
+		final Project project = this.projectService.findOne(projectId);
+
+		final ProjectForm res = new ProjectForm(projectId, project.getTitle(), project.getDescription(), project.getGoal(), this.projectService.getDaysToGo(projectId), project.getCategory());
 
 		result = new ModelAndView("project/edit");
 		result.addObject("projectForm", res);
 		result.addObject("categories", this.categoryService.findAll());
-		if(this.projectService.getBackers(projectId)==0){
+		if (this.projectService.getBackers(projectId) == 0)
 			result.addObject("borrar", true);
-		}
 
 		return result;
 	}
-	
-	@RequestMapping(value="/edit", method = RequestMethod.POST, params="save")
-	public ModelAndView edit(ProjectForm project, BindingResult binding) {
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(final ProjectForm project, final BindingResult binding) {
 		ModelAndView result;
-		
-		try{
-			ProjectForm res= this.projectService.validate(project, binding);
-			if(!binding.hasErrors()){
-				try{
-					Project save=this.projectService.reconstructAndSave(res);
-					
+
+		try {
+			final ProjectForm res = this.projectService.validate(project, binding);
+			if (!binding.hasErrors())
+				try {
+					final Project save = this.projectService.reconstructAndSave(res);
+
 					result = new ModelAndView("project/display");
 					result.addObject("project", save);
-					Double currentGoal =  this.projectService.getCurrentGoal(save.getId());
-					if(currentGoal==null){
-						currentGoal=0.0;
-					}
+					Double currentGoal = this.projectService.getCurrentGoal(save.getId());
+					if (currentGoal == null)
+						currentGoal = 0.0;
 					result.addObject("currentGoal", currentGoal);
 					result.addObject("days", this.projectService.getDaysToGo(save.getId()));
 					result.addObject("brackers", this.projectService.getBackers(save.getId()));
 					result.addObject("crown", this.crownService.findByUserAccountId(LoginService.getPrincipal().getId()));
-				}
-				catch(Throwable oops){
-					if(project.getId()==0){
+				} catch (final Throwable oops) {
+					if (project.getId() == 0)
 						result = new ModelAndView("project/create");
-					}else{
+					else
 						result = new ModelAndView("project/edit");
-					}
 					result.addObject("projectForm", project);
 					result.addObject("categories", this.categoryService.findAll());
-					if(project.getId()!=0 && !this.projectService.isValidTtl(project.getId(), project.getTtl())){
+					if (project.getId() != 0 && !this.projectService.isValidTtl(project.getId(), project.getTtl()))
 						result.addObject("message", "project.days.error");
-					}else{
+					else
 						result.addObject("message", "project.commit.error");
-					}
 				}
-			}else{
-				if(project.getId()==0){
+			else {
+				if (project.getId() == 0)
 					result = new ModelAndView("project/create");
-				}else{
+				else
 					result = new ModelAndView("project/edit");
-				}
 				result.addObject("projectForm", project);
 				result.addObject("categories", this.categoryService.findAll());
 			}
-		}catch(Throwable opps){
-			if(project.getId()==0){
+		} catch (final Throwable opps) {
+			if (project.getId() == 0)
 				result = new ModelAndView("project/create");
-			}else{
+			else
 				result = new ModelAndView("project/edit");
-			}
 			result.addObject("project", project);
 			result.addObject("categories", this.categoryService.findAll());
-			try{
-				if(project.getId()!=0 && !this.projectService.isValidTtl(project.getId(), project.getTtl())){
+			try {
+				if (project.getId() != 0 && !this.projectService.isValidTtl(project.getId(), project.getTtl()))
 					result.addObject("message", "project.days.error");
-				}else{
+				else
 					result.addObject("message", "project.commit.error");
-				}
-			}catch(Throwable opss){
+			} catch (final Throwable opss) {
 				result.addObject("message", "project.commit.error");
 			}
 		}
 
 		return result;
 	}
-	
-	@RequestMapping(value="/edit", method = RequestMethod.POST, params="delete")
-	public ModelAndView delete(ProjectForm project) {
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final ProjectForm project) {
 		ModelAndView result;
-		
-		try{
-			if(this.projectService.getBackers(project.getId())==0){
+
+		try {
+			if (this.projectService.getBackers(project.getId()) == 0) {
 				this.projectService.reconstructAndDelete(project);
-				
-				Collection<Project> projects = this.projectService.findMyProjects(LoginService.getPrincipal().getId());
+
+				final Collection<Project> projects = this.projectService.findMyProjects(LoginService.getPrincipal().getId());
 
 				result = new ModelAndView("project/available");
 				result.addObject("projects", projects);
-				result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+				result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
 				result.addObject("requestURI", "project/crown/list.do");
 				result.addObject("message", "project.delete.success");
-			}else{
+			} else {
 				result = new ModelAndView("project/edit");
 				result.addObject("projectForm", project);
 				result.addObject("categories", this.categoryService.findAll());
 				result.addObject("message", "project.backer.error");
 			}
-		}catch(Throwable opps){
+		} catch (final Throwable opps) {
 			result = new ModelAndView("project/edit");
 			result.addObject("projectForm", project);
 			result.addObject("categories", this.categoryService.findAll());
@@ -218,160 +211,189 @@ public class ProjectCrownController extends AbstractController {
 
 		return result;
 	}
-	
-	@RequestMapping(value="/reward",method = RequestMethod.GET)
-	public ModelAndView reward(@RequestParam int rewardId) {
+
+	@RequestMapping(value = "/reward", method = RequestMethod.GET)
+	public ModelAndView reward(@RequestParam final int rewardId) {
 		ModelAndView result;
-		
-		Reward reward = this.rewardService.findOne(rewardId);
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		CreditCard card = crown.getCreditCard();
-		
-		if(card!=null){
-			int year = Calendar.getInstance().get(Calendar.YEAR);
-			int month = Calendar.getInstance().get(Calendar.MONTH)+1;
-			if((card.getExpirationYear()+2000)<year || (card.getExpirationYear()+2000)==year && card.getExpirationMonth()<=month){
+
+		final Reward reward = this.rewardService.findOne(rewardId);
+		final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final CreditCard card = crown.getCreditCard();
+
+		if (card != null) {
+			final int year = Calendar.getInstance().get(Calendar.YEAR);
+			final int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+			if ((card.getExpirationYear() + 2000) < year || (card.getExpirationYear() + 2000) == year && card.getExpirationMonth() <= month) {
 				result = new ModelAndView("creditCard/edit");
 				result.addObject("creditCard", card);
 				result.addObject("message", "reward.invalid.creditCard");
-			}else{
+			} else {
 				result = new ModelAndView("project/reward");
 				result.addObject("reward", reward);
 				result.addObject("card", card);
 				result.addObject("number", card.getNumber().substring(12));
 			}
-		}else{
+		} else {
 			result = new ModelAndView("creditCard/edit");
 			result.addObject("creditCard", this.creditCardService.create(crown));
 			result.addObject("message", "reward.invalid.creditCard");
 		}
-		
+
 		return result;
 	}
-	
-	@RequestMapping(value="/reward",method = RequestMethod.POST, params="save")
-	public ModelAndView reward(Reward reward) {
+
+	@RequestMapping(value = "/reward", method = RequestMethod.POST, params = "save")
+	public ModelAndView reward(final Reward reward) {
 		ModelAndView result;
-		
-		try{
+
+		try {
 			this.rewardService.newCrown(reward.getId());
-			int projectId = this.rewardService.findOne(reward.getId()).getProject().getId();
-			Project project = this.projectService.findOne(projectId);
-			Long days = this.projectService.getDaysToGo(projectId);
-			Integer brackers = this.projectService.getBackers(projectId);
-			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-			
+			final int projectId = this.rewardService.findOne(reward.getId()).getProject().getId();
+			final Project project = this.projectService.findOne(projectId);
+			final Long days = this.projectService.getDaysToGo(projectId);
+			final Integer brackers = this.projectService.getBackers(projectId);
+			final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 			result = new ModelAndView("project/display");
 			result.addObject("project", project);
-			Double currentGoal=this.projectService.getCurrentGoal(projectId);
-			if(currentGoal==null){
-				currentGoal=0.0;
-			}
+			Double currentGoal = this.projectService.getCurrentGoal(projectId);
+			if (currentGoal == null)
+				currentGoal = 0.0;
 			result.addObject("currentGoal", currentGoal);
 			result.addObject("days", days);
 			result.addObject("brackers", brackers);
 			result.addObject("crown", crown);
 			result.addObject("patron", "CROWNED!");
-		}catch(Throwable oops){
-			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-			CreditCard card = crown.getCreditCard();
+		} catch (final Throwable oops) {
+			final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			final CreditCard card = crown.getCreditCard();
 			result = new ModelAndView("project/reward");
 			result.addObject("reward", this.rewardService.findOne(reward.getId()));
 			result.addObject("card", card);
 			result.addObject("number", card.getNumber().substring(12));
 			result.addObject("message", "project.commit.error");
-			
+
 		}
-		
+
 		return result;
 	}
-	
-	@RequestMapping(value="/picture",method = RequestMethod.GET)
-	public ModelAndView picture(@RequestParam int projectId) {
+
+	@RequestMapping(value = "/picture", method = RequestMethod.GET)
+	public ModelAndView picture(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Picture picture = new Picture();
-		
+
+		final Picture picture = new Picture();
+
 		result = new ModelAndView("project/picture");
 		result.addObject("picture", picture);
 		result.addObject("projectId", projectId);
 
 		return result;
 	}
-	
-	@RequestMapping(value="/picture", method = RequestMethod.POST, params="save")
-	public ModelAndView picture(int projectId, @Valid Picture picture, BindingResult binding) {
+
+	@RequestMapping(value = "/picture", method = RequestMethod.POST, params = "save")
+	public ModelAndView picture(final int projectId, @Valid final Picture picture, final BindingResult binding) {
 		ModelAndView result;
-		
-		if(!binding.hasErrors()){
-			try{
-				Project project = this.projectService.findOne(projectId);
+
+		if (!binding.hasErrors())
+			try {
+				final Project project = this.projectService.findOne(projectId);
 				project.getPictures().add(picture);
 				this.projectService.save(project);
-				
-				
-				Long days = this.projectService.getDaysToGo(projectId);
-				Integer brackers = this.projectService.getBackers(projectId);
-				Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-				
+
+				final Long days = this.projectService.getDaysToGo(projectId);
+				final Integer brackers = this.projectService.getBackers(projectId);
+				final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 				result = new ModelAndView("project/display");
 				result.addObject("project", project);
-				Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-				if(currentGoal==null){
-					currentGoal=0.0;
-				}
+				Double currentGoal = this.projectService.getCurrentGoal(projectId);
+				if (currentGoal == null)
+					currentGoal = 0.0;
 				result.addObject("currentGoal", currentGoal);
 				result.addObject("days", days);
 				result.addObject("brackers", brackers);
 				result.addObject("crown", crown);
-			}catch(Throwable oops){
+			} catch (final Throwable oops) {
 				result = new ModelAndView("project/picture");
 				result.addObject("picture", picture);
 				result.addObject("projectId", projectId);
 				result.addObject("message", "project.commint.error");
 			}
-		}else{
+		else {
 			result = new ModelAndView("project/picture");
 			result.addObject("picture", picture);
 			result.addObject("projectId", projectId);
 		}
-		
+
 		return result;
 	}
-	
-	
-	@RequestMapping(value="/promote",method = RequestMethod.GET)
-	public ModelAndView promote(@RequestParam int projectId) {
+
+	@RequestMapping(value = "/promote", method = RequestMethod.GET)
+	public ModelAndView promote(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Project project = this.projectService.findOne(projectId);
+
+		final Project project = this.projectService.findOne(projectId);
 		project.setPromoted(true);
-		Project res = this.projectService.save(project);
-		
-		Long days = this.projectService.getDaysToGo(projectId);
-		Integer brackers = this.projectService.getBackers(projectId);
-		Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		
-		crown1.setAmount(crown1.getAmount()+this.configService.find().getFee());
-		Crown crown = this.crownService.save(crown1);
-		
+		final Project res = this.projectService.save(project);
+
+		final Long days = this.projectService.getDaysToGo(projectId);
+		final Integer brackers = this.projectService.getBackers(projectId);
+		final Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
+		crown1.setAmount(crown1.getAmount() + this.configService.find().getFee());
+		final Crown crown = this.crownService.save(crown1);
+
 		result = new ModelAndView("project/display");
 		result.addObject("project", res);
-		Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-		if(currentGoal==null){
-			currentGoal=0.0;
-		}
+		Double currentGoal = this.projectService.getCurrentGoal(projectId);
+		if (currentGoal == null)
+			currentGoal = 0.0;
 		result.addObject("currentGoal", currentGoal);
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);
 		result.addObject("promotedSMS", "proyect.promoted.success");
 		result.addObject("promoted", true);
-		
 
 		return result;
 	}
-	
-	
 
+	@RequestMapping(value = "/fav", method = RequestMethod.GET)
+	public ModelAndView fav(@RequestParam final int projectId) {
+		ModelAndView result;
+
+		final Long days = this.projectService.getDaysToGo(projectId);
+		final Integer brackers = this.projectService.getBackers(projectId);
+		final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Project project = this.projectService.findOne(projectId);
+
+		result = new ModelAndView("project/display");
+		result.addObject("project", project);
+		Double currentGoal = this.projectService.getCurrentGoal(projectId);
+		if (currentGoal == null)
+			currentGoal = 0.0;
+		result.addObject("currentGoal", currentGoal);
+		result.addObject("days", days);
+		result.addObject("brackers", brackers);
+		result.addObject("crown", crown);
+		result.addObject("requestURI", "/project/display.do");
+
+		try {
+			if (crown.getFavs().contains(project)) {
+				crown.getFavs().remove(project);
+				this.crownService.save(crown);
+				result.addObject("fav", false);
+			} else {
+				crown.getFavs().add(project);
+				this.crownService.save(crown);
+				result.addObject("fav", true);
+			}
+
+		} catch (final Throwable oops) {
+			result.addObject("message", "project.commit.error");
+		}
+
+		return result;
+	}
 }

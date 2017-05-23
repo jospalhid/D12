@@ -28,11 +28,12 @@ import domain.Project;
 @Controller
 @RequestMapping("/project")
 public class ProjectController extends AbstractController {
-	
+
 	@Autowired
-	private ProjectService projectService;
+	private ProjectService	projectService;
 	@Autowired
-	private CrownService crownService;
+	private CrownService	crownService;
+
 
 	// Constructors -----------------------------------------------------------
 
@@ -45,36 +46,39 @@ public class ProjectController extends AbstractController {
 	@RequestMapping("/available")
 	public ModelAndView available() {
 		ModelAndView result;
-		
-		Collection<Project> projects = this.projectService.findAvailableProjects();
+
+		final Collection<Project> projects = this.projectService.findAvailableProjects();
 
 		result = new ModelAndView("project/available");
 		result.addObject("projects", projects);
-		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
 		result.addObject("requestURI", "project/available.do");
 
 		return result;
 	}
-	
+
 	@RequestMapping("/display")
-	public ModelAndView display(@RequestParam int projectId) {
+	public ModelAndView display(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Project project = this.projectService.findOne(projectId);
-		Long days = this.projectService.getDaysToGo(projectId);
-		Integer brackers = this.projectService.getBackers(projectId);
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		
+
+		final Project project = this.projectService.findOne(projectId);
+		final Long days = this.projectService.getDaysToGo(projectId);
+		final Integer brackers = this.projectService.getBackers(projectId);
+		final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 		result = new ModelAndView("project/display");
 		result.addObject("project", project);
-		Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-		if(currentGoal==null){
-			currentGoal=0.0;
-		}
+		Double currentGoal = this.projectService.getCurrentGoal(projectId);
+		if (currentGoal == null)
+			currentGoal = 0.0;
 		result.addObject("currentGoal", currentGoal);
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);
+		if (crown.getFavs().contains(project))
+			result.addObject("fav", true);
+		else
+			result.addObject("fav", false);
 
 		return result;
 	}

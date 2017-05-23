@@ -33,9 +33,7 @@
 	</div>
 	</jstl:if>
 	
-	<div>
 	
-	</div>
 	
 	<security:authorize access="hasRole('CROWN')">
 	<div>
@@ -81,6 +79,20 @@
 	
 	<div>
 		<h1 class="titleProject"><jstl:out value="${project.title}"/></h1>
+		<div>
+			<jstl:choose>
+			<jstl:when test="${fav==true}">
+			<a href="project/crown/fav.do?projectId=${project.id}">
+				<img src="./images/favorite.png" alt="Fav" width="50">
+			</a>
+			</jstl:when>
+			<jstl:when test="${fav==false}">
+			<a href="project/crown/fav.do?projectId=${project.id}">
+				<img src="./images/nofavorite.png" alt="Nofav" width="50">
+			</a>
+			</jstl:when>
+			</jstl:choose>
+		</div>
 		<p class="descriptionProject"><jstl:out value="${project.description}"/></p>
 		<strong class="display"> <strong class="titleDisplay"><spring:message code="project.category"/>: </strong>  <jstl:out value="${project.category.name }" ></jstl:out><br/> </strong>
 		<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.goal"/>: </strong><jstl:out value="${project.goal}"/>$<br> </strong>
@@ -98,7 +110,6 @@
 			</jstl:otherwise>
 		</jstl:choose>
 	</div>
-	
 	
 	
 	<div id="myCarousel" class="carousel slide"  data-ride="carousel">
