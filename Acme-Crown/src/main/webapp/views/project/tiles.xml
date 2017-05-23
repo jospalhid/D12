@@ -51,4 +51,19 @@
 		<put-attribute name="body" value="/views/project/list.jsp"/>		
 	</definition>
 	
+	<definition name="project/mine" extends="master.page">
+		<put-attribute name="title" value="My Projects"/>
+		<put-attribute name="body" value="/views/project/list.jsp"/>		
+	</definition>
+	
+	<definition name="project/contributions" extends="master.page">
+		<put-attribute name="title" value="My Contributions"/>
+		<put-attribute name="body" value="/views/project/list.jsp"/>		
+	</definition>
+	
+	<definition name="project/crown" extends="master.page">
+		<put-attribute name="title" value="Link Proyects"/>
+		<put-attribute name="body" value="/views/project/list.jsp"/>		
+	</definition>
+	
 </tiles-definitions>

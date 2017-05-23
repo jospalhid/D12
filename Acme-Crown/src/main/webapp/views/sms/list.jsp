@@ -35,8 +35,8 @@
 		<tr>
 			<td><display:column property="subject" title="${subjectHeader}" sortable="true" /> </td>
 			<td><display:column property="moment" title="${momentHeader}" sortable="true" /> </td>
-			<td><display:column property="recipient.name" title="${recipientHeader}" sortable="false" /> </td>
-			<td><display:column property="sender.name" title="${senderHeader}" sortable="false" /> </td>
+			<td><display:column property="recipient.userAccount.username" title="${recipientHeader}" sortable="false" /> </td>
+			<td><display:column property="sender.userAccount.username" title="${senderHeader}" sortable="false" /> </td>
 
 	</tr>
 	

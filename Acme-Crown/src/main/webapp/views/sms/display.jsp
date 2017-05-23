@@ -22,20 +22,13 @@
 
 
 <div class="container">
-	<div class="error">
-		<jstl:out value="${patron}"/>
-	</div>
-	
-	<div>
-	
-	</div>
 	
 	<div>
 		<h1><jstl:out value="${sms.subject}"/></h1>
 		<p><jstl:out value="${sms.moment}"/></p>
-		<strong><spring:message code="sms.recipient"/>: </strong><jstl:out value="${sms.recipient.name }"></jstl:out><br/>
-		<strong><spring:message code="sms.sender"/>: </strong><jstl:out value="${sms.sender.name }"></jstl:out><br/>
-		<strong><spring:message code="sms.body"/>: </strong><jstl:out value="${sms.body }"></jstl:out><br/>
+		<strong><spring:message code="sms.recipient"/>: </strong><jstl:out value="${sms.recipient.userAccount.username }"></jstl:out><br/>
+		<strong><spring:message code="sms.sender"/>: </strong><jstl:out value="${sms.sender.userAccount.username }"></jstl:out><br/><br/>
+		<jstl:out value="${sms.body }"></jstl:out>
 	</div>
 	
 	<%-- <form:form action="sms/delete.do" modelAttribute="sms">

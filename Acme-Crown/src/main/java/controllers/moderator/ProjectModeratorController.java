@@ -75,7 +75,7 @@ public class ProjectModeratorController extends AbstractController {
 			projects.addAll(this.projectService.findMyProjects(crownId));
 		}
 		
-		result = new ModelAndView("project/all");
+		result = new ModelAndView("project/crown");
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
 		result.addObject("requestURI", "project/moderator/crown.do");

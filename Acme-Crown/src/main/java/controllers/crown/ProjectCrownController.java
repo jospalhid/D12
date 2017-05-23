@@ -69,7 +69,7 @@ public class ProjectCrownController extends AbstractController {
 		int id=LoginService.getPrincipal().getId();
 		Collection<Project> projects = this.projectService.findMyProjects(id);
 
-		result = new ModelAndView("project/available");
+		result = new ModelAndView("project/mine");
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
 		result.addObject("requestURI", "project/crown/list.do");
@@ -83,7 +83,7 @@ public class ProjectCrownController extends AbstractController {
 		int id=LoginService.getPrincipal().getId();
 		Collection<Project> projects = this.projectService.findMyContributions(id);
 
-		result = new ModelAndView("project/available");
+		result = new ModelAndView("project/contributions");
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
 		result.addObject("requestURI", "project/crown/list.do");

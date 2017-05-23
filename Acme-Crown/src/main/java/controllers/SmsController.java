@@ -49,7 +49,7 @@ public class SmsController extends AbstractController {
 
 		final Collection<Sms> sms = this.smsService.findMyReceivedMessages(LoginService.getPrincipal().getId());
 
-		result = new ModelAndView("sms/list");
+		result = new ModelAndView("sms/received");
 		result.addObject("sms", sms);
 		result.addObject("requestURI", "/sms/received.do");
 
@@ -62,7 +62,7 @@ public class SmsController extends AbstractController {
 
 		final Collection<Sms> sms = this.smsService.findMySendMessages(LoginService.getPrincipal().getId());
 
-		result = new ModelAndView("sms/list");
+		result = new ModelAndView("sms/sent");
 		result.addObject("sms", sms);
 		result.addObject("requestURI", "/sms/send.do");
 
@@ -112,19 +112,30 @@ public class SmsController extends AbstractController {
 		if (!binding.hasErrors())
 			try {
 				this.smsService.save(res);
-				final Collection<Sms> smss = this.smsService.findMyReceivedMessages(LoginService.getPrincipal().getId());
-				result = new ModelAndView("sms/list");
+				final Collection<Sms> smss = this.smsService.findMySendMessages(LoginService.getPrincipal().getId());
+				result = new ModelAndView("sms/sent");
 				result.addObject("sms", smss);
 				result.addObject("message", "sms.commit.success");
 			} catch (final Throwable opps) {
+				final Collection<Actor> actors = new ArrayList<Actor>();
+				actors.addAll(this.crownService.findAll());
+				actors.addAll(this.moderatorService.findAll());
+				actors.addAll(this.adminService.findAll());
+				
 				result = new ModelAndView("sms/create");
 				result.addObject("sms", sms);
-				result.addObject("message", "sms.commit.incomplete");
+				result.addObject("actors", actors);
+				result.addObject("message", "sms.commit.error");
 			}
 		else {
+			final Collection<Actor> actors = new ArrayList<Actor>();
+			actors.addAll(this.crownService.findAll());
+			actors.addAll(this.moderatorService.findAll());
+			actors.addAll(this.adminService.findAll());
+			
 			result = new ModelAndView("sms/create");
 			result.addObject("sms", sms);
-			result.addObject("message", "sms.commit.error");
+			result.addObject("actors", actors);
 		}
 
 		return result;

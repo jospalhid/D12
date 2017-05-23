@@ -16,18 +16,23 @@
        
 <tiles-definitions>
 	
-	<definition name="sms/list" extends="master.page">
-		<put-attribute name="title" value="List of Messages"/>
+	<definition name="sms/received" extends="master.page">
+		<put-attribute name="title" value="Received"/>
+		<put-attribute name="body" value="/views/sms/list.jsp"/>		
+	</definition>
+	
+	<definition name="sms/sent" extends="master.page">
+		<put-attribute name="title" value="Sents"/>
 		<put-attribute name="body" value="/views/sms/list.jsp"/>		
 	</definition>
 	
 	<definition name="sms/display" extends="master.page">
-		<put-attribute name="title" value="Display"/>
+		<put-attribute name="title" value=""/>
 		<put-attribute name="body" value="/views/sms/display.jsp"/>		
 	</definition>
 	
 	<definition name="sms/create" extends="master.page">
-		<put-attribute name="title" value="Send a message"/>
+		<put-attribute name="title" value="Compose"/>
 		<put-attribute name="body" value="/views/sms/create.jsp"/>		
 	</definition>
 	
