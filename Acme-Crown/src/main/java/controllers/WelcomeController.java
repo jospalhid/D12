@@ -21,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CrownService;
+import services.ModeratorService;
 import domain.Crown;
+import domain.Moderator;
 
 @Controller
 @RequestMapping("/welcome")
@@ -29,6 +31,8 @@ public class WelcomeController extends AbstractController {
 
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private ModeratorService moderatorService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -56,7 +60,14 @@ public class WelcomeController extends AbstractController {
 			if(crown!=null && crown.isBanned()){
 				result.addObject("message", "master.page.crown.banned");
 			}
-		}catch(Throwable opps){}
+		}catch(Throwable opps){
+			try{
+				Moderator moderator = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+				if(moderator!=null && moderator.isBanned()){
+					result.addObject("message", "master.page.crown.banned");
+				}
+			}catch(Throwable oops){}
+		}
 
 		return result;
 	}

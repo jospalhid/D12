@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,56 @@ public class ModeratorService {
 		Assert.notNull(id);
 		return this.moderatorRepository.findByUserAccountId(id);
 		}
+
+	public void ban(int moderatorId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
+		
+		Moderator moderator = this.findOne(moderatorId);
+		moderator.setBanned(true);
+		Authority b = new Authority();
+		b.setAuthority(Authority.BANNED);
+		moderator.getUserAccount().setAuthorities(new ArrayList<Authority>());
+		moderator.getUserAccount().addAuthority(b);
+		this.save(moderator);
+		
+	}
+
+	public void unban(int moderatorId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
+		
+		Moderator moderator = this.findOne(moderatorId);
+		moderator.setBanned(false);
+		Authority b = new Authority();
+		b.setAuthority(Authority.MODERATOR);
+		moderator.getUserAccount().setAuthorities(new ArrayList<Authority>());
+		moderator.getUserAccount().addAuthority(b);
+		this.save(moderator);
+		
+	}
+
+	public void level(int moderatorId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
+		
+		Moderator moderator = this.findOne(moderatorId);
+		if(moderator.getLevel()==1){
+			moderator.setLevel(2);
+		}else{
+			moderator.setLevel(1);
+		}
+		
+		this.save(moderator);
+	}
 
 }

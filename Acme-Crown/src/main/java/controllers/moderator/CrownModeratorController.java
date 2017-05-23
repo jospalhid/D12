@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.CrownService;
+import services.ModeratorService;
 import controllers.AbstractController;
 import domain.Crown;
 
@@ -29,6 +31,8 @@ public class CrownModeratorController extends AbstractController {
 	
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private ModeratorService moderatorService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -47,6 +51,8 @@ public class CrownModeratorController extends AbstractController {
 		result = new ModelAndView("crown/list");
 		result.addObject("crowns", crowns);
 		result.addObject("requestURI", "/crown/moderator/list.do");
+		int level =  this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId()).getLevel();
+		result.addObject("level",level);
 
 		return result;
 	}
@@ -60,6 +66,8 @@ public class CrownModeratorController extends AbstractController {
 		result = new ModelAndView("crown/list");
 		result.addObject("crowns", crowns);
 		result.addObject("requestURI", "/crown/moderator/list.do");
+		int level =  this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId()).getLevel();
+		result.addObject("level",level);
 		
 		try{
 			this.crownService.ban(crownId);
@@ -79,6 +87,8 @@ public class CrownModeratorController extends AbstractController {
 		result = new ModelAndView("crown/list");
 		result.addObject("crowns", crowns);
 		result.addObject("requestURI", "/crown/moderator/list.do");
+		int level =  this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId()).getLevel();
+		result.addObject("level",level);
 		
 		try{
 			this.crownService.unban(crownId);

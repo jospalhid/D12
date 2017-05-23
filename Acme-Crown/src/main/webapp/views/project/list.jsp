@@ -35,7 +35,7 @@
 	<display:column>
 		<jstl:choose>
 		<jstl:when test="${project.banned==true}">
-			<img src="./images/ban.png" alt="Promoted" width="16">
+			<img src="./images/ban.png" alt="Banned" width="16">
 		</jstl:when>
 		<jstl:when test="${currentMonth==projectMonth && currentDay>projectDay}">
 			<img src="./images/lock.png" alt="Lock" width="16">

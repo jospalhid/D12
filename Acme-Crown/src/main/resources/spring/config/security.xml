@@ -73,6 +73,10 @@
 		<security:intercept-url pattern="/crown/moderator/unban.do" access="hasRole('MODERATOR')" /> 
 		<security:intercept-url pattern="/crown/moderator/list.do" access="hasRole('MODERATOR')" /> 
 		
+		<security:intercept-url pattern="/moderator/admin/ban.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/moderator/admin/unban.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/moderator/admin/level.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/moderator/admin/list.do" access="hasRole('ADMIN')" /> 
 		
 		<security:intercept-url pattern="/contest/available.do" access="permitAll" />
 		<security:intercept-url pattern="/contest/display.do" access="hasRole('CROWN') or hasRole('ADMIN')" />

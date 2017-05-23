@@ -13,6 +13,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Crown;
+import domain.Moderator;
 import domain.Project;
 import domain.Reward;
 
@@ -30,6 +31,8 @@ public class CrownService {
 //	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private ModeratorService moderatorService;
 
 	//Constructors
 	public CrownService() {
@@ -89,6 +92,14 @@ public class CrownService {
 		}
 
 	public void ban(int crownId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator for this action.");
+		Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
+		Assert.isTrue(moderator.getLevel()==2,"You need the level 2 for this action");
+		
 		Crown crown = this.findOne(crownId);
 		crown.setBanned(true);
 		Authority b = new Authority();
@@ -99,6 +110,14 @@ public class CrownService {
 	}
 
 	public void unban(int crownId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator for this action.");
+		Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
+		Assert.isTrue(moderator.getLevel()==2,"You need the level 2 for this action");
+		
 		Crown crown = this.findOne(crownId);
 		crown.setBanned(false);
 		Authority c = new Authority();

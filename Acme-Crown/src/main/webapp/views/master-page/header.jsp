@@ -46,6 +46,9 @@
 						<li><a href="crown/moderator/list.do"><spring:message code="master.page.ban" /></a></li>
 						<li><a href="project/moderator/crown.do"><spring:message code="master.page.moderator.projects" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="moderator/admin/list.do"><spring:message code="master.page.moderators" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
@@ -57,6 +60,7 @@
 				<li></li>
 				<li><a href="sms/received.do"><spring:message code="master.page.sms.list.received" /></a></li>
 				<li><a href="sms/send.do"><spring:message code="master.page.sms.list.send" /></a></li>
+				<li><a href="sms/create.do"><spring:message code="master.page.sms.new" /></a></li>
 			</ul>
 		</li>
 		</security:authorize>
