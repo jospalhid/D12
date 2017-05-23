@@ -189,7 +189,9 @@
 			<list></list>
 		</property>
 		<property name="favs">
-			<list></list>
+			<list>
+				<ref bean="project1"/>
+			</list>
 		</property>
 		<property name="rewards">
 			<list></list>
