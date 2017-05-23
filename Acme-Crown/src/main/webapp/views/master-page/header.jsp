@@ -47,22 +47,22 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN')">
-		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.category" /><span class="caret"></span></a>
-			<ul class="dropdown-menu">
-				<li></li>
-				<li><a href="category/admin/list.do"><spring:message code="master.page.category.list" /></a></li>
-				<li><a href="category/admin/create.do"><spring:message code="master.page.category.new" /></a></li>
-			</ul>
-		</li>
-		</security:authorize>
-		
 		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR')">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.sms" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
 				<li><a href="sms/received.do"><spring:message code="master.page.sms.list.received" /></a></li>
 				<li><a href="sms/send.do"><spring:message code="master.page.sms.list.send" /></a></li>
+			</ul>
+		</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('ADMIN')">
+		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.category" /><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li></li>
+				<li><a href="category/admin/list.do"><spring:message code="master.page.category.list" /></a></li>
+				<li><a href="category/admin/create.do"><spring:message code="master.page.category.new" /></a></li>
 			</ul>
 		</li>
 		</security:authorize>
@@ -85,6 +85,9 @@
 			<ul class="dropdown-menu">
 				<li></li>
 				<li><a href="contest/available.do"><spring:message code="master.page.contest.available" /></a></li>
+				<security:authorize access="hasRole('ADMIN')">
+				<li><a href="contest/admin/create.do"><spring:message code="master.page.contest.create" /></a></li>
+				</security:authorize>
 			</ul>
 		</li>
 	</ul>

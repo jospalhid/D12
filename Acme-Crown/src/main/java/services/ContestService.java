@@ -1,17 +1,21 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ContestRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Contest;
+import domain.Project;
 import forms.ContestForm;
 
 @Service
@@ -24,8 +28,8 @@ public class ContestService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
 
@@ -38,6 +42,7 @@ public class ContestService {
 	public Contest create() {
 		Contest res;
 		res = new Contest();
+		res.setProjects(new ArrayList<Project>());
 		return res;
 	}
 
@@ -93,6 +98,36 @@ public class ContestService {
 		Contest contest = this.findOne(contestForm.getContestId());
 		contest.getProjects().add(contestForm.getProject());
 		return this.saveAndEdit(contest);
+	}
+
+	public void validate(Contest contest, BindingResult binding) {
+		Contest res = this.create();
+		res.setTitle(contest.getTitle());
+		res.setDescription(contest.getDescription());
+		res.setMoment(contest.getMoment());
+		res.setTopic(contest.getTopic());
+		res.setAward(contest.getAward());
+		
+		validator.validate(res, binding);
+		
+	}
+
+	public Contest reconstructAndSave(Contest contest) {
+		Contest res;
+		if(contest.getId()==0){
+			res = this.create();
+		}else{
+			res = this.findOne(contest.getId());
+		}
+		res.setTitle(contest.getTitle());
+		res.setDescription(contest.getDescription());
+		res.setMoment(contest.getMoment());
+		res.setTopic(contest.getTopic());
+		res.setAward(contest.getAward());
+		
+		Contest fin = this.save(res);
+		
+		return fin;
 	}
 
 }

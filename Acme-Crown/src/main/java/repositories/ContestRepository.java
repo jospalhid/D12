@@ -11,7 +11,7 @@ import domain.Contest;
 @Repository
 public interface ContestRepository extends JpaRepository<Contest, Integer> {
 	
-	@Query("select c from Contest c where month(current_date)<=month(c.moment) and year(current_date)=year(c.moment)")
+	@Query("select c from Contest c where year(current_date)<year(c.moment) or ( year(current_date)=year(c.moment) and month(current_date)<=month(c.moment))")
 	Collection<Contest> findAvailableContest();
 	
 }

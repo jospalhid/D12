@@ -29,11 +29,13 @@
 	<jsp:useBean id="currentDate" class="java.util.Date" />
 	<fmt:formatDate value="${currentDate}" pattern="MM" var="currentMonth" />
 	<fmt:formatDate value="${currentDate}" pattern="dd" var="currentDay" />
+	<fmt:formatDate value="${currentDate}" pattern="yy" var="currentYear" />
 	<fmt:formatDate value="${contest.moment}" pattern="MM" var="projectMonth" />
 	<fmt:formatDate value="${contest.moment}" pattern="dd" var="projectDay" />
+	<fmt:formatDate value="${contest.moment}" pattern="yy" var="projectYear" />
 
 	<display:column>
-		<jstl:if test="${currentMonth==projectMonth && currentDay>projectDay}">
+		<jstl:if test="${currentYear==projectYear && currentMonth==projectMonth && currentDay>projectDay}">
 			<img src="./images/lock.png" alt="Lock" width="16">
 		</jstl:if>
 	</display:column>
@@ -58,6 +60,17 @@
 			<spring:message code="contest.display" var="displayHeader" />
 			<jstl:out value="${displayHeader}" />
 		</a>
+	</display:column>
+	
+	<display:column>
+	<security:authorize access="hasRole('ADMIN')">
+	<jstl:if test="${currentYear<projectYear || (currentYear==projectYear && currentMonth<projectMonth) || (currentMonth==projectMonth && currentDay<projectDay)}">
+		<a href="contest/admin/edit.do?contestId=${contest.id}">
+			<spring:message code="contest.edit" var="editHeader" />
+			<jstl:out value="${editHeader}" />
+		</a>
+	</jstl:if>
+	</security:authorize>
 	</display:column>
 
 	<%-- <security:authorize access="hasRole('CHORBI')">

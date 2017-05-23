@@ -463,9 +463,8 @@
 		<property name="title" value="Boats" />
 		<property name="topic" value="Navegar" />
 		<property name="description" value="Subete a bordo" />
-		<property name="moment" value="2017/05/02"/>
+		<property name="moment" value="2019/05/02"/>
 		<property name="award" value="100" />
-		<property name="winner" ref="project1"/>	
 		<property name="projects">
 			<list>
 				<ref bean="project1"/>
@@ -486,7 +485,6 @@
 	</bean>
 	
 	<!-- Sms -->
-	
 	<bean id="sms1" class="domain.Sms">
 		<property name="moment" value="2017/02/01 12:30" />
 		<property name="subject" value="Nuevo proyecto" />
