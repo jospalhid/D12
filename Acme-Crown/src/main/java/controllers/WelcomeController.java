@@ -59,15 +59,13 @@ public class WelcomeController extends AbstractController {
 			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 			if(crown!=null && crown.isBanned()){
 				result.addObject("message", "master.page.crown.banned");
-			}
-		}catch(Throwable opps){
-			try{
+			}else{
 				Moderator moderator = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
 				if(moderator!=null && moderator.isBanned()){
 					result.addObject("message", "master.page.crown.banned");
 				}
-			}catch(Throwable oops){}
-		}
+			}
+		}catch(Throwable opps){}
 
 		return result;
 	}

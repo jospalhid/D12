@@ -51,12 +51,12 @@
 		<jstl:choose>
 		<jstl:when test="${crown.banned==false}">
 		<a href="crown/moderator/ban.do?crownId=${crown.id}">
-			<img src="./images/unban.png" alt="Unban" width="20">
+			<img src="./images/unban.png" alt="Ban" width="20">
 		</a>
 		</jstl:when>
 		<jstl:otherwise>
 		<a href="crown/moderator/unban.do?crownId=${crown.id}">
-			<img src="./images/ban.png" alt="Ban" width="20">
+			<img src="./images/ban.png" alt="Unban" width="20">
 		</a>
 		</jstl:otherwise>
 		</jstl:choose>

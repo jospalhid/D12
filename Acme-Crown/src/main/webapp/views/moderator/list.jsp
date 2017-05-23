@@ -63,14 +63,12 @@
 		<jstl:choose>
 		<jstl:when test="${moderator.banned==false}">
 		<a href="moderator/admin/ban.do?moderatorId=${moderator.id}">
-			<spring:message code="moderator.ban" var="banHeader" />
-			<jstl:out value="${banHeader}" />
+			<img src="./images/unban.png" alt="Ban" width="20">
 		</a>
 		</jstl:when>
 		<jstl:otherwise>
 		<a href="moderator/admin/unban.do?moderatorId=${moderator.id}">
-			<spring:message code="moderator.unban" var="unbanHeader" />
-			<jstl:out value="${unbanHeader}" />
+			<img src="./images/ban.png" alt="Unban" width="20">
 		</a>
 		</jstl:otherwise>
 		</jstl:choose>
