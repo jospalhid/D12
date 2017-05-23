@@ -42,6 +42,9 @@
 					<security:authorize access="hasRole('CROWN')">
 						<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('MODERATOR')">
+						<li><a href="crown/moderator/list.do"><spring:message code="master.page.ban" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
@@ -67,6 +70,7 @@
 		</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR') or isAnonymous()">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.project" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
@@ -80,7 +84,9 @@
 				</security:authorize>
 			</ul>
 		</li>
+		</security:authorize>
 		
+		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR') or isAnonymous()">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.contest" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
@@ -90,6 +96,7 @@
 				</security:authorize>
 			</ul>
 		</li>
+		</security:authorize>
 	</ul>
 </div>
 

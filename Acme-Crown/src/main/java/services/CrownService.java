@@ -88,4 +88,24 @@ public class CrownService {
 		return this.crownRepository.findByUserAccountId(id);
 		}
 
+	public void ban(int crownId) {
+		Crown crown = this.findOne(crownId);
+		crown.setBanned(true);
+		Authority b = new Authority();
+		b.setAuthority(Authority.BANNED);
+		crown.getUserAccount().setAuthorities(new ArrayList<Authority>());
+		crown.getUserAccount().addAuthority(b);
+		this.save(crown);
+	}
+
+	public void unban(int crownId) {
+		Crown crown = this.findOne(crownId);
+		crown.setBanned(false);
+		Authority c = new Authority();
+		c.setAuthority(Authority.CROWN);
+		crown.getUserAccount().setAuthorities(new ArrayList<Authority>());
+		crown.getUserAccount().addAuthority(c);
+		this.save(crown);
+	}
+
 }
