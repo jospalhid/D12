@@ -51,14 +51,12 @@
 		<jstl:choose>
 		<jstl:when test="${crown.banned==false}">
 		<a href="crown/moderator/ban.do?crownId=${crown.id}">
-			<spring:message code="crown.ban" var="banHeader" />
-			<jstl:out value="${banHeader}" />
+			<img src="./images/unban.png" alt="Unban" width="20">
 		</a>
 		</jstl:when>
 		<jstl:otherwise>
 		<a href="crown/moderator/unban.do?crownId=${crown.id}">
-			<spring:message code="crown.unban" var="unbanHeader" />
-			<jstl:out value="${unbanHeader}" />
+			<img src="./images/ban.png" alt="Ban" width="20">
 		</a>
 		</jstl:otherwise>
 		</jstl:choose>
