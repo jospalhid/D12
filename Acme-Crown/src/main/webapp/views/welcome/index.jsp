@@ -16,7 +16,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:50%">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:75%; margin:auto">
 
   <!-- Indicators -->
   <ol class="carousel-indicators">

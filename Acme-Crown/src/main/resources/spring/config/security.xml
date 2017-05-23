@@ -50,6 +50,7 @@
 		<security:intercept-url pattern="/project/crown/reward.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/picture.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/project/crown/promote.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/project/crown/contributions.do" access="hasRole('CROWN')" />
 		
 		<security:intercept-url pattern="/reward/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/reward/crown/edit.do" access="hasRole('CROWN')" />
@@ -67,6 +68,7 @@
 		<security:intercept-url pattern="/project/moderator/list.do" access="hasRole('MODERATOR')" />
 		<security:intercept-url pattern="/project/moderator/ban.do" access="hasRole('MODERATOR')" />
 		<security:intercept-url pattern="/project/moderator/unban.do" access="hasRole('MODERATOR')" /> 
+		<security:intercept-url pattern="/project/moderator/crown.do" access="hasRole('MODERATOR')" />
 		<security:intercept-url pattern="/crown/moderator/ban.do" access="hasRole('MODERATOR')" />
 		<security:intercept-url pattern="/crown/moderator/unban.do" access="hasRole('MODERATOR')" /> 
 		<security:intercept-url pattern="/crown/moderator/list.do" access="hasRole('MODERATOR')" /> 

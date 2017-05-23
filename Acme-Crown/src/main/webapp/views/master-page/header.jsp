@@ -44,6 +44,7 @@
 					</security:authorize>
 					<security:authorize access="hasRole('MODERATOR')">
 						<li><a href="crown/moderator/list.do"><spring:message code="master.page.ban" /></a></li>
+						<li><a href="project/moderator/crown.do"><spring:message code="master.page.moderator.projects" /></a></li>
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
@@ -78,6 +79,7 @@
 				<security:authorize access="hasRole('CROWN')">
 					<li><a href="project/crown/create.do"><spring:message code="master.page.project.create" /></a></li>
 					<li><a href="project/crown/list.do"><spring:message code="master.page.project.list" /></a></li>
+					<li><a href="project/crown/contributions.do"><spring:message code="master.page.project.contributions" /></a></li>
 				</security:authorize>
 				<security:authorize access="hasRole('MODERATOR')">
 					<li><a href="project/moderator/list.do"><spring:message code="master.page.project.mod" /></a></li>

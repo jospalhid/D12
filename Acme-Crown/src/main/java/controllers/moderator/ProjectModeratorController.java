@@ -12,6 +12,8 @@ package controllers.moderator;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CrownService;
+import services.ModeratorService;
 import services.ProjectService;
 import controllers.AbstractController;
 import domain.Crown;
+import domain.Moderator;
 import domain.Project;
 
 @Controller
@@ -35,6 +39,8 @@ public class ProjectModeratorController extends AbstractController {
 	private ProjectService projectService;
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private ModeratorService moderatorService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -54,6 +60,25 @@ public class ProjectModeratorController extends AbstractController {
 		result.addObject("projects", projects);
 		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
 		result.addObject("requestURI", "project/moderator/list.do");
+
+		return result;
+	}
+	
+	@RequestMapping("/crown")
+	public ModelAndView crown() {
+		ModelAndView result;
+		Set<Project> projects = new HashSet<Project>();
+		Moderator moderator = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if(moderator.getCrown()!=null){
+			int crownId = moderator.getCrown().getUserAccount().getId();
+			projects.addAll(this.projectService.findMyContributions(crownId));
+			projects.addAll(this.projectService.findMyProjects(crownId));
+		}
+		
+		result = new ModelAndView("project/all");
+		result.addObject("projects", projects);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("requestURI", "project/moderator/crown.do");
 
 		return result;
 	}

@@ -11,7 +11,6 @@ import repositories.ModeratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Crown;
 import domain.Moderator;
 
 @Service
@@ -80,7 +79,7 @@ public class ModeratorService {
 	}
 
 	//Utilites methods
-	public Crown findByUserAccountId(final int id) {
+	public Moderator findByUserAccountId(final int id) {
 		Assert.notNull(id);
 		return this.moderatorRepository.findByUserAccountId(id);
 		}

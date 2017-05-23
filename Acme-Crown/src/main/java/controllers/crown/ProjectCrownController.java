@@ -66,8 +66,22 @@ public class ProjectCrownController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		ModelAndView result;
-		
-		Collection<Project> projects = this.projectService.findMyProjects();
+		int id=LoginService.getPrincipal().getId();
+		Collection<Project> projects = this.projectService.findMyProjects(id);
+
+		result = new ModelAndView("project/available");
+		result.addObject("projects", projects);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("requestURI", "project/crown/list.do");
+
+		return result;
+	}
+	
+	@RequestMapping("/contributions")
+	public ModelAndView contributions() {
+		ModelAndView result;
+		int id=LoginService.getPrincipal().getId();
+		Collection<Project> projects = this.projectService.findMyContributions(id);
 
 		result = new ModelAndView("project/available");
 		result.addObject("projects", projects);
@@ -182,7 +196,7 @@ public class ProjectCrownController extends AbstractController {
 			if(this.projectService.getBackers(project.getId())==0){
 				this.projectService.reconstructAndDelete(project);
 				
-				Collection<Project> projects = this.projectService.findMyProjects();
+				Collection<Project> projects = this.projectService.findMyProjects(LoginService.getPrincipal().getId());
 
 				result = new ModelAndView("project/available");
 				result.addObject("projects", projects);

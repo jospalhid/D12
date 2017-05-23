@@ -33,12 +33,17 @@
 	<fmt:formatDate value="${project.ttl}" pattern="dd" var="projectDay" />
 
 	<display:column>
-		<jstl:if test="${currentMonth==projectMonth && currentDay>projectDay}">
+		<jstl:choose>
+		<jstl:when test="${project.banned==true}">
+			<img src="./images/ban.png" alt="Promoted" width="16">
+		</jstl:when>
+		<jstl:when test="${currentMonth==projectMonth && currentDay>projectDay}">
 			<img src="./images/lock.png" alt="Lock" width="16">
-		</jstl:if>
-		<jstl:if test="${project.promoted==true}">
+		</jstl:when>
+		<jstl:when test="${project.promoted==true}">
 			<img src="./images/crown.png" alt="Promoted" width="16">
-		</jstl:if>
+		</jstl:when>
+		</jstl:choose>
 	</display:column>
 
 	<thead> 

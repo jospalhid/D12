@@ -140,6 +140,17 @@ public class ProjectService {
 		return this.projectRepository.findMyAvailableProjects(LoginService.getPrincipal().getId());
 	}
 	
+	public Collection<Project> findMyContributions(int id){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		final Authority b = new Authority();
+		b.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a) || ua.getAuthorities().contains(b), "You must to be a crown or a moderator for this action.");
+		return this.projectRepository.findMyContributions(id);
+	}
+	
 	public Collection<Project> findMyContestProjects(int contestId) {
 		List<Project> projects = new ArrayList<Project>();
 		projects.addAll(this.findMyAvailableProjects());
@@ -158,14 +169,16 @@ public class ProjectService {
 		return res;
 	}
 	
-	public Collection<Project> findMyProjects(){
+	public Collection<Project> findMyProjects(int id){
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
-		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
+		final Authority b = new Authority();
+		b.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a) || ua.getAuthorities().contains(b), "You must to be a crown or a moderator for this action.");
 		
-		return this.projectRepository.findMyProjects(ua.getId());
+		return this.projectRepository.findMyProjects(id);
 	}
 
 	public Long getDaysToGo(int projectId) {
