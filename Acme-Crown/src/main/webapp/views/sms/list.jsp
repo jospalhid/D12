@@ -44,10 +44,10 @@
 		<a href="sms/display.do?smsId=${sms.id}">
 		<jstl:choose>
 			<jstl:when test="${sms.readed==false }">
-			<img src="./images/sms.png" alt="Display" width="16">
+			<img src="./images/sms.png" alt="Display" width="25">
 			</jstl:when>
 			<jstl:when test="${sms.readed==true }">
-			<img src="./images/sms_open.png" alt="Display" width="16">
+			<img src="./images/sms_open.png" alt="Display" width="25">
 			</jstl:when>
 		</jstl:choose>
 		</a>
