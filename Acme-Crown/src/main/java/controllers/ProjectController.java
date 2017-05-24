@@ -75,10 +75,15 @@ public class ProjectController extends AbstractController {
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);
-		if (crown.getFavs().contains(project))
-			result.addObject("fav", true);
-		else
-			result.addObject("fav", false);
+		if(crown!=null){
+			if (crown.getFavs().contains(project)){
+				result.addObject("fav", true);
+			}
+			
+			else{
+				result.addObject("fav", false);
+			}
+		}
 
 		return result;
 	}

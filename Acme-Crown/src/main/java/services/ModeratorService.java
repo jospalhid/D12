@@ -83,7 +83,11 @@ public class ModeratorService {
 	public Moderator findByUserAccountId(final int id) {
 		Assert.notNull(id);
 		return this.moderatorRepository.findByUserAccountId(id);
-		}
+	}
+	
+	public Collection<Moderator> findAllNotBanned(){
+		return this.moderatorRepository.findAllNotBanned();
+	}
 
 	public void ban(int moderatorId) {
 		final UserAccount ua = LoginService.getPrincipal();

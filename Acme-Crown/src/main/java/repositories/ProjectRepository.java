@@ -23,6 +23,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 	@Query("select p from Project p where p.crown.userAccount.id=?1")
 	Collection<Project> findMyProjects(int id);
 	
+	@Query("select distinct c.favs from Crown c join c.favs f where c.userAccount.id=?1 and f.banned=false")
+	Collection<Project> findMyFavs(int id);
+	
 	@Query("select distinct r.project from Reward r join r.crowns c where c.userAccount.id=?1 and r.project.banned=false")
 	Collection<Project> findMyContributions(int id);
 	

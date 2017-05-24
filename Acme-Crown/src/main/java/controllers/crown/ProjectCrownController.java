@@ -77,6 +77,19 @@ public class ProjectCrownController extends AbstractController {
 
 		return result;
 	}
+	
+	@RequestMapping("/favs")
+	public ModelAndView favs() {
+		ModelAndView result;
+		final Collection<Project> projects = this.projectService.findMyFavs();
+
+		result = new ModelAndView("project/favs");
+		result.addObject("projects", projects);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
+		result.addObject("requestURI", "project/crown/favs.do");
+
+		return result;
+	}
 
 	@RequestMapping("/contributions")
 	public ModelAndView contributions() {

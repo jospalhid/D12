@@ -89,7 +89,11 @@ public class CrownService {
 	public Crown findByUserAccountId(final int id) {
 		Assert.notNull(id);
 		return this.crownRepository.findByUserAccountId(id);
-		}
+	}
+	
+	public Collection<Crown> findAllNotBanned(){
+		return this.crownRepository.findAllNotBanned();
+	}
 
 	public void ban(int crownId) {
 		final UserAccount ua = LoginService.getPrincipal();

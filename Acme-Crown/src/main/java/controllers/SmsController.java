@@ -93,8 +93,8 @@ public class SmsController extends AbstractController {
 
 		final Sms res = this.smsService.create(sender, sender);
 		final Collection<Actor> actors = new ArrayList<Actor>();
-		actors.addAll(this.crownService.findAll());
-		actors.addAll(this.moderatorService.findAll());
+		actors.addAll(this.crownService.findAllNotBanned());
+		actors.addAll(this.moderatorService.findAllNotBanned());
 		actors.addAll(this.adminService.findAll());
 
 		result = new ModelAndView("sms/create");
@@ -118,8 +118,8 @@ public class SmsController extends AbstractController {
 				result.addObject("message", "sms.commit.success");
 			} catch (final Throwable opps) {
 				final Collection<Actor> actors = new ArrayList<Actor>();
-				actors.addAll(this.crownService.findAll());
-				actors.addAll(this.moderatorService.findAll());
+				actors.addAll(this.crownService.findAllNotBanned());
+				actors.addAll(this.moderatorService.findAllNotBanned());
 				actors.addAll(this.adminService.findAll());
 				
 				result = new ModelAndView("sms/create");

@@ -20,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.AdminService;
 import services.CrownService;
 import services.ModeratorService;
+import services.SmsService;
+import domain.Actor;
 import domain.Crown;
 import domain.Moderator;
 
@@ -33,6 +36,10 @@ public class WelcomeController extends AbstractController {
 	private CrownService crownService;
 	@Autowired
 	private ModeratorService moderatorService;
+	@Autowired
+	private AdminService adminService;
+	@Autowired
+	private SmsService smsService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -66,6 +73,16 @@ public class WelcomeController extends AbstractController {
 				}
 			}
 		}catch(Throwable opps){}
+		
+		try{
+			Actor actor = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			if(actor==null){
+				actor = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+			}else{
+				actor = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
+			}
+			result.addObject("unread", this.smsService.unreadCount());
+		}catch(Throwable ooops){}
 
 		return result;
 	}

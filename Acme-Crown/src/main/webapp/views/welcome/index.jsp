@@ -16,6 +16,12 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<jstl:if test="${unread>0 }">
+<div style="position:absolute">
+	<img src="./images/unread.png" alt="Unread" width="50"> <strong><jstl:out value="${unread }"></jstl:out></strong>
+</div>
+</jstl:if>
+
 <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:75%; margin:auto">
 
   <!-- Indicators -->

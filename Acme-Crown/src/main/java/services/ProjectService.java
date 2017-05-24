@@ -180,6 +180,16 @@ public class ProjectService {
 		
 		return this.projectRepository.findMyProjects(id);
 	}
+	
+	public Collection<Project> findMyFavs(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
+		
+		return this.projectRepository.findMyFavs(ua.getId());
+	}
 
 	public Long getDaysToGo(int projectId) {
 		Project project = this.findOne(projectId);

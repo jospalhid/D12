@@ -105,6 +105,10 @@ public class SmsService {
 		Assert.notNull(ua);
 		return this.smsRepository.findMySendMessages(ua.getId());
 	}
+	
+	public Integer unreadCount(){
+		return this.smsRepository.unreadCount(LoginService.getPrincipal().getId());
+	}
 
 	public void setReaded(final int smsId) {
 		final Sms sms = this.smsRepository.findOne(smsId);
