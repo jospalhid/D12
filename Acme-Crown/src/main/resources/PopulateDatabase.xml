@@ -90,6 +90,17 @@
 			</list>
 		</property>
 	</bean>
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="bidder1" />
+		<property name="password" value="eb3e9f1216c82f068ccd64f75ee5db67" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="BIDDER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 	
 	<!-- Category -->
 	<bean id="category1" class="domain.Category">
@@ -149,6 +160,7 @@
 		</property>
 	</bean>
 	
+	<!-- Admin -->
 	<bean id="admin1" class="domain.Admin">
 		<property name="name" value="Doflamingo" />
 		<property name="surname" value="Donquixote" />
@@ -193,6 +205,9 @@
 		<property name="postComments">
 			<list></list>
 		</property>
+		<property name="concepts">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="crown2" class="domain.Crown">
@@ -224,6 +239,9 @@
 		<property name="postComments">
 			<list></list>
 		</property>
+		<property name="concepts">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="crown3" class="domain.Crown">
@@ -251,6 +269,9 @@
 			<list></list>
 		</property>
 		<property name="postComments">
+			<list></list>
+		</property>
+		<property name="concepts">
 			<list></list>
 		</property>
 	</bean>
@@ -290,6 +311,25 @@
 		</property>
 	</bean>
 	
+	<!-- Bidder -->
+	<bean id="bidder1" class="domain.Bidder">
+		<property name="name" value="Rob" />
+		<property name="surname" value="Lucci" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321614" />
+		<property name="picture" value="http://vignette2.wikia.nocookie.net/onepiece/images/e/e0/Lucci_casual_outfit.png/revision/latest?cb=20151018062953" />
+		<property name="userAccount" ref="userAccount7"/>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
+		<property name="bids">
+			<list></list>
+		</property>
+	</bean>
+	
 	<!-- CreditCard -->
 	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="holder" value="Trafalgar" />
@@ -298,7 +338,7 @@
 		<property name="expirationMonth" value="12" />
 		<property name="expirationYear" value="19" />
 		<property name="cvv" value="408" />
-		<property name="crown" ref="crown1"/>
+		<property name="superUser" ref="crown1"/>
 	</bean>
 	<bean id="creditCard2" class="domain.CreditCard">
 		<property name="holder" value="Trafalgar" />
@@ -307,7 +347,7 @@
 		<property name="expirationMonth" value="12" />
 		<property name="expirationYear" value="15" />
 		<property name="cvv" value="408" />
-		<property name="crown" ref="crown2"/>
+		<property name="superUser" ref="crown2"/>
 	</bean>
 	
 	
@@ -515,8 +555,7 @@
 		<property name="moment" value="2017/07/25"/>
 		<property name="award" value="300" />
 		<property name="projects">
-			<list>
-			</list>
+			<list></list>
 		</property>
 	</bean>
 	
@@ -529,7 +568,6 @@
 		<property name="recipient" ref="crown3" />
 		<property name="readed" value="false" />
 	</bean>
-	
 	<bean id="sms2" class="domain.Sms">
 		<property name="moment" value="2017/03/06 13:30" />
 		<property name="subject" value="Duda" />
@@ -538,8 +576,6 @@
 		<property name="recipient" ref="crown2" />
 		<property name="readed" value="false" />
 	</bean>
-	
-	
 	<bean id="sms3" class="domain.Sms">
 		<property name="moment" value="2017/05/05 17:30" />
 		<property name="subject" value="Información" />
@@ -550,7 +586,6 @@
 	</bean>
 	
 	<!-- Comment -->
-	
 	<bean id="comment1" class="domain.Comment">
 		<property name="title" value="Recordatorio" />	
 		<property name="moment" value="2016/10/28 11:25" />
@@ -567,7 +602,6 @@
 		<property name="stars" value="5" />
 		<property name="crown" ref="crown2" />
 		<property name="project" ref="project1" />
-		
 	</bean>
 	
 	<bean id="comment4" class="domain.Comment">
@@ -577,7 +611,6 @@
 		<property name="stars" value="5" />
 		<property name="crown" ref="crown1" />
 		<property name="project" ref="project1" />
-		
 	</bean>
 	
 	<bean id="comment3" class="domain.Comment">
@@ -587,6 +620,39 @@
 		<property name="stars" value="1" />
 		<property name="crown" ref="crown2" />
 		<property name="project" ref="project2" />
-		
 	</bean>
+	
+	<!-- Concept -->
+	<bean id="concept1" class="domain.Concept">
+		<property name="title" value="Idea Revolucionaria" />	
+		<property name="descripcion" value="No te lo cuento" />
+		<property name="ttl" value="5" />
+		<property name="dibs" value="350" />
+		<property name="valid" value="false" />
+		<property name="crown" ref="crown1" />
+		<property name="bids">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="concept2" class="domain.Concept">
+		<property name="title" value="Idea Regulera" />	
+		<property name="descripcion" value="No esta mal del todo" />
+		<property name="ttl" value="10" />
+		<property name="dibs" value="50" />
+		<property name="valid" value="true" />
+		<property name="day" value="2017/05/01" />
+		<property name="crown" ref="crown1" />
+		<property name="bids">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- Bid -->
+	<bean id="bid" class="domain.Bid">
+		<property name="input" value="120" />	
+		<property name="moment" value="2017/05/01 17:45" />
+		<property name="bidder" ref="bidder1" />
+		<property name="concept" ref="concept2" />
+	</bean>
+	
 </beans>

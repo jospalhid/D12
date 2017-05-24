@@ -78,16 +78,16 @@ public class CreditCard extends DomainEntity{
 	}
 	
 	//---------------------Relationships--------------------------
-	private Crown crown;
+	private SuperUser superUser;
 
 	@Valid
 	@NotNull
 	@OneToOne(optional=false)
-	public Crown getCrown() {
-		return crown;
+	public SuperUser getSuperUser() {
+		return superUser;
 	}
-	public void setCrown(Crown crown) {
-		this.crown = crown;
+	public void setSuperUser(SuperUser superUser) {
+		this.superUser = superUser;
 	}
-	
+
 }

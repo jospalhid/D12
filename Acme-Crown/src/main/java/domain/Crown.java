@@ -8,14 +8,13 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Crown extends Actor {
+public class Crown extends SuperUser {
 
 	//----------------------Attributes-------------------------
 	private boolean	banned;
@@ -39,21 +38,12 @@ public class Crown extends Actor {
 
 
 	//---------------------Relationships--------------------------
-	private CreditCard			creditCard;
 	private Collection<Project>	projects;
 	private Collection<Project>	favs;
 	private Collection<Reward>	rewards;
 	private Collection<Comment>	postComments;
+	private Collection<Concept> concepts;
 
-
-	@Valid
-	@OneToOne(mappedBy = "crown", optional = true)
-	public CreditCard getCreditCard() {
-		return this.creditCard;
-	}
-	public void setCreditCard(final CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
 
 	@Valid
 	@NotNull
@@ -97,5 +87,15 @@ public class Crown extends Actor {
 	public void setPostComments(final Collection<Comment> postComments) {
 		this.postComments = postComments;
 	}
-
+	
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "crown")
+	public Collection<Concept> getConcepts() {
+		return concepts;
+	}
+	public void setConcepts(Collection<Concept> concepts) {
+		this.concepts = concepts;
+	}
+	
 }

@@ -15,6 +15,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.CreditCard;
 import domain.Crown;
+import domain.SuperUser;
 
 @Service
 @Transactional
@@ -39,10 +40,11 @@ public class CreditCardService {
 	}
 
 	//Simple CRUD methods
-	public CreditCard create(final Crown crown) {
+	public CreditCard create(final SuperUser superUser) {
+		Assert.notNull(superUser);
 		CreditCard res;
 		res = new CreditCard();
-		res.setCrown(crown);
+		res.setSuperUser(superUser);
 		return res;
 	}
 
@@ -74,7 +76,7 @@ public class CreditCardService {
 		Assert.notNull(card, "The card to delete cannot be null.");
 		Assert.isTrue(this.creditCardRepository.exists(card.getId()));
 
-		Assert.isTrue(card.getCrown().getUserAccount().equals(ua),"You are not the owner of this card");
+		Assert.isTrue(card.getSuperUser().getUserAccount().equals(ua),"You are not the owner of this card");
 		
 		this.creditCardRepository.delete(card);
 	}
