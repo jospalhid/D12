@@ -75,11 +75,11 @@ public class WelcomeController extends AbstractController {
 		}catch(Throwable opps){}
 		
 		try{
-			Actor actor = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			Actor actor = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
 			if(actor==null){
 				actor = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
 			}else{
-				actor = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
+				actor = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 			}
 			result.addObject("unread", this.smsService.unreadCount());
 		}catch(Throwable ooops){}

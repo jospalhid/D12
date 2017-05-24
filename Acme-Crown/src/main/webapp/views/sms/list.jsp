@@ -21,7 +21,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <div class="container">
-<display:table name="sms" id="sms" requestURI="${requestURI}" pagesize="10" class="table table-hover">
+<display:table name="sms" id="sms" requestURI="${requestURI}" pagesize="20" class="table table-hover">
 
 	<thead> 
 		<tr> 
