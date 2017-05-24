@@ -149,6 +149,22 @@
 		</property>
 	</bean>
 	
+	<bean id="admin1" class="domain.Admin">
+		<property name="name" value="Doflamingo" />
+		<property name="surname" value="Donquixote" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="http://vignette3.wikia.nocookie.net/villains/images/d/df/12080535_1032194690185519_885736237_n.jpg/revision/latest?cb=20160801234725" />
+		<property name="userAccount" ref="userAccount1"/>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
+	</bean>
+	
+	
 	<!-- Crown -->
 	<bean id="crown1" class="domain.Crown">
 		<property name="name" value="Trafalgar" />

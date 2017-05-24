@@ -78,8 +78,8 @@
 	</security:authorize>
 	
 	<div>
-		<h1 class="titleProject"><jstl:out value="${project.title}"/></h1>
-		<div>
+		<h1 class="titleProject"><jstl:out value="${project.title}"/>
+		
 			<jstl:choose>
 			<jstl:when test="${fav==true}">
 			<a href="project/crown/fav.do?projectId=${project.id}">
@@ -92,7 +92,7 @@
 			</a>
 			</jstl:when>
 			</jstl:choose>
-		</div>
+		</h1>
 		<p class="descriptionProject"><jstl:out value="${project.description}"/></p>
 		<strong class="display"> <strong class="titleDisplay"><spring:message code="project.category"/>: </strong>  <jstl:out value="${project.category.name }" ></jstl:out><br/> </strong>
 		<strong class="display"> <strong class="titleDisplay"> <spring:message code="project.goal"/>: </strong><jstl:out value="${project.goal}"/>$<br> </strong>
