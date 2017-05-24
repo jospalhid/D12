@@ -14,10 +14,12 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Comment;
+import domain.Concept;
 import domain.Crown;
 import domain.Moderator;
 import domain.Project;
 import domain.Reward;
+import domain.Sms;
 
 @Service
 @Transactional
@@ -51,6 +53,9 @@ public class CrownService {
 		res.setProjects(new ArrayList<Project>());
 		res.setRewards(new ArrayList<Reward>());
 		res.setPostComments(new ArrayList<Comment>());
+		res.setReceivedMessages(new ArrayList<Sms>());
+		res.setSendMessages(new ArrayList<Sms>());
+		res.setConcepts(new ArrayList<Concept>());
 		res.setAmount(0);
 		return res;
 	}
@@ -84,6 +89,9 @@ public class CrownService {
 
 		Assert.isTrue(crown.getProjects().isEmpty(), "The crown cannot be delete with projects");
 		Assert.isTrue(crown.getRewards().isEmpty(), "The crown cannot be delete with rewards");
+		Assert.isTrue(crown.getConcepts().isEmpty(), "Cannot be delete with concepts");
+		Assert.isTrue(crown.getReceivedMessages().isEmpty(), "Cannot delete with messages");
+		Assert.isTrue(crown.getSendMessages().isEmpty(), "Cannot delete with messages");
 
 		this.crownRepository.delete(crown);
 	}

@@ -13,6 +13,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Moderator;
+import domain.Sms;
 
 @Service
 @Transactional
@@ -40,6 +41,8 @@ public class ModeratorService {
 		Moderator res;
 		res = new Moderator();
 		res.setUserAccount(ua);
+		res.setReceivedMessages(new ArrayList<Sms>());
+		res.setSendMessages(new ArrayList<Sms>());
 		res.setBanned(false);
 		return res;
 	}
@@ -75,6 +78,9 @@ public class ModeratorService {
 
 		Assert.notNull(moderator, "The chorbi to delete cannot be null.");
 		Assert.isTrue(this.moderatorRepository.exists(moderator.getId()));
+		
+		Assert.isTrue(moderator.getReceivedMessages().isEmpty(), "Cannot delete with messages");
+		Assert.isTrue(moderator.getSendMessages().isEmpty(), "Cannot delete with messages");
 
 		this.moderatorRepository.delete(moderator);
 	}

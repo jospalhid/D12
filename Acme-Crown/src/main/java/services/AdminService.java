@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Admin;
+import domain.Sms;
 
 @Service
 @Transactional
@@ -38,6 +40,8 @@ public class AdminService {
 		Admin res;
 		res = new Admin();
 		res.setUserAccount(ua);
+		res.setReceivedMessages(new ArrayList<Sms>());
+		res.setSendMessages(new ArrayList<Sms>());
 		return res;
 	}
 
@@ -67,6 +71,9 @@ public class AdminService {
 
 		Assert.notNull(admin, "The admin to delete cannot be null.");
 		Assert.isTrue(this.adminRepository.exists(admin.getId()));
+		
+		Assert.isTrue(admin.getReceivedMessages().isEmpty(), "Cannot delete with messages");
+		Assert.isTrue(admin.getSendMessages().isEmpty(), "Cannot delete with messages");
 
 		this.adminRepository.delete(admin);
 	}
