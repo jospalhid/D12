@@ -54,6 +54,9 @@
 		
 		<bean class="converters.CommentToStringConverter" />
 		<bean class="converters.StringToCommentConverter" />
+		
+		<bean class="converters.SuperUserToStringConverter" />
+		<bean class="converters.StringToSuperUserConverter" />
 	</util:list>
 	
 </beans>
