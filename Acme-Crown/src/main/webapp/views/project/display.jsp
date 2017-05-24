@@ -79,19 +79,20 @@
 	
 	<div>
 		<h1 class="titleProject"><jstl:out value="${project.title}"/>
-		
+			<security:authorize access="hasRole('CROWN')">
 			<jstl:choose>
 			<jstl:when test="${fav==true}">
 			<a href="project/crown/fav.do?projectId=${project.id}">
-				<img src="./images/favorite.png" alt="Fav" width="50">
+				<img src="./images/fav.png" alt="Fav" width="22">
 			</a>
 			</jstl:when>
 			<jstl:when test="${fav==false}">
 			<a href="project/crown/fav.do?projectId=${project.id}">
-				<img src="./images/nofavorite.png" alt="Nofav" width="50">
+				<img src="./images/nofav.png" alt="NoFav" width="22">
 			</a>
 			</jstl:when>
 			</jstl:choose>
+			</security:authorize>
 		</h1>
 		<p class="descriptionProject"><jstl:out value="${project.description}"/></p>
 		<strong class="display"> <strong class="titleDisplay"><spring:message code="project.category"/>: </strong>  <jstl:out value="${project.category.name }" ></jstl:out><br/> </strong>
