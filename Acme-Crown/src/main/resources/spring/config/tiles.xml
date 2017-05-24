@@ -36,6 +36,7 @@
 		<value>/views/sms/tiles.xml</value>
 		<value>/views/crown/tiles.xml</value>
 		<value>/views/moderator/tiles.xml</value>
+		<value>/views/comment/tiles.xml</value>
 	</util:list>
 
 </beans>

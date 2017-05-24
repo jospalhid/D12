@@ -36,6 +36,7 @@
 		<value>/views/sms/messages</value>
 		<value>/views/crown/messages</value>
 		<value>/views/moderator/messages</value>
+		<value>/views/comment/messages</value>
 	</util:list>
 
 </beans>

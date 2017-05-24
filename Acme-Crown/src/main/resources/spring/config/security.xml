@@ -90,7 +90,10 @@
 		<security:intercept-url pattern="/sms/send.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/sms/received.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" />
 		<security:intercept-url pattern="/sms/display.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
-		<security:intercept-url pattern="/sms/create.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" />   
+		<security:intercept-url pattern="/sms/create.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" />  
+		
+		<security:intercept-url pattern="/comment/crown/post.do" access="hasRole('CROWN')" />    
+		<security:intercept-url pattern="/comment/crown/save.do" access="hasRole('CROWN')" />    
 		 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

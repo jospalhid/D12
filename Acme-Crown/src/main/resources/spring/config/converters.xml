@@ -51,6 +51,9 @@
 		
 		<bean class="converters.SmsToStringConverter" />
 		<bean class="converters.StringToSmsConverter" />
+		
+		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.StringToCommentConverter" />
 	</util:list>
 	
 </beans>

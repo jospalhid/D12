@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.CommentService;
 import services.CrownService;
 import services.ProjectService;
+import domain.Comment;
 import domain.Crown;
 import domain.Project;
 
@@ -33,6 +35,8 @@ public class ProjectController extends AbstractController {
 	private ProjectService	projectService;
 	@Autowired
 	private CrownService	crownService;
+	@Autowired
+	private CommentService	commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -65,6 +69,7 @@ public class ProjectController extends AbstractController {
 		final Long days = this.projectService.getDaysToGo(projectId);
 		final Integer brackers = this.projectService.getBackers(projectId);
 		final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
 
 		result = new ModelAndView("project/display");
 		result.addObject("project", project);
@@ -75,15 +80,13 @@ public class ProjectController extends AbstractController {
 		result.addObject("days", days);
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);
-		if(crown!=null){
-			if (crown.getFavs().contains(project)){
+		result.addObject("comments", comments);
+		result.addObject("requestURI", "/project/display.do?projectId=" + projectId);
+		if (crown != null)
+			if (crown.getFavs().contains(project))
 				result.addObject("fav", true);
-			}
-			
-			else{
+			else
 				result.addObject("fav", false);
-			}
-		}
 
 		return result;
 	}

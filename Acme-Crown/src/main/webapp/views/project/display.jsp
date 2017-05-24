@@ -254,5 +254,30 @@
 		
 	</div>
 	</jstl:if>
+	<display:table name="comments" id="comment" requestURI="${requestURI}" pagesize="10" class="table table-hover">
+		<thead> 
+		<tr> 
+			<th><spring:message code="project.comment.title" var="titleHeader" /></th>
+			<th><spring:message code="project.comment.text" var="textHeader" /> </th>
+			<th><spring:message code="project.comment.crown" var="crownHeader" /> </th>
+			<th><spring:message code="project.comment.stars" var="starsHeader" /> </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><display:column property="title" title="${titleHeader}" sortable="true" /> </td>
+			<td><display:column property="text" title="${textHeader}" sortable="false" /> </td>
+			<td><display:column property="crown.userAccount.username" title="${crownHeader}" sortable="true" /> </td>
+			<td><display:column property="stars" title="${starsHeader}" sortable="true" /> </td>
+	</tr>
+	</tbody>
+	</display:table>
+	<security:authorize access="hasRole('CROWN')">
+	<p><a href="comment/crown/post.do?projectId=${project.id}" class="btn btn-sm btn-success">
+	 	<spring:message code="project.comment.post" var="postHeader" />
+		<jstl:out value="${postHeader}" />
+	</a></p>
+	
+	</security:authorize>
 	
 </div>
