@@ -28,5 +28,5 @@
   	<acme:textbox code="comment.stars" path="stars"/>
 	
 	<input type="submit" name="save" value="<spring:message code="comment.save" />" />
-	<input type="button" name="cancel" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${reward.project.id}'" /> <br />
+	<input type="button" name="cancel" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${comment.project.id}'" /> <br />
 </form:form>

@@ -254,6 +254,7 @@
 		
 	</div>
 	</jstl:if>
+	
 	<display:table name="comments" id="comment" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 		<thead> 
 		<tr> 
@@ -272,12 +273,17 @@
 	</tr>
 	</tbody>
 	</display:table>
+	
+	<jstl:if test="${project.banned==false}">
 	<security:authorize access="hasRole('CROWN')">
+	<jstl:if test="${days>0}">
 	<p><a href="comment/crown/post.do?projectId=${project.id}" class="btn btn-sm btn-success">
 	 	<spring:message code="project.comment.post" var="postHeader" />
 		<jstl:out value="${postHeader}" />
 	</a></p>
 	
+	</jstl:if>
 	</security:authorize>
+	</jstl:if>
 	
 </div>

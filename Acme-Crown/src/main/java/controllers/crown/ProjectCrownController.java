@@ -25,12 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.CategoryService;
+import services.CommentService;
 import services.ConfigService;
 import services.CreditCardService;
 import services.CrownService;
 import services.ProjectService;
 import services.RewardService;
 import controllers.AbstractController;
+import domain.Comment;
 import domain.CreditCard;
 import domain.Crown;
 import domain.Picture;
@@ -54,6 +56,8 @@ public class ProjectCrownController extends AbstractController {
 	private CreditCardService	creditCardService;
 	@Autowired
 	private ConfigService		configService;
+	@Autowired
+	private CommentService		commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -159,6 +163,8 @@ public class ProjectCrownController extends AbstractController {
 						result.addObject("fav", true);
 					else
 						result.addObject("fav", false);
+					final Collection<Comment> comments = this.commentService.findReceivedComments(save.getId());
+					result.addObject("comments", comments);
 				} catch (final Throwable oops) {
 					if (project.getId() == 0)
 						result = new ModelAndView("project/create");
@@ -286,6 +292,8 @@ public class ProjectCrownController extends AbstractController {
 				result.addObject("fav", true);
 			else
 				result.addObject("fav", false);
+			final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+			result.addObject("comments", comments);
 		} catch (final Throwable oops) {
 			final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 			final CreditCard card = crown.getCreditCard();
@@ -340,6 +348,8 @@ public class ProjectCrownController extends AbstractController {
 					result.addObject("fav", true);
 				else
 					result.addObject("fav", false);
+				final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+				result.addObject("comments", comments);
 			} catch (final Throwable oops) {
 				result = new ModelAndView("project/picture");
 				result.addObject("picture", picture);
@@ -385,6 +395,8 @@ public class ProjectCrownController extends AbstractController {
 			result.addObject("fav", true);
 		else
 			result.addObject("fav", false);
+		final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+		result.addObject("comments", comments);
 
 		return result;
 	}
@@ -408,6 +420,8 @@ public class ProjectCrownController extends AbstractController {
 		result.addObject("brackers", brackers);
 		result.addObject("crown", crown);
 		result.addObject("requestURI", "/project/display.do");
+		final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+		result.addObject("comments", comments);
 
 		try {
 			if (crown.getFavs().contains(project)) {

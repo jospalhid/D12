@@ -10,6 +10,8 @@
 
 package controllers.crown;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.CommentService;
 import services.CrownService;
 import services.ProjectService;
 import services.RewardService;
 import controllers.AbstractController;
+import domain.Comment;
 import domain.Crown;
 import domain.Project;
 import domain.Reward;
@@ -37,6 +41,8 @@ public class RewardCrownController extends AbstractController {
 	private CrownService	crownService;
 	@Autowired
 	private RewardService	rewardService;
+	@Autowired
+	private CommentService	commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -89,6 +95,8 @@ public class RewardCrownController extends AbstractController {
 					result.addObject("fav", true);
 				else
 					result.addObject("fav", false);
+				final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+				result.addObject("comments", comments);
 			} catch (final Throwable oops) {
 				result = new ModelAndView("reward/create");
 				result.addObject("reward", reward);
@@ -106,7 +114,6 @@ public class RewardCrownController extends AbstractController {
 	public ModelAndView delete(@RequestParam final int rewardId) {
 		ModelAndView result;
 		final Reward reward = this.rewardService.findOne(rewardId);
-		//		try{
 		final int projectId = reward.getProject().getId();
 		final Project project = this.projectService.findOne(projectId);
 		final Long days = this.projectService.getDaysToGo(projectId);
@@ -132,6 +139,8 @@ public class RewardCrownController extends AbstractController {
 			this.rewardService.delete(reward);
 		else
 			result.addObject("message", "project.backer.error");
+		final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+		result.addObject("comments", comments);
 
 		return result;
 	}

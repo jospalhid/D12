@@ -10,6 +10,8 @@
 
 package controllers.crown;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.CommentService;
 import services.CrownService;
 import services.ExtraRewardService;
 import services.ProjectService;
 import controllers.AbstractController;
+import domain.Comment;
 import domain.Crown;
 import domain.ExtraReward;
 import domain.Project;
@@ -37,6 +41,8 @@ public class ExtraRewardCrownController extends AbstractController {
 	private CrownService		crownService;
 	@Autowired
 	private ExtraRewardService	extrarewardService;
+	@Autowired
+	private CommentService		commentService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -88,6 +94,8 @@ public class ExtraRewardCrownController extends AbstractController {
 					result.addObject("fav", true);
 				else
 					result.addObject("fav", false);
+				final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+				result.addObject("comments", comments);
 			} catch (final Throwable oops) {
 				result = new ModelAndView("extrareward/create");
 				result.addObject("extraReward", extrareward);

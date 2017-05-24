@@ -26,7 +26,7 @@ public class Comment extends DomainEntity {
 	private String	text;
 	private int		stars;
 	private Date	moment;
-
+	private boolean banned;
 
 	@NotBlank
 	@SafeHtml
@@ -63,7 +63,13 @@ public class Comment extends DomainEntity {
 	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-
+	
+	public boolean isBanned() {
+		return banned;
+	}
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
 
 	//-----------------------------Relationships-------------------------
 	private Crown	crown;

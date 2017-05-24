@@ -12,6 +12,6 @@ import domain.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
-	@Query("select c from Comment c where  c.project.id=?1 order by c.moment DESC")
+	@Query("select c from Comment c where  c.project.id=?1 and c.banned=false order by c.moment DESC")
 	Collection<Comment> findReceivedComments(int id);
 }
