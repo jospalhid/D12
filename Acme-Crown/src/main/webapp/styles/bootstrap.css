@@ -6935,8 +6935,16 @@ button.close {
 }
 
 .descriptionProject{
-	    font-weight: bold;
+	font-weight: bold;
     margin: 0 auto;
     font-size: larger;
     color: #FF9800;
+}
+
+									/*#Join*/
+									
+.mitad{
+	margin:0 auto;
+	text-align: center;
+	
 }
