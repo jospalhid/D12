@@ -111,9 +111,13 @@ public class SmsService {
 	}
 
 	public void setReaded(final int smsId) {
+		UserAccount ua = LoginService.getPrincipal();
 		final Sms sms = this.smsRepository.findOne(smsId);
-		sms.setReaded(true);
+		if(sms.getRecipient().getUserAccount().equals(ua)){
+			sms.setReaded(true);
 		this.smsRepository.save(sms);
+		}
+		
 	}
 
 	public Sms reconstruct(final Sms sms, final BindingResult binding) {
