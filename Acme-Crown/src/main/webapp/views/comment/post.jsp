@@ -25,7 +25,8 @@
 	
   	<acme:textbox code="comment.title" path="title"/>
   	<acme:textarea code="comment.text" path="text"/>
-  	<acme:textbox code="comment.stars" path="stars"/>
+  	<%-- <acme:stars code="comment.stars" path="stars"/> --%>
+  	<input id="input-1" name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="1">
 	
 	<input type="submit" name="save" value="<spring:message code="comment.save" />" />
 	<input type="button" name="cancel" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${comment.project.id}'" /> <br />

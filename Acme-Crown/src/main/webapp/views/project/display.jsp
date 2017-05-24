@@ -259,6 +259,7 @@
 		<thead> 
 		<tr> 
 			<th><spring:message code="project.comment.title" var="titleHeader" /></th>
+			<th><spring:message code="project.comment.moment" var="momentHeader" /> </th>
 			<th><spring:message code="project.comment.text" var="textHeader" /> </th>
 			<th><spring:message code="project.comment.crown" var="crownHeader" /> </th>
 			<th><spring:message code="project.comment.stars" var="starsHeader" /> </th>
@@ -267,6 +268,7 @@
 	<tbody>
 		<tr>
 			<td><display:column property="title" title="${titleHeader}" sortable="true" /> </td>
+			<td><display:column property="moment" title="${momentHeader}" sortable="true" /> </td>
 			<td><display:column property="text" title="${textHeader}" sortable="false" /> </td>
 			<td><display:column property="crown.userAccount.username" title="${crownHeader}" sortable="true" /> </td>
 			<td><display:column property="stars" title="${starsHeader}" sortable="true" /> </td>
