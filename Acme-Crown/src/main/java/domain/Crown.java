@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -14,80 +15,87 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Crown extends Actor{
+public class Crown extends Actor {
 
 	//----------------------Attributes-------------------------
-	private boolean banned;
-	private double amount;
+	private boolean	banned;
+	private double	amount;
+
 
 	public boolean isBanned() {
-		return banned;
+		return this.banned;
 	}
-	public void setBanned(boolean banned) {
+	public void setBanned(final boolean banned) {
 		this.banned = banned;
 	}
-	
+
 	@Min(0)
 	public double getAmount() {
-		return amount;
+		return this.amount;
 	}
-	public void setAmount(double amount) {
+	public void setAmount(final double amount) {
 		this.amount = amount;
 	}
 
 
-
-
 	//---------------------Relationships--------------------------
-	private CreditCard creditCard;
-	private Collection<Project> projects;
-	private Collection<Project> favs;
-	private Collection<Reward> rewards;
+	private CreditCard			creditCard;
+	private Collection<Project>	projects;
+	private Collection<Project>	favs;
+	private Collection<Reward>	rewards;
+	private Collection<Comment>	postComments;
+
 
 	@Valid
-	@OneToOne(mappedBy="crown", optional=true)
+	@OneToOne(mappedBy = "crown", optional = true)
 	public CreditCard getCreditCard() {
-		return creditCard;
+		return this.creditCard;
 	}
-	public void setCreditCard(CreditCard creditCard) {
+	public void setCreditCard(final CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
-	
+
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="crown")
+	@OneToMany(mappedBy = "crown")
 	public Collection<Project> getProjects() {
-		return projects;
+		return this.projects;
 	}
-	public void setProjects(Collection<Project> projects) {
+	public void setProjects(final Collection<Project> projects) {
 		this.projects = projects;
 	}
-	
+
 	@Valid
 	@NotNull
 	@ManyToMany()
 	public Collection<Project> getFavs() {
-		return favs;
+		return this.favs;
 	}
-	public void setFavs(Collection<Project> favs) {
+	public void setFavs(final Collection<Project> favs) {
 		this.favs = favs;
 	}
-	
+
 	@Valid
 	@NotNull
-	@ManyToMany(
-			cascade={javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE},
-			mappedBy="crowns",
-			targetEntity=Reward.class
-			)
+	@ManyToMany(cascade = {
+		javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE
+	}, mappedBy = "crowns", targetEntity = Reward.class)
 	public Collection<Reward> getRewards() {
-		return rewards;
+		return this.rewards;
 	}
-	public void setRewards(Collection<Reward> rewards) {
+	public void setRewards(final Collection<Reward> rewards) {
 		this.rewards = rewards;
 	}
-	
-	
-	
-	
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "crown")
+	public Collection<Comment> getPostComments() {
+		return this.postComments;
+	}
+
+	public void setPostComments(final Collection<Comment> postComments) {
+		this.postComments = postComments;
+	}
+
 }

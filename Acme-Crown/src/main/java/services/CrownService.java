@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import repositories.CrownRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Comment;
 import domain.Crown;
 import domain.Moderator;
 import domain.Project;
@@ -23,16 +25,16 @@ public class CrownService {
 
 	//Managed repository
 	@Autowired
-	private CrownRepository	crownRepository;
-
+	private CrownRepository		crownRepository;
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
-	
+	//	@Autowired
+	//	private Validator validator;
+
 	//Supporting services
 	@Autowired
-	private ModeratorService moderatorService;
+	private ModeratorService	moderatorService;
+
 
 	//Constructors
 	public CrownService() {
@@ -48,6 +50,7 @@ public class CrownService {
 		res.setFavs(new ArrayList<Project>());
 		res.setProjects(new ArrayList<Project>());
 		res.setRewards(new ArrayList<Reward>());
+		res.setPostComments(new ArrayList<Comment>());
 		res.setAmount(0);
 		return res;
 	}
@@ -64,7 +67,7 @@ public class CrownService {
 
 	public Crown save(final Crown crown) {
 		Assert.notNull(crown, "The crown to save cannot be null.");
-		
+
 		final Crown res = this.crownRepository.save(crown);
 		return res;
 	}
@@ -81,7 +84,7 @@ public class CrownService {
 
 		Assert.isTrue(crown.getProjects().isEmpty(), "The crown cannot be delete with projects");
 		Assert.isTrue(crown.getRewards().isEmpty(), "The crown cannot be delete with rewards");
-		
+
 		this.crownRepository.delete(crown);
 	}
 
@@ -90,41 +93,41 @@ public class CrownService {
 		Assert.notNull(id);
 		return this.crownRepository.findByUserAccountId(id);
 	}
-	
-	public Collection<Crown> findAllNotBanned(){
+
+	public Collection<Crown> findAllNotBanned() {
 		return this.crownRepository.findAllNotBanned();
 	}
 
-	public void ban(int crownId) {
+	public void ban(final int crownId) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.MODERATOR);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator for this action.");
-		Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
-		Assert.isTrue(moderator.getLevel()==2,"You need the level 2 for this action");
-		
-		Crown crown = this.findOne(crownId);
+		final Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
+		Assert.isTrue(moderator.getLevel() == 2, "You need the level 2 for this action");
+
+		final Crown crown = this.findOne(crownId);
 		crown.setBanned(true);
-		Authority b = new Authority();
+		final Authority b = new Authority();
 		b.setAuthority(Authority.BANNED);
 		crown.getUserAccount().setAuthorities(new ArrayList<Authority>());
 		crown.getUserAccount().addAuthority(b);
 		this.save(crown);
 	}
 
-	public void unban(int crownId) {
+	public void unban(final int crownId) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.MODERATOR);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator for this action.");
-		Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
-		Assert.isTrue(moderator.getLevel()==2,"You need the level 2 for this action");
-		
-		Crown crown = this.findOne(crownId);
+		final Moderator moderator = this.moderatorService.findByUserAccountId(ua.getId());
+		Assert.isTrue(moderator.getLevel() == 2, "You need the level 2 for this action");
+
+		final Crown crown = this.findOne(crownId);
 		crown.setBanned(false);
-		Authority c = new Authority();
+		final Authority c = new Authority();
 		c.setAuthority(Authority.CROWN);
 		crown.getUserAccount().setAuthorities(new ArrayList<Authority>());
 		crown.getUserAccount().addAuthority(c);

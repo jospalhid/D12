@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -21,155 +22,162 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
 @Access(AccessType.PROPERTY)
-public class Project extends DomainEntity{
+public class Project extends DomainEntity {
 
 	//----------------------Attributes-------------------------
-	private String title;
-	private String description;
-	private int goal;
-	private Date ttl;
-	private Date moment;
-	private Collection<Picture> pictures;
-	private boolean banned;
-	private boolean promoted;
-	
+	private String				title;
+	private String				description;
+	private int					goal;
+	private Date				ttl;
+	private Date				moment;
+	private Collection<Picture>	pictures;
+	private boolean				banned;
+	private boolean				promoted;
+
+
 	@NotBlank
 	@SafeHtml
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
-	
+
 	@NotNull
 	@SafeHtml
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
-	
+
 	@Min(0)
 	public int getGoal() {
-		return goal;
+		return this.goal;
 	}
-	public void setGoal(int goal) {
+	public void setGoal(final int goal) {
 		this.goal = goal;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getTtl() {
-		return ttl;
+		return this.ttl;
 	}
-	public void setTtl(Date ttl) {
+	public void setTtl(final Date ttl) {
 		this.ttl = ttl;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern="dd/MM/yyyy")	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@ElementCollection
 	@Valid
 	@NotNull
 	public Collection<Picture> getPictures() {
-		return pictures;
+		return this.pictures;
 	}
-	public void setPictures(Collection<Picture> pictures) {
+	public void setPictures(final Collection<Picture> pictures) {
 		this.pictures = pictures;
 	}
-	
+
 	public boolean isBanned() {
-		return banned;
+		return this.banned;
 	}
-	public void setBanned(boolean banned) {
+	public void setBanned(final boolean banned) {
 		this.banned = banned;
 	}
 
-		public boolean isPromoted() {
-		return promoted;
+	public boolean isPromoted() {
+		return this.promoted;
 	}
-	public void setPromoted(boolean promoted) {
+	public void setPromoted(final boolean promoted) {
 		this.promoted = promoted;
 	}
 
 
-
-
 	//---------------------Relationships--------------------------
-	private Crown crown;
-	private Category category;
-	private Collection<Reward> rewards;
-	private Collection<ExtraReward> extraRewards;
-	private Collection<Contest> contests;
+	private Crown					crown;
+	private Category				category;
+	private Collection<Reward>		rewards;
+	private Collection<ExtraReward>	extraRewards;
+	private Collection<Contest>		contests;
+	private Collection<Comment>		comments;
+
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Crown getCrown() {
-		return crown;
+		return this.crown;
 	}
-	public void setCrown(Crown crown) {
+	public void setCrown(final Crown crown) {
 		this.crown = crown;
 	}
-	
+
 	@Valid
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Category getCategory() {
-		return category;
+		return this.category;
 	}
-	public void setCategory(Category category) {
+	public void setCategory(final Category category) {
 		this.category = category;
 	}
-	
+
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	public Collection<Reward> getRewards() {
-		return rewards;
+		return this.rewards;
 	}
-	public void setRewards(Collection<Reward> rewards) {
+	public void setRewards(final Collection<Reward> rewards) {
 		this.rewards = rewards;
 	}
-	
+
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	public Collection<ExtraReward> getExtraRewards() {
-		return extraRewards;
+		return this.extraRewards;
 	}
-	public void setExtraRewards(Collection<ExtraReward> extraRewards) {
+	public void setExtraRewards(final Collection<ExtraReward> extraRewards) {
 		this.extraRewards = extraRewards;
 	}
-	
+
 	@Valid
 	@NotNull
-	@ManyToMany(
-			cascade={javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE},
-			mappedBy="projects",
-			targetEntity=Contest.class
-			)
+	@ManyToMany(cascade = {
+		javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE
+	}, mappedBy = "projects", targetEntity = Contest.class)
 	public Collection<Contest> getContests() {
-		return contests;
+		return this.contests;
 	}
-	public void setContests(Collection<Contest> contests) {
+	public void setContests(final Collection<Contest> contests) {
 		this.contests = contests;
 	}
-	
-	
-	
+
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "project")
+	public Collection<Comment> getComments() {
+		return this.comments;
+	}
+
+	public void setComments(final Collection<Comment> comments) {
+		this.comments = comments;
+	}
+
 }

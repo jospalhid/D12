@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Category;
+import domain.Comment;
 import domain.Contest;
 import domain.Crown;
 import domain.ExtraReward;
@@ -35,13 +37,14 @@ public class ProjectService {
 
 	//Validator
 	@Autowired
-	private Validator validator;
-	
+	private Validator			validator;
+
 	//Supporting services
 	@Autowired
-	private CrownService crownService;
+	private CrownService		crownService;
 	@Autowired
-	private ContestService contestService;
+	private ContestService		contestService;
+
 
 	//Constructors
 	public ProjectService() {
@@ -49,7 +52,7 @@ public class ProjectService {
 	}
 
 	//Simple CRUD methods
-	public Project create(Crown crown, Category category) {
+	public Project create(final Crown crown, final Category category) {
 		Project res;
 		res = new Project();
 		res.setCrown(crown);
@@ -58,6 +61,7 @@ public class ProjectService {
 		res.setRewards(new ArrayList<Reward>());
 		res.setPictures(new ArrayList<Picture>());
 		res.setContests(new ArrayList<Contest>());
+		res.setComments(new ArrayList<Comment>());
 		res.setMoment(Calendar.getInstance().getTime());
 		res.setBanned(false);
 		res.setPromoted(false);
@@ -81,24 +85,24 @@ public class ProjectService {
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to save a project.");
-		
-		Integer days=this.getDaysToLive(project);
-		Assert.isTrue(days<=90 && days>0,"The ttl must be 90 or less");
-		
-//		project.setMoment(Calendar.getInstance().getTime());
-		
+
+		final Integer days = this.getDaysToLive(project);
+		Assert.isTrue(days <= 90 && days > 0, "The ttl must be 90 or less");
+
+		//		project.setMoment(Calendar.getInstance().getTime());
+
 		final Project res = this.projectRepository.save(project);
 		return res;
 	}
-	
-	public Project saveBan(Project project) {
+
+	public Project saveBan(final Project project) {
 		Assert.notNull(project, "The project to save cannot be null.");
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.MODERATOR);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator to ban/unban a project.");
-		
+
 		final Project res = this.projectRepository.save(project);
 		return res;
 	}
@@ -113,25 +117,25 @@ public class ProjectService {
 
 		Assert.notNull(project, "The project to delete cannot be null.");
 		Assert.isTrue(this.projectRepository.exists(project.getId()));
-		Assert.isTrue(this.getBackers(project.getId())==0,"The project cannot be delete with backers");
-		
+		Assert.isTrue(this.getBackers(project.getId()) == 0, "The project cannot be delete with backers");
+
 		this.projectRepository.delete(project);
 	}
 
 	//Utilites methods
-	public Double getCurrentGoal(int projectId){
+	public Double getCurrentGoal(final int projectId) {
 		return this.projectRepository.getCurrentGoal(projectId);
 	}
-	
-	public 	Integer getBackers(int projectId){
+
+	public Integer getBackers(final int projectId) {
 		return this.projectRepository.getBackers(projectId);
 	}
-	
-	public Collection<Project> findAvailableProjects(){
+
+	public Collection<Project> findAvailableProjects() {
 		return this.projectRepository.findAvailableProjects();
 	}
-	
-	public Collection<Project> findMyAvailableProjects(){
+
+	public Collection<Project> findMyAvailableProjects() {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
@@ -139,8 +143,8 @@ public class ProjectService {
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
 		return this.projectRepository.findMyAvailableProjects(LoginService.getPrincipal().getId());
 	}
-	
-	public Collection<Project> findMyContributions(int id){
+
+	public Collection<Project> findMyContributions(final int id) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
@@ -150,26 +154,25 @@ public class ProjectService {
 		Assert.isTrue(ua.getAuthorities().contains(a) || ua.getAuthorities().contains(b), "You must to be a crown or a moderator for this action.");
 		return this.projectRepository.findMyContributions(id);
 	}
-	
-	public Collection<Project> findMyContestProjects(int contestId) {
-		List<Project> projects = new ArrayList<Project>();
+
+	public Collection<Project> findMyContestProjects(final int contestId) {
+		final List<Project> projects = new ArrayList<Project>();
 		projects.addAll(this.findMyAvailableProjects());
-		Contest contest = this.contestService.findOne(contestId);
+		final Contest contest = this.contestService.findOne(contestId);
 		projects.removeAll(contest.getProjects());
 		return projects;
 	}
-	
-	public boolean canJoin(int contestId) {
+
+	public boolean canJoin(final int contestId) {
 		boolean res = false;
-		List<Project> projects = new ArrayList<Project>();
+		final List<Project> projects = new ArrayList<Project>();
 		projects.addAll(this.findMyContestProjects(contestId));
-		if(projects.size()>0){
-			res=true;
-		}
+		if (projects.size() > 0)
+			res = true;
 		return res;
 	}
-	
-	public Collection<Project> findMyProjects(int id){
+
+	public Collection<Project> findMyProjects(final int id) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
@@ -177,106 +180,106 @@ public class ProjectService {
 		final Authority b = new Authority();
 		b.setAuthority(Authority.MODERATOR);
 		Assert.isTrue(ua.getAuthorities().contains(a) || ua.getAuthorities().contains(b), "You must to be a crown or a moderator for this action.");
-		
+
 		return this.projectRepository.findMyProjects(id);
 	}
-	
-	public Collection<Project> findMyFavs(){
+
+	public Collection<Project> findMyFavs() {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
-		
+
 		return this.projectRepository.findMyFavs(ua.getId());
 	}
 
-	public Long getDaysToGo(int projectId) {
-		Project project = this.findOne(projectId);
-		Long current = Calendar.getInstance().getTimeInMillis();
-		Long moment = project.getMoment().getTime();
-		Long days = (current-moment)/86400000;
-		Long finish = project.getTtl().getTime();
-		Long ttl = (finish-moment)/86400000;
-		return ttl-days;
-	}
-	
-	public Long getDaysToGo(Project project) {
-		Long current = Calendar.getInstance().getTimeInMillis();
-		Long moment = project.getMoment().getTime();
-		Long days = (current-moment)/86400000;
-		Long finish = project.getTtl().getTime();
-		Long ttl = (finish-moment)/86400000;
-		return ttl-days;
-	}
-	
-	public Integer getDaysToLive(int projectId){
-		Project project = this.findOne(projectId);
-		Long moment = project.getMoment().getTime();
-		Long finish = project.getTtl().getTime();
-		Integer ttl = (int) ((finish-moment)/86400000);
-		return ttl;
-	}
-	public Integer getDaysToLive(Project project){
-		Long moment = project.getMoment().getTime();
-		Long finish = project.getTtl().getTime();
-		Integer ttl = (int) ((finish-moment)/86400000);
-		return ttl;
-	}
-	public boolean isValidTtl(int projectId, long ttl){
-		Project res = this.findOne(projectId);
-		Integer oldTtl = this.getDaysToLive(res.getId());
-		Long days = this.getDaysToGo(res.getId());
-		Long realTtl=oldTtl-days+ttl;
-		return realTtl<0 && realTtl>90;
+	public Long getDaysToGo(final int projectId) {
+		final Project project = this.findOne(projectId);
+		final Long current = Calendar.getInstance().getTimeInMillis();
+		final Long moment = project.getMoment().getTime();
+		final Long days = (current - moment) / 86400000;
+		final Long finish = project.getTtl().getTime();
+		final Long ttl = (finish - moment) / 86400000;
+		return ttl - days;
 	}
 
-	public Project reconstructAndSave(ProjectForm project) {
+	public Long getDaysToGo(final Project project) {
+		final Long current = Calendar.getInstance().getTimeInMillis();
+		final Long moment = project.getMoment().getTime();
+		final Long days = (current - moment) / 86400000;
+		final Long finish = project.getTtl().getTime();
+		final Long ttl = (finish - moment) / 86400000;
+		return ttl - days;
+	}
+
+	public Integer getDaysToLive(final int projectId) {
+		final Project project = this.findOne(projectId);
+		final Long moment = project.getMoment().getTime();
+		final Long finish = project.getTtl().getTime();
+		final Integer ttl = (int) ((finish - moment) / 86400000);
+		return ttl;
+	}
+	public Integer getDaysToLive(final Project project) {
+		final Long moment = project.getMoment().getTime();
+		final Long finish = project.getTtl().getTime();
+		final Integer ttl = (int) ((finish - moment) / 86400000);
+		return ttl;
+	}
+	public boolean isValidTtl(final int projectId, final long ttl) {
+		final Project res = this.findOne(projectId);
+		final Integer oldTtl = this.getDaysToLive(res.getId());
+		final Long days = this.getDaysToGo(res.getId());
+		final Long realTtl = oldTtl - days + ttl;
+		return realTtl < 0 && realTtl > 90;
+	}
+
+	public Project reconstructAndSave(final ProjectForm project) {
 		Assert.notNull(project, "The project to save cannot be null.");
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to save a project.");
-		
+
 		Project res;
-		if(project.getId()==0){
-			Crown crown = this.crownService.findByUserAccountId(ua.getId());
+		if (project.getId() == 0) {
+			final Crown crown = this.crownService.findByUserAccountId(ua.getId());
 			res = this.create(crown, project.getCategory());
-		}else{
+		} else {
 			res = this.findOne(project.getId());
 			Assert.isTrue(res.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
 		}
-		
+
 		res.setDescription(project.getDescription());
 		res.setTitle(project.getTitle());
 		res.setGoal(project.getGoal());
-		
-		Calendar ttl = Calendar.getInstance();
-		if(project.getId()==0){
-			ttl.setTimeInMillis(res.getMoment().getTime()+project.getTtl()*86400000);
-		}else{
-			Integer oldTtl = this.getDaysToLive(res.getId());
-			Long days = this.getDaysToGo(res.getId());
-			Long realTtl=oldTtl-days+project.getTtl();
-			ttl.setTimeInMillis(res.getMoment().getTime()+realTtl*86400000);
+
+		final Calendar ttl = Calendar.getInstance();
+		if (project.getId() == 0)
+			ttl.setTimeInMillis(res.getMoment().getTime() + project.getTtl() * 86400000);
+		else {
+			final Integer oldTtl = this.getDaysToLive(res.getId());
+			final Long days = this.getDaysToGo(res.getId());
+			final Long realTtl = oldTtl - days + project.getTtl();
+			ttl.setTimeInMillis(res.getMoment().getTime() + realTtl * 86400000);
 		}
 		res.setTtl(ttl.getTime());
-		Integer days=this.getDaysToLive(res);
-		
-		if(project.getUrl()!=null && project.getUrl()!=""){
-			Picture picture = new Picture(project.getUrl(), project.getTitle());
+		final Integer days = this.getDaysToLive(res);
+
+		if (project.getUrl() != null && project.getUrl() != "") {
+			final Picture picture = new Picture(project.getUrl(), project.getTitle());
 			res.getPictures().add(picture);
 		}
-		
-		Assert.isTrue(days<=90 && days>0,"The ttl must be 90 or less");
-		
+
+		Assert.isTrue(days <= 90 && days > 0, "The ttl must be 90 or less");
+
 		final Project fin = this.projectRepository.save(res);
-		
+
 		return fin;
 	}
-	
-	public void reconstructAndDelete(ProjectForm project) {
+
+	public void reconstructAndDelete(final ProjectForm project) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
@@ -286,38 +289,38 @@ public class ProjectService {
 		Assert.notNull(project, "The project to delete cannot be null.");
 		Assert.isTrue(this.projectRepository.exists(project.getId()));
 
-		Project res = this.findOne(project.getId());
-		
+		final Project res = this.findOne(project.getId());
+
 		Assert.isTrue(res.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
-		Assert.isTrue(this.getBackers(project.getId())==0,"The project cannot be delete with backers");
-		
+		Assert.isTrue(this.getBackers(project.getId()) == 0, "The project cannot be delete with backers");
+
 		this.projectRepository.delete(res);
-		
+
 	}
-	
-	public ProjectForm validate(ProjectForm project, BindingResult binding){
-		validator.validate(project, binding);
+
+	public ProjectForm validate(final ProjectForm project, final BindingResult binding) {
+		this.validator.validate(project, binding);
 		return project;
 	}
 
-//	public Set<String> getErrores(BindingResult binding) {
-//		List<ObjectError> errors = binding.getAllErrors();
-//		Set<String> res = new HashSet<String>();
-//		for(ObjectError wrong: errors){
-//			if(wrong.toString().contains("title")){
-//				res.add("Title: "+wrong.getDefaultMessage()+". ");
-//			}
-//			if(wrong.toString().contains("goal")){
-//				res.add("Goal: "+wrong.getDefaultMessage()+". ");
-//			}
-//			if(wrong.toString().contains("ttl")){
-//				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
-//			}
-//			if(wrong.toString().contains("url")){
-//				res.add("Picture: "+wrong.getDefaultMessage()+". ");
-//			}
-//		}
-//		return res;
-//	}
+	//	public Set<String> getErrores(BindingResult binding) {
+	//		List<ObjectError> errors = binding.getAllErrors();
+	//		Set<String> res = new HashSet<String>();
+	//		for(ObjectError wrong: errors){
+	//			if(wrong.toString().contains("title")){
+	//				res.add("Title: "+wrong.getDefaultMessage()+". ");
+	//			}
+	//			if(wrong.toString().contains("goal")){
+	//				res.add("Goal: "+wrong.getDefaultMessage()+". ");
+	//			}
+	//			if(wrong.toString().contains("ttl")){
+	//				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
+	//			}
+	//			if(wrong.toString().contains("url")){
+	//				res.add("Picture: "+wrong.getDefaultMessage()+". ");
+	//			}
+	//		}
+	//		return res;
+	//	}
 
 }

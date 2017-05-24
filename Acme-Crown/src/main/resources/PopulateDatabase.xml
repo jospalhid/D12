@@ -190,6 +190,9 @@
 		<property name="receivedMessages">
 			<list></list>
 		</property>
+		<property name="postComments">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="crown2" class="domain.Crown">
@@ -218,6 +221,9 @@
 		<property name="receivedMessages">
 			<list></list>
 		</property>
+		<property name="postComments">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="crown3" class="domain.Crown">
@@ -242,6 +248,9 @@
 			<list></list>
 		</property>
 		<property name="receivedMessages">
+			<list></list>
+		</property>
+		<property name="postComments">
 			<list></list>
 		</property>
 	</bean>
@@ -344,6 +353,9 @@
 		<property name="contests">
 			<list></list>
 		</property>
+		<property name="comments">
+			<list></list>
+		</property>
 	</bean>
 	
 	<bean id="project2" class="domain.Project">
@@ -368,6 +380,9 @@
 			<list></list>
 		</property>
 		<property name="contests">
+			<list></list>
+		</property>
+		<property name="comments">
 			<list></list>
 		</property>
 	</bean>
@@ -395,6 +410,9 @@
 			<list></list>
 		</property>
 		<property name="contests">
+			<list></list>
+		</property>
+		<property name="comments">
 			<list></list>
 		</property>
 	</bean>
@@ -529,5 +547,46 @@
 		<property name="sender" ref="crown1" />
 		<property name="recipient" ref="moderator1" />
 		<property name="readed" value="false" />
+	</bean>
+	
+	<!-- Comment -->
+	
+	<bean id="comment1" class="domain.Comment">
+		<property name="title" value="Recordatorio" />	
+		<property name="moment" value="2016/10/28 11:25" />
+		<property name="text" value="Me gustaría colaborar en este proyecto" />
+		<property name="stars" value="3" />
+		<property name="crown" ref="crown1" />
+		<property name="project" ref="project1" />
+	</bean>
+	
+	<bean id="comment2" class="domain.Comment">
+		<property name="title" value="¡Hola!" />	
+		<property name="moment" value="2017/02/28 17:45" />
+		<property name="text" value="Tu proyecto contiene información util." />
+		<property name="stars" value="5" />
+		<property name="crown" ref="crown2" />
+		<property name="project" ref="project1" />
+		
+	</bean>
+	
+	<bean id="comment4" class="domain.Comment">
+		<property name="title" value="¡Hola!" />	
+		<property name="moment" value="2017/02/28 17:45" />
+		<property name="text" value="Unas recompensas maravillosas." />
+		<property name="stars" value="5" />
+		<property name="crown" ref="crown1" />
+		<property name="project" ref="project1" />
+		
+	</bean>
+	
+	<bean id="comment3" class="domain.Comment">
+		<property name="title" value="No me gustó" />	
+		<property name="moment" value="2017/03/01 08:00" />
+		<property name="text" value="El título está mal." />
+		<property name="stars" value="1" />
+		<property name="crown" ref="crown2" />
+		<property name="project" ref="project2" />
+		
 	</bean>
 </beans>
