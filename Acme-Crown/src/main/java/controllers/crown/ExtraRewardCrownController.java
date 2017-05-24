@@ -30,14 +30,15 @@ import domain.Project;
 @Controller
 @RequestMapping("/extrareward/crown")
 public class ExtraRewardCrownController extends AbstractController {
-	
+
 	@Autowired
-	private ProjectService projectService;
+	private ProjectService		projectService;
 	@Autowired
-	private CrownService crownService;
+	private CrownService		crownService;
 	@Autowired
-	private ExtraRewardService extrarewardService;
-	
+	private ExtraRewardService	extrarewardService;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public ExtraRewardCrownController() {
@@ -45,56 +46,59 @@ public class ExtraRewardCrownController extends AbstractController {
 	}
 
 	// Actions ---------------------------------------------------------------	
-	
-	@RequestMapping(value="/create",method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int projectId) {
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Project project = this.projectService.findOne(projectId);
-		ExtraReward reward = this.extrarewardService.create(project);
-		
+
+		final Project project = this.projectService.findOne(projectId);
+		final ExtraReward reward = this.extrarewardService.create(project);
+
 		result = new ModelAndView("extrareward/create");
 		result.addObject("extraReward", reward);
 
 		return result;
 	}
-	
-	@RequestMapping(value="/edit", method = RequestMethod.POST, params="save")
-	public ModelAndView edit(ExtraReward extrareward, BindingResult binding) {
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(final ExtraReward extrareward, final BindingResult binding) {
 		ModelAndView result;
-		
-		ExtraReward res = this.extrarewardService.reconstruct(extrareward, binding);
-		if(!binding.hasErrors()){
-			try{
+
+		final ExtraReward res = this.extrarewardService.reconstruct(extrareward, binding);
+		if (!binding.hasErrors())
+			try {
 				this.extrarewardService.save(res);
-				
-				int projectId = res.getProject().getId();
-				Project project = this.projectService.findOne(projectId);
-				Long days = this.projectService.getDaysToGo(projectId);
-				Integer brackers = this.projectService.getBackers(projectId);
-				Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-				
+
+				final int projectId = res.getProject().getId();
+				final Project project = this.projectService.findOne(projectId);
+				final Long days = this.projectService.getDaysToGo(projectId);
+				final Integer brackers = this.projectService.getBackers(projectId);
+				final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 				result = new ModelAndView("project/display");
 				result.addObject("project", project);
-				Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-				if(currentGoal==null){
-					currentGoal=0.0;
-				}
+				Double currentGoal = this.projectService.getCurrentGoal(projectId);
+				if (currentGoal == null)
+					currentGoal = 0.0;
 				result.addObject("currentGoal", currentGoal);
 				result.addObject("days", days);
 				result.addObject("brackers", brackers);
 				result.addObject("crown", crown);
-			}catch(Throwable oops){
+				if (crown.getFavs().contains(project))
+					result.addObject("fav", true);
+				else
+					result.addObject("fav", false);
+			} catch (final Throwable oops) {
 				result = new ModelAndView("extrareward/create");
 				result.addObject("extraReward", extrareward);
 				result.addObject("message", "extrareward.commint.error");
 			}
-		}else{
+		else {
 			result = new ModelAndView("extrareward/create");
 			result.addObject("extraReward", extrareward);
 		}
-		
+
 		return result;
 	}
-	
+
 }

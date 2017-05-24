@@ -140,7 +140,12 @@ public class ProjectCrownController extends AbstractController {
 					result.addObject("currentGoal", currentGoal);
 					result.addObject("days", this.projectService.getDaysToGo(save.getId()));
 					result.addObject("brackers", this.projectService.getBackers(save.getId()));
-					result.addObject("crown", this.crownService.findByUserAccountId(LoginService.getPrincipal().getId()));
+					final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+					result.addObject("crown", crown);
+					if (crown.getFavs().contains(project))
+						result.addObject("fav", true);
+					else
+						result.addObject("fav", false);
 				} catch (final Throwable oops) {
 					if (project.getId() == 0)
 						result = new ModelAndView("project/create");
@@ -264,6 +269,10 @@ public class ProjectCrownController extends AbstractController {
 			result.addObject("brackers", brackers);
 			result.addObject("crown", crown);
 			result.addObject("patron", "CROWNED!");
+			if (crown.getFavs().contains(project))
+				result.addObject("fav", true);
+			else
+				result.addObject("fav", false);
 		} catch (final Throwable oops) {
 			final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 			final CreditCard card = crown.getCreditCard();
@@ -314,6 +323,10 @@ public class ProjectCrownController extends AbstractController {
 				result.addObject("days", days);
 				result.addObject("brackers", brackers);
 				result.addObject("crown", crown);
+				if (crown.getFavs().contains(project))
+					result.addObject("fav", true);
+				else
+					result.addObject("fav", false);
 			} catch (final Throwable oops) {
 				result = new ModelAndView("project/picture");
 				result.addObject("picture", picture);
@@ -355,6 +368,10 @@ public class ProjectCrownController extends AbstractController {
 		result.addObject("crown", crown);
 		result.addObject("promotedSMS", "proyect.promoted.success");
 		result.addObject("promoted", true);
+		if (crown.getFavs().contains(project))
+			result.addObject("fav", true);
+		else
+			result.addObject("fav", false);
 
 		return result;
 	}

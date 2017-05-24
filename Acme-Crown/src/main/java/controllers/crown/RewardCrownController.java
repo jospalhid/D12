@@ -30,14 +30,15 @@ import domain.Reward;
 @Controller
 @RequestMapping("/reward/crown")
 public class RewardCrownController extends AbstractController {
-	
+
 	@Autowired
-	private ProjectService projectService;
+	private ProjectService	projectService;
 	@Autowired
-	private CrownService crownService;
+	private CrownService	crownService;
 	@Autowired
-	private RewardService rewardService;
-	
+	private RewardService	rewardService;
+
+
 	// Constructors -----------------------------------------------------------
 
 	public RewardCrownController() {
@@ -45,107 +46,94 @@ public class RewardCrownController extends AbstractController {
 	}
 
 	// Actions ---------------------------------------------------------------	
-	
-	@RequestMapping(value="/create",method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam int projectId) {
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int projectId) {
 		ModelAndView result;
-		
-		Project project = this.projectService.findOne(projectId);
-		Reward reward = this.rewardService.create(project);
-		
+
+		final Project project = this.projectService.findOne(projectId);
+		final Reward reward = this.rewardService.create(project);
+
 		result = new ModelAndView("reward/create");
 		result.addObject("reward", reward);
 
 		return result;
 	}
-	
-	@RequestMapping(value="/edit", method = RequestMethod.POST, params="save")
-	public ModelAndView edit(Reward reward, BindingResult binding) {
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView edit(final Reward reward, final BindingResult binding) {
 		ModelAndView result;
-		
-		Reward res = this.rewardService.reconstruct(reward, binding);
-		if(!binding.hasErrors()){
-			try{
+
+		final Reward res = this.rewardService.reconstruct(reward, binding);
+		if (!binding.hasErrors())
+			try {
 				this.rewardService.save(res);
-				
-				int projectId = res.getProject().getId();
-				Project project = this.projectService.findOne(projectId);
-				Long days = this.projectService.getDaysToGo(projectId);
-				Integer brackers = this.projectService.getBackers(projectId);
-				Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-				
+
+				final int projectId = res.getProject().getId();
+				final Project project = this.projectService.findOne(projectId);
+				final Long days = this.projectService.getDaysToGo(projectId);
+				final Integer brackers = this.projectService.getBackers(projectId);
+				final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
 				result = new ModelAndView("project/display");
 				result.addObject("project", project);
-				Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-				if(currentGoal==null){
-					currentGoal=0.0;
-				}
+				Double currentGoal = this.projectService.getCurrentGoal(projectId);
+				if (currentGoal == null)
+					currentGoal = 0.0;
 				result.addObject("currentGoal", currentGoal);
 				result.addObject("days", days);
 				result.addObject("brackers", brackers);
 				result.addObject("crown", crown);
-			}catch(Throwable oops){
+
+				if (crown.getFavs().contains(project))
+					result.addObject("fav", true);
+				else
+					result.addObject("fav", false);
+			} catch (final Throwable oops) {
 				result = new ModelAndView("reward/create");
 				result.addObject("reward", reward);
 				result.addObject("message", "reward.commint.error");
 			}
-		}else{
+		else {
 			result = new ModelAndView("reward/create");
 			result.addObject("reward", reward);
 		}
-		
-		return result;
-	}
-	
-	@RequestMapping(value="/delete",method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam int rewardId) {
-		ModelAndView result;
-		Reward reward = this.rewardService.findOne(rewardId);
-//		try{
-			int projectId = reward.getProject().getId();
-			Project project = this.projectService.findOne(projectId);
-			Long days = this.projectService.getDaysToGo(projectId);
-			Integer brackers = this.projectService.getBackers(projectId);
-			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-			
-			result = new ModelAndView("project/display");
-			result.addObject("project", project);
-			Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-			if(currentGoal==null){
-				currentGoal=0.0;
-			}
-			result.addObject("currentGoal", currentGoal);
-			result.addObject("days", days);
-			result.addObject("brackers", brackers);
-			result.addObject("crown", crown);
-			
-			if(reward.getCrowns().isEmpty()){
-				this.rewardService.delete(reward);
-			}else{
-				result.addObject("message", "project.backer.error");
-			}
-//		}catch(Throwable oops){
-//			int projectId = reward.getProject().getId();
-//			Project project = this.projectService.findOne(projectId);
-//			Long days = this.projectService.getDaysToGo(projectId);
-//			Integer brackers = this.projectService.getBackers(projectId);
-//			Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-//			
-//			result = new ModelAndView("project/display");
-//			result.addObject("project", project);
-//			Double currentGoal =  this.projectService.getCurrentGoal(projectId);
-//			if(currentGoal==null){
-//				currentGoal=0.0;
-//			}
-//			result.addObject("currentGoal", currentGoal);
-//			result.addObject("days", days);
-//			result.addObject("brackers", brackers);
-//			result.addObject("crown", crown);
-//			
-//			result.addObject("message", "project.commit.error");
-//		}
 
 		return result;
 	}
-	
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int rewardId) {
+		ModelAndView result;
+		final Reward reward = this.rewardService.findOne(rewardId);
+		//		try{
+		final int projectId = reward.getProject().getId();
+		final Project project = this.projectService.findOne(projectId);
+		final Long days = this.projectService.getDaysToGo(projectId);
+		final Integer brackers = this.projectService.getBackers(projectId);
+		final Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+
+		result = new ModelAndView("project/display");
+		result.addObject("project", project);
+		Double currentGoal = this.projectService.getCurrentGoal(projectId);
+		if (currentGoal == null)
+			currentGoal = 0.0;
+		result.addObject("currentGoal", currentGoal);
+		result.addObject("days", days);
+		result.addObject("brackers", brackers);
+		result.addObject("crown", crown);
+
+		if (crown.getFavs().contains(project))
+			result.addObject("fav", true);
+		else
+			result.addObject("fav", false);
+
+		if (reward.getCrowns().isEmpty())
+			this.rewardService.delete(reward);
+		else
+			result.addObject("message", "project.backer.error");
+
+		return result;
+	}
+
 }
