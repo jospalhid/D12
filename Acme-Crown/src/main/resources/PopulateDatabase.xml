@@ -106,6 +106,7 @@
 	<bean id="category1" class="domain.Category">
 		<property name="name" value="Art" />
 		<property name="description" value="Todo un artista" />
+		<property name="picture" value="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/art.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -113,6 +114,7 @@
 	<bean id="category2" class="domain.Category">
 		<property name="name" value="Craft" />
 		<property name="description" value="La magia tambien cuenta" />
+		<property name="picture" value="http://findicons.com/files/icons/1182/quickpix_2009/128/captain_hammer.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -120,6 +122,7 @@
 	<bean id="category3" class="domain.Category">
 		<property name="name" value="Fashion" />
 		<property name="description" value="¿Que es la moda sin ti?" />
+		<property name="picture" value="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/fashion.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -127,6 +130,7 @@
 	<bean id="category4" class="domain.Category">
 		<property name="name" value="Cine" />
 		<property name="description" value="Haz tus propias peliculas" />
+		<property name="picture" value="http://findicons.com/files/icons/51/capital_suite/113/film_reel.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -134,6 +138,7 @@
 	<bean id="category5" class="domain.Category">
 		<property name="name" value="Games" />
 		<property name="description" value="Jugar solo es siempre mejor" />
+		<property name="picture" value="http://findicons.com/files/icons/1620/crystal_project/128/agt_games.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -141,6 +146,7 @@
 	<bean id="category6" class="domain.Category">
 		<property name="name" value="Music" />
 		<property name="description" value="Un casco para cada persona" />
+		<property name="picture" value="http://findicons.com/files/icons/1226/agua_extras_vol_1/128/music.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -148,6 +154,7 @@
 	<bean id="category7" class="domain.Category">
 		<property name="name" value="Technology" />
 		<property name="description" value="La vida en si misma" />
+		<property name="picture" value="https://openclipart.org/image/2400px/svg_to_png/183383/tech-rings.png"/>
 		<property name="projects">
 			<list></list>
 		</property>
@@ -155,6 +162,7 @@
 	<bean id="category8" class="domain.Category">
 		<property name="name" value="Others" />
 		<property name="description" value="Todo lo demas" />
+		<property name="picture" value="http://findicons.com/files/icons/638/magic_people/128/magic_ball.png"/>
 		<property name="projects">
 			<list></list>
 		</property>

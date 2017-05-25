@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.URL;
 
 
 @Entity
@@ -20,6 +21,7 @@ public class Category extends DomainEntity{
 	//----------------------Attributes-------------------------
 	private String name;
 	private String description;
+	private String picture;
 	
 	@NotBlank
 	@SafeHtml
@@ -39,6 +41,18 @@ public class Category extends DomainEntity{
 		this.description = description;
 	}
 	
+	@URL
+	@NotNull
+	@SafeHtml
+	public String getPicture() {
+		return picture;
+	}
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+
+
 	//---------------------Relationships--------------------------
 	private Collection<Project> projects;
 
