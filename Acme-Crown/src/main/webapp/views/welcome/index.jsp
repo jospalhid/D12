@@ -34,15 +34,18 @@
  <!-- Wrapper for slides -->
   <div class="carousel-inner" >
     <div class="item active">
-		<img src="images/crowdfounding.png">
+    	<spring:message code="index.image.crowdfounding" var="crowdfounding"/>
+		<img src="${crowdfounding }">
     </div>
 
     <div class="item">
-		<img src="images/bocadillos.png">
+		<spring:message code="index.image.bocadillo" var="bocadillo"/>
+		<img src="${bocadillo}">
     </div>
 
     <div class="item">
-		<img src="images/historia.png">
+		<spring:message code="index.image.tutorial" var="tutorial_pagar"/>
+		<img src="${tutorial_pagar}">
     </div>
   </div>
 
