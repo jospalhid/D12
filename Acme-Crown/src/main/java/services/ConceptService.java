@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ConceptRepository;
 import security.Authority;
@@ -26,10 +28,12 @@ public class ConceptService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private CrownService crownService;
 
 	//Constructors
 	public ConceptService() {
@@ -74,7 +78,7 @@ public class ConceptService {
 		Assert.notNull(ua);
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
-		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin to delete a contest.");
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to delete a contest.");
 
 		Assert.notNull(concept, "The concept to delete cannot be null.");
 		Assert.isTrue(this.conceptRepository.exists(concept.getId()));
@@ -85,5 +89,27 @@ public class ConceptService {
 	}
 
 	//Utilites methods
+	public Collection<Concept> findMyConcept(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action.");
+		
+		return this.conceptRepository.findMyConcept(ua.getId());
+	}
+
+	public Concept reconstruct(Concept concept, BindingResult binding) {
+		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		Concept res = this.create(crown);
+		res.setTitle(concept.getTitle());
+		res.setDescripcion(concept.getDescripcion());
+		res.setTtl(concept.getTtl());
+		res.setDibs(concept.getDibs());
+		
+		validator.validate(res, binding);
+		
+		return res;
+	}
 
 }

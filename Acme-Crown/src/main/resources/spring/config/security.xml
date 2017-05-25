@@ -61,6 +61,9 @@
 		<security:intercept-url pattern="/extrareward/crown/create.do" access="hasRole('CROWN')" /> 
 		<security:intercept-url pattern="/extrareward/crown/edit.do" access="hasRole('CROWN')" /> 
 		
+		<security:intercept-url pattern="/concept/crown/list.do" access="hasRole('CROWN')" />
+		<security:intercept-url pattern="/concept/crown/create.do" access="hasRole('CROWN')" />
+		
 		<security:intercept-url pattern="/category/admin/list.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/admin/edit.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')" /> 

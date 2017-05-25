@@ -54,7 +54,7 @@
 			</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR')">
+		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('BIDDER') or hasRole('MODERATOR')">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.sms" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
@@ -93,13 +93,25 @@
 		</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR') or isAnonymous()">
+		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR') or hasRole('BIDDER') or isAnonymous()">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.contest" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
 				<li><a href="contest/available.do"><spring:message code="master.page.contest.available" /></a></li>
 				<security:authorize access="hasRole('ADMIN')">
 				<li><a href="contest/admin/create.do"><spring:message code="master.page.contest.create" /></a></li>
+				</security:authorize>
+			</ul>
+		</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('BIDDER') or hasRole('CROWN')">
+		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.concepts" /><span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li></li>
+				<security:authorize access="hasRole('CROWN')">
+				<li><a href="concept/crown/list.do"><spring:message code="master.page.concept.list" /></a></li>
+				<li><a href="concept/crown/create.do"><spring:message code="master.page.concept.create" /></a></li>
 				</security:authorize>
 			</ul>
 		</li>
