@@ -25,6 +25,7 @@
 		<security:authorize access="hasRole('CROWN')">
 			<spring:message code="actor.crown" var="crowHeader" />
 			<h1><jstl:out value="${crowHeader}" /></h1>
+			
 		</security:authorize>
 		<security:authorize access="hasRole('BIDDER')">
 			<spring:message code="actor.bidder" var="bidderHeader" />
@@ -37,5 +38,13 @@
 		<strong><spring:message code="actor.surname"/>:</strong> <jstl:out value="${actor.surname}" /><br>
 		<strong><spring:message code="actor.email"/>:</strong> <jstl:out value="${actor.email}" /><br>
 		<strong><spring:message code="actor.phone"/>:</strong><jstl:out value="${actor.phone}" /><br>
+		<security:authorize access="hasRole('CROWN')">
+			<jstl:if test="${actor.amount > 0.0 }">
+				<a href="crown/pay.do">
+	 				<spring:message code="crown.pay" var="payHeader" />
+		  			<jstl:out value="${payHeader}" />
+				</a>
+			</jstl:if>
+		</security:authorize>
 	</div>
 </div>

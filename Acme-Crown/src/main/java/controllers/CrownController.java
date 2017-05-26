@@ -56,4 +56,22 @@ public class CrownController extends AbstractController{
 		}
 		return result;
 	}
+	
+	@RequestMapping(value = "/pay", method = RequestMethod.GET)
+	public ModelAndView pay() {
+		ModelAndView result;
+		Crown crown = crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		try{
+			crown.setAmount(0);
+			Crown res= crownService.save(crown);
+			result = new ModelAndView("actor/display");
+			result.addObject("actor", res);
+			result.addObject("message", "crown.pay.success");
+		}catch(Throwable oops){
+			result = new ModelAndView("actor/display");
+			result.addObject("actor", crown);
+			result.addObject("message", "crown.pay.error");
+		}
+		return result;
+	}
 }

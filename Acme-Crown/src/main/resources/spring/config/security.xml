@@ -113,6 +113,7 @@
 		
 		<security:intercept-url pattern="/actor/display.do" access="hasRole('CROWN') or hasRole('BIDDER')" />        
 		<security:intercept-url pattern="/crown/edit.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/crown/pay.do" access="hasRole('CROWN')" /> 
 		
 		<security:intercept-url pattern="/category/icontable.do" access="permitAll" /> 
 		       
