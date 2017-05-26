@@ -22,7 +22,7 @@
 </div>
 </jstl:if>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: -1.5%;">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:75%; margin:0 auto;">
 
   <!-- Indicators -->
   <ol class="carousel-indicators">
