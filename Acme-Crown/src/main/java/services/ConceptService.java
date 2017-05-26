@@ -189,5 +189,4 @@ public class ConceptService {
 		
 		return this.conceptRepository.findMyWins(ua.getId());
 	}
-
 }

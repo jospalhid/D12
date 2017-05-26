@@ -100,5 +100,15 @@ public class BidService {
 	}
 
 	//Utilites methods
+	
+	public Collection<Double> getAllBids(int id){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.BIDDER);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a bidder for this action");
+		
+		return this.bidRepository.getAllBids(id);
+	}
 
 }

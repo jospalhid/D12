@@ -99,14 +99,17 @@ public class ConceptBidderController extends AbstractController {
 		result.addObject("auction", true);
 		
 		if(!binding.hasErrors()){
-			this.bidService.save(res);
+			if(!this.bidService.getAllBids(conceptId).contains(bid.getInput())){
+				this.bidService.save(res);
+				result.addObject("message", "concept.bid.success");
+			}else{
+				result.addObject("message", "concept.bid.full");
+			}
 			
 			if(!concepts.isEmpty()){
 				Bid newBid = this.bidService.create(bidder, concepts.get(0));
 				result.addObject("bid", newBid);
 			}
-			
-			result.addObject("message", "concept.bid.success");
 		}else{
 			result.addObject("bid", bid);
 		}
