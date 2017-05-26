@@ -10,6 +10,7 @@
 
 package controllers.crown;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ConceptService;
+import services.CreditCardService;
 import services.CrownService;
 import controllers.AbstractController;
 import domain.Concept;
+import domain.CreditCard;
 import domain.Crown;
 
 @Controller
@@ -34,6 +37,8 @@ public class ConceptCrownController extends AbstractController {
 	private ConceptService conceptService;
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private CreditCardService creditCardService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -62,11 +67,23 @@ public class ConceptCrownController extends AbstractController {
 		
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 		Concept concept = this.conceptService.create(crown);
-		
-		
-		result = new ModelAndView("concept/create");
-		result.addObject("concept", concept);
+		final CreditCard card = crown.getCreditCard();
 
+		if (card != null) {
+			final int year = Calendar.getInstance().get(Calendar.YEAR);
+			final int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+			if ((card.getExpirationYear() + 2000) < year || (card.getExpirationYear() + 2000) == year && card.getExpirationMonth() <= month) {
+				result = new ModelAndView("creditCard/edit");
+				result.addObject("creditCard", card);
+				result.addObject("message", "concept.invalid.creditCard");
+			}
+			result = new ModelAndView("concept/create");
+			result.addObject("concept", concept);
+		} else {
+			result = new ModelAndView("creditCard/create");
+			result.addObject("creditCard", this.creditCardService.create(crown));
+			result.addObject("message", "concept.invalid.creditCard");
+		}
 		return result;
 	}
 	

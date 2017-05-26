@@ -258,7 +258,7 @@ public class ProjectCrownController extends AbstractController {
 				result.addObject("number", card.getNumber().substring(12));
 			}
 		} else {
-			result = new ModelAndView("creditCard/edit");
+			result = new ModelAndView("creditCard/create");
 			result.addObject("creditCard", this.creditCardService.create(crown));
 			result.addObject("message", "reward.invalid.creditCard");
 		}
