@@ -22,7 +22,7 @@
 </div>
 </jstl:if>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width:75%; margin:auto">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="margin-top: -1.5%;">
 
   <!-- Indicators -->
   <ol class="carousel-indicators">
@@ -32,20 +32,28 @@
   </ol>
   
  <!-- Wrapper for slides -->
-  <div class="carousel-inner" >
+   <div class="carousel-inner">
+   
+
     <div class="item active">
+       
     	<spring:message code="index.image.crowdfounding" var="crowdfounding"/>
 		<img src="${crowdfounding }">
-    </div>
 
+	</div>
+	
     <div class="item">
+
 		<spring:message code="index.image.bocadillo" var="bocadillo"/>
 		<img src="${bocadillo}">
     </div>
+   
 
     <div class="item">
+
 		<spring:message code="index.image.tutorial" var="tutorial_pagar"/>
 		<img src="${tutorial_pagar}">
+	
     </div>
   </div>
 
@@ -59,4 +67,6 @@
   </a>
 
 </div>
+
+
 

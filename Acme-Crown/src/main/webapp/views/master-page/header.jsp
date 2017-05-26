@@ -13,10 +13,11 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
+<%--
 <div>
 	<img src="images/logoLetra.png"  style="height: 150px;" class="img-responsive"  alt="Acme-Crown Co., Inc." />
 </div>
-
+ --%>
 <nav class="navbar navbar-inverse">
 <div>
 
