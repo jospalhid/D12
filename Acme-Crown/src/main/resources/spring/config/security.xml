@@ -73,7 +73,7 @@
 		
 		<security:intercept-url pattern="/concept/admin/list.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/concept/admin/valid.do" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/concept/admin/unvalid.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/concept/admin/invalid.do" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/category/admin/list.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/admin/edit.do" access="hasRole('ADMIN')" /> 

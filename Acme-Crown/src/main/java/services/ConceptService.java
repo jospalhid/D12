@@ -1,6 +1,7 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -148,12 +149,18 @@ public class ConceptService {
 		Concept concept = this.findOne(conceptId);
 		
 		concept.setValid(true);
-//		concept.setDay(Calendar.getInstance().s)
+		Calendar date = Calendar.getInstance();
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH);
+		int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+1;
+		date.set(year, month, day);
+		
+		concept.setDay(date.getTime());
 		
 		this.saveAndValid(concept);
 	}
 
-	public void unvalid(int conceptId) {
+	public void invalid(int conceptId) {
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();
@@ -163,7 +170,6 @@ public class ConceptService {
 		Concept concept = this.findOne(conceptId);
 		
 		concept.setValid(false);
-//		concept.setDay(Calendar.getInstance().s)
 		
 		this.saveAndValid(concept);
 		

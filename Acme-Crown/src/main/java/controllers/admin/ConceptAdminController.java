@@ -74,7 +74,7 @@ public class ConceptAdminController extends AbstractController {
 		ModelAndView result;
 		
 		try{
-			this.conceptService.unvalid(conceptId);
+			this.conceptService.invalid(conceptId);
 			result = new ModelAndView("redirect:list.do");
 		}catch(Throwable oops){
 			Collection<Concept> concepts = this.conceptService.findNotValidate();
