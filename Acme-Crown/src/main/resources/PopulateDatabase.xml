@@ -638,7 +638,6 @@
 		<property name="ttl" value="23" />
 		<property name="dibs" value="350" />
 		<property name="valid" value="0" />
-		<property name="win" value="true" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
@@ -651,7 +650,6 @@
 		<property name="ttl" value="23" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
-		<property name="win" value="true" />
 		<property name="day" value="2017/05/01" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
@@ -664,7 +662,6 @@
 		<property name="ttl" value="10" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
-		<property name="win" value="true" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown2" />
 		<property name="bids">

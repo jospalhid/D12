@@ -156,7 +156,10 @@ public class ContestService {
 			contest.setWinner(project);
 		}
 		contest.setWin(true);
-		this.save(contest);
+		Contest res =this.save(contest);
+		if(res!=null){
+			System.out.println("hol");
+		}
 	}
 
 }
