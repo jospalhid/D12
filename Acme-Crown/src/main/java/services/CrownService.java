@@ -2,17 +2,23 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.CrownRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Comment;
 import domain.Concept;
 import domain.Crown;
@@ -20,6 +26,7 @@ import domain.Moderator;
 import domain.Project;
 import domain.Reward;
 import domain.Sms;
+import forms.CrownForm;
 
 @Service
 @Transactional
@@ -30,12 +37,15 @@ public class CrownService {
 	private CrownRepository		crownRepository;
 
 	//Validator
-	//	@Autowired
-	//	private Validator validator;
+	@Autowired
+	private Validator			validator;
 
 	//Supporting services
 	@Autowired
 	private ModeratorService	moderatorService;
+
+	@Autowired
+	private UserAccountService	userAccountService;
 
 
 	//Constructors
@@ -140,6 +150,41 @@ public class CrownService {
 		crown.getUserAccount().setAuthorities(new ArrayList<Authority>());
 		crown.getUserAccount().addAuthority(c);
 		this.save(crown);
+	}
+
+	public Crown reconstruct(final CrownForm actor, final BindingResult binding) {
+		Crown result;
+		final List<String> cond = Arrays.asList(actor.getConditions());
+		if (!actor.getPassword1().isEmpty() && !actor.getPassword2().isEmpty() && actor.getPassword1().equals(actor.getPassword2()) && cond.contains("acepto")) {
+			final UserAccount ua = this.userAccountService.create();
+
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			final String hash = encoder.encodePassword(actor.getPassword1(), null);
+
+			ua.setUsername(actor.getUsername());
+			ua.setPassword(hash);
+
+			final Authority a = new Authority();
+			a.setAuthority(Authority.CROWN);
+			ua.getAuthorities().add(a);
+
+			result = this.create(ua);
+
+			result.setName(actor.getName());
+			result.setSurname(actor.getSurname());
+			result.setEmail(actor.getEmail());
+			result.setPhone(actor.getPhone());
+			result.setPicture(actor.getPicture());
+
+			this.validator.validate(result, binding);
+		} else {
+			result = new Crown();
+			result.setName("Pass");
+			if (!cond.contains("acepto"))
+				result.setName("Cond");
+		}
+		return result;
+
 	}
 
 }
