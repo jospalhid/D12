@@ -69,6 +69,7 @@
 		<security:intercept-url pattern="/concept/crown/create.do" access="hasRole('CROWN')" />
 		
 		<security:intercept-url pattern="/concept/bidder/list.do" access="hasRole('BIDDER')" />
+		<security:intercept-url pattern="/concept/bidder/win.do" access="hasRole('BIDDER')" />
 		<security:intercept-url pattern="/concept/bidder/bid.do" access="hasRole('BIDDER')" />
 		
 		<security:intercept-url pattern="/concept/admin/list.do" access="hasRole('ADMIN')" />

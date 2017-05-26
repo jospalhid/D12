@@ -179,5 +179,15 @@ public class ConceptService {
 	public Integer getActiveConcept(int id){
 		return this.conceptRepository.getActiveConcept(id);
 	}
+	
+	public Collection<Concept> findMyWins(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.BIDDER);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a bidder for this action.");
+		
+		return this.conceptRepository.findMyWins(ua.getId());
+	}
 
 }

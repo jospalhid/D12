@@ -71,6 +71,7 @@
 			<td><display:column property="descripcion" title="${descripcionHeader}" sortable="false" /> </td>
 			</security:authorize>
 			<security:authorize access="hasRole('BIDDER')">
+			<jstl:if test="${auction==true }">
 			<td>
 				<display:column title="${ttlHeader}" sortable="true">
 					<jstl:out value="${hours}"/> <spring:message code="concept.hour" />, 
@@ -78,10 +79,12 @@
 					<jstl:out value="${segs}"/> <spring:message	code="concept.seconds" /> <spring:message code="concept.left" />
 				</display:column>
 			</td>
+			</jstl:if>
 			</security:authorize>
 	</tr>
 	
 	<security:authorize access="hasRole('BIDDER')">
+	<jstl:if test="${auction==true }">
 	<display:column>
 		<form:form action="concept/bidder/bid.do?conceptId=${concept.id }" modelAttribute="bid">
 			
@@ -90,6 +93,7 @@
 			<input type="image" name="bid" src="./images/bid.png" alt="Bid" width="16">
 		</form:form>
 	</display:column>
+	</jstl:if>
 	</security:authorize>
 	
 	<security:authorize access="hasRole('ADMIN')">

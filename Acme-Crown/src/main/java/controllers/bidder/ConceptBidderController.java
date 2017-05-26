@@ -11,6 +11,7 @@
 package controllers.bidder;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,12 +61,26 @@ public class ConceptBidderController extends AbstractController {
 		result = new ModelAndView("concept/auction");
 		result.addObject("concepts", concepts);
 		result.addObject("requestURI", "/concept/bidder/list.do");
+		result.addObject("auction", true);
 		
 		if(!concepts.isEmpty()){
 			Bid bid = this.bidService.create(bidder, concepts.get(0));
 			result.addObject("bid", bid);
 		}
 
+		return result;
+	}
+	
+	@RequestMapping(value="/win")
+	public ModelAndView win() {
+		ModelAndView result;
+		
+		Collection<Concept> concepts = this.conceptService.findMyWins();
+		
+		result = new ModelAndView("concept/auction");
+		result.addObject("concepts", concepts);
+		result.addObject("requestURI", "/concept/bidder/list.do");
+		
 		return result;
 	}
 	
@@ -81,6 +96,7 @@ public class ConceptBidderController extends AbstractController {
 		result = new ModelAndView("concept/auction");
 		result.addObject("concepts", concepts);
 		result.addObject("requestURI", "/concept/bidder/list.do");
+		result.addObject("auction", true);
 		
 		if(!binding.hasErrors()){
 			this.bidService.save(res);

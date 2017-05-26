@@ -648,7 +648,7 @@
 		<property name="ttl" value="18" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
-		<property name="day" value="2017/05/26" />
+		<property name="day" value="2017/05/01" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
