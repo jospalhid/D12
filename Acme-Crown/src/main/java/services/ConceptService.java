@@ -48,6 +48,7 @@ public class ConceptService {
 		res = new Concept();
 		res.setCrown(crown);
 		res.setBids(new ArrayList<Bid>());
+		res.setValid(0);
 		return res;
 	}
 
@@ -148,7 +149,7 @@ public class ConceptService {
 		
 		Concept concept = this.findOne(conceptId);
 		
-		concept.setValid(true);
+		concept.setValid(1);
 		Calendar date = Calendar.getInstance();
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int month = Calendar.getInstance().get(Calendar.MONTH);
@@ -169,10 +170,14 @@ public class ConceptService {
 		
 		Concept concept = this.findOne(conceptId);
 		
-		concept.setValid(false);
+		concept.setValid(2);
 		
 		this.saveAndValid(concept);
 		
+	}
+	
+	public Integer getActiveConcept(int id){
+		return this.conceptRepository.getActiveConcept(id);
 	}
 
 }

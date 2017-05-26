@@ -636,6 +636,7 @@
 		<property name="descripcion" value="No te lo cuento" />
 		<property name="ttl" value="5" />
 		<property name="dibs" value="350" />
+		<property name="valid" value="0" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
@@ -646,7 +647,7 @@
 		<property name="descripcion" value="No esta mal del todo" />
 		<property name="ttl" value="18" />
 		<property name="dibs" value="50" />
-		<property name="valid" value="true" />
+		<property name="valid" value="1" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
@@ -659,7 +660,7 @@
 		<property name="descripcion" value="Too good for this life" />
 		<property name="ttl" value="20" />
 		<property name="dibs" value="50" />
-		<property name="valid" value="true" />
+		<property name="valid" value="1" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown2" />
 		<property name="bids">

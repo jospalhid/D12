@@ -35,6 +35,19 @@
 	<jstl:set var="mins" value="${60-currentMin}"/>
 	<jstl:set var="segs" value="${60-currentSeg}"/>
 
+	<security:authorize access="hasRole('CROWN')">
+	<display:column>
+		<jstl:choose>
+		<jstl:when test="${concept.valid==1}">
+			<img src="./images/valid.png" alt="Valid" width="16">
+		</jstl:when>
+		<jstl:when test="${concept.valid==2}">
+			<img src="./images/invalid.png" alt="Invalid" width="16">
+		</jstl:when>
+		</jstl:choose>
+	</display:column>
+	</security:authorize>
+
 	<thead> 
 		<tr> 
 			<th><spring:message code="concept.title" var="titleHeader" /></th>
@@ -81,12 +94,8 @@
 	
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="concept/admin/valid.do?conceptId=${concept.id}">
-				<img src="./images/valid.png" alt="Valid" width="16">
-			</a>
-			<a href="concept/admin/invalid.do?conceptId=${concept.id}">
-				<img src="./images/invalid.png" alt="Invalid" width="16">
-			</a>
+			<a href="concept/admin/valid.do?conceptId=${concept.id}"><img src="./images/valid.png" alt="Valid" width="16"></a>
+			<a href="concept/admin/invalid.do?conceptId=${concept.id}"><img src="./images/invalid.png" alt="Invalid" width="16"></a>
 		</display:column>
 	</security:authorize>
 

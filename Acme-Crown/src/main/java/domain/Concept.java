@@ -29,7 +29,7 @@ public class Concept extends DomainEntity{
 	private String descripcion;
 	private int ttl;
 	public double dibs;
-	public Boolean valid;
+	public int valid;
 	public Date day;
 	
 	@NotBlank
@@ -66,13 +66,13 @@ public class Concept extends DomainEntity{
 		this.dibs = dibs;
 	}
 	
-	public Boolean isValid() {
+	@Range(min=0, max=2)
+	public int getValid() {
 		return valid;
 	}
-	public void setValid(Boolean valid) {
+	public void setValid(int valid) {
 		this.valid = valid;
 	}
-	
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getDay() {
