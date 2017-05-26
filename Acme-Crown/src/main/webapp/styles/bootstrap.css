@@ -4604,6 +4604,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     background-color: currentColor;
     margin-top: 10px;
     border-width: 2px;
+    position: fixed;
   
 }
 .navbar-inverse .navbar-brand {
@@ -4623,6 +4624,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     width: 220px;
     height: 60px;
     text-align: center;
+    border-radius:10px;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
