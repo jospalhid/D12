@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.BidderService;
 import services.CrownService;
 import forms.ActorForm;
 
@@ -27,6 +28,8 @@ public class SigninController extends AbstractController {
 	//-----------Services----------------
 	@Autowired
 	private CrownService	crownService;
+	@Autowired
+	private BidderService	bidderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -35,24 +38,25 @@ public class SigninController extends AbstractController {
 		super();
 	}
 
-	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	@RequestMapping(value = "/signin/crown", method = RequestMethod.GET)
 	public ModelAndView signinUser() {
 		ModelAndView result;
 		final ActorForm crown = new ActorForm();
 
-		result = new ModelAndView("security/signin");
+		result = new ModelAndView("security/signin/crown");
 		result.addObject("actorForm", crown);
+		result.addObject("tipo","crown");
 
 		return result;
 	}
 
-	@RequestMapping(value = "/signin", method = RequestMethod.POST, params = "signin")
+	@RequestMapping(value = "/signin", method = RequestMethod.POST, params = "crown")
 	public ModelAndView user(final ActorForm actor, final BindingResult binding) {
 		ModelAndView result;
-//		Crown crown = this.crownService.reconstruct(actor, binding);
 		ActorForm res = this.crownService.validate(actor, binding);
 		if (binding.hasErrors() || res.getName().equals("Pass") || res.getName().equals("Cond")) {
-			result = new ModelAndView("security/signin");
+			result = new ModelAndView("security/signin/crown");
+			result.addObject("tipo","crown");
 			result.addObject("actorForm", actor);
 			if (res.getName().equals("Pass"))
 				result.addObject("message", "security.password.failed");
@@ -65,12 +69,52 @@ public class SigninController extends AbstractController {
 				this.crownService.reconstructAndSave(res);
 				result = new ModelAndView("redirect:login.do");
 			} catch (final Throwable oops) {
-				result = new ModelAndView("security/signin");
+				result = new ModelAndView("security/signin/crown");
 				result.addObject("actorForm", actor);
+				result.addObject("tipo","crown");
 				result.addObject("message", "security.signin.failed");
 			}
 
 		return result;
 	}
+	
+	@RequestMapping(value = "/signin/bidder", method = RequestMethod.GET)
+	public ModelAndView signinUserBidder() {
+		ModelAndView result;
+		final ActorForm bidder = new ActorForm();
 
+		result = new ModelAndView("security/signin/bidder");
+		result.addObject("actorForm", bidder);
+		result.addObject("tipo","bidder");
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.POST, params = "bidder")
+	public ModelAndView userBidder(final ActorForm actor, final BindingResult binding) {
+		ModelAndView result;
+		ActorForm res = this.bidderService.validate(actor, binding);
+		if (binding.hasErrors() || res.getName().equals("Pass") || res.getName().equals("Cond")) {
+			result = new ModelAndView("security/signin/bidder");
+			result.addObject("tipo","bidder");
+			result.addObject("actorForm", actor);
+			if (res.getName().equals("Pass"))
+				result.addObject("message", "security.password.failed");
+			else if (res.getName().equals("Cond"))
+				result.addObject("message", "security.condition.failed");
+			else
+				result.addObject("errors", binding.getAllErrors());
+		} else
+			try {
+				this.bidderService.reconstructAndSave(res);
+				result = new ModelAndView("redirect:login.do");
+			} catch (final Throwable oops) {
+				result = new ModelAndView("security/signin/bidder");
+				result.addObject("actorForm", actor);
+				result.addObject("tipo","crown");
+				result.addObject("message", "security.signin.failed");
+			}
+
+		return result;
+	}
 }

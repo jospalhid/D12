@@ -1,20 +1,27 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BidderRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
 import domain.Bid;
 import domain.Bidder;
 import domain.Sms;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -26,10 +33,12 @@ public class BidderService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private UserAccountService userAccountService;
 
 	//Constructors
 	public BidderService() {
@@ -86,6 +95,43 @@ public class BidderService {
 	public Bidder findByUserAccountId(final int id) {
 		Assert.notNull(id);
 		return this.bidderRepository.findByUserAccountId(id);
+	}
+	
+	public Bidder reconstructAndSave(final ActorForm actor) {
+		Bidder result;
+		final UserAccount ua = this.userAccountService.create();
+
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final String hash = encoder.encodePassword(actor.getPassword1(), null);
+		
+		ua.setUsername(actor.getUsername());
+		ua.setPassword(hash);
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.BIDDER);
+		ua.getAuthorities().add(a);
+
+		result = this.create(ua);
+
+		result.setName(actor.getName());
+		result.setSurname(actor.getSurname());
+		result.setEmail(actor.getEmail());
+		result.setPhone(actor.getPhone());
+		result.setPicture(actor.getPicture());
+
+		return this.save(result);
+	}
+	
+	public ActorForm validate(ActorForm actor, BindingResult binding) {
+		validator.validate(actor, binding);
+		List<String> cond = Arrays.asList(actor.getConditions());
+		if (!actor.getPassword1().equals(actor.getPassword2()) || !cond.contains("acepto")) {
+			actor.setName("Pass");
+			if (!cond.contains("acepto"))
+				actor.setName("Cond");
 		}
+		return actor;
+	}
+
 
 }

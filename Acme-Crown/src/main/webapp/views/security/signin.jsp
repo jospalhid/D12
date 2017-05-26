@@ -25,7 +25,7 @@
 	<acme:checkbox code="security.condition" value="acepto" path="conditions"/>
 	
 	<br/><br/>
-	<input type="submit" name="signin" value="<spring:message code="security.submit" />" />
+	<input type="submit" name="${tipo}" value="<spring:message code="security.submit" />" />
 	<input type="button" name="cancel" value="<spring:message code="security.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 	
 </form:form>
