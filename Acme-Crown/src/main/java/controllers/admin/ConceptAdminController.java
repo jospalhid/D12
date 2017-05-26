@@ -69,7 +69,7 @@ public class ConceptAdminController extends AbstractController {
 		return result;
 	}
 	
-	@RequestMapping(value="/unvalid", method = RequestMethod.GET)
+	@RequestMapping(value="/invalid", method = RequestMethod.GET)
 	public ModelAndView unvalid(@RequestParam int conceptId) {
 		ModelAndView result;
 		
