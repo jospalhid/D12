@@ -43,9 +43,10 @@ public class CrownService {
 	//Supporting services
 	@Autowired
 	private ModeratorService	moderatorService;
-
 	@Autowired
 	private UserAccountService	userAccountService;
+	@Autowired
+	private ConfigService	configService;
 
 
 	//Constructors
@@ -185,6 +186,13 @@ public class CrownService {
 		}
 		return result;
 
+	}
+
+	public void auction() {
+		Crown crown = this.findByUserAccountId(LoginService.getPrincipal().getId());
+		crown.setAmount(crown.getAmount()+this.configService.find().getAuction());
+		this.save(crown);
+		
 	}
 
 }

@@ -95,7 +95,8 @@ public class ConceptCrownController extends AbstractController {
 		if (!binding.hasErrors()){
 			try {
 				this.conceptService.save(res);
-
+				this.crownService.auction();
+				
 				Collection<Concept> concepts = this.conceptService.findMyConcept();
 				
 				result = new ModelAndView("concept/mine");
