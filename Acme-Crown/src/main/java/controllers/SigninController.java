@@ -39,7 +39,7 @@ public class SigninController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/signin/crown", method = RequestMethod.GET)
-	public ModelAndView signinUser() {
+	public ModelAndView signinUserCrown() {
 		ModelAndView result;
 		final ActorForm crown = new ActorForm();
 
@@ -51,7 +51,7 @@ public class SigninController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST, params = "crown")
-	public ModelAndView user(final ActorForm actor, final BindingResult binding) {
+	public ModelAndView userCrown(final ActorForm actor, final BindingResult binding) {
 		ModelAndView result;
 		ActorForm res = this.crownService.validate(actor, binding);
 		if (binding.hasErrors() || res.getName().equals("Pass") || res.getName().equals("Cond")) {
@@ -111,7 +111,7 @@ public class SigninController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = new ModelAndView("security/signin/bidder");
 				result.addObject("actorForm", actor);
-				result.addObject("tipo","crown");
+				result.addObject("tipo","bidder");
 				result.addObject("message", "security.signin.failed");
 			}
 

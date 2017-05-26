@@ -40,6 +40,8 @@
 		<security:intercept-url pattern="/security/loginFailure.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/security/signin.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/security/signin/crown.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/security/signin/bidder.do" access="isAnonymous()" />
+
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
