@@ -26,14 +26,15 @@
 
 	<acme:textbox code="category.name" path="name"/>
 	<acme:textbox code="category.description" path="description"/>
-
-	<input type="submit" name="save" value="<spring:message code="category.save" />" />
-	
+	  
+	<input type="submit" name="save" class="btn btn-success"  value="<spring:message code="category.save" />" /> 
+     
 	<jstl:if test="${category.id != 0}">
-		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
+		<input type="submit" name="delete" class="btn btn-danger" <span class="glyphicon glyphicon-floppy-remove"></span> value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
 	</jstl:if>
 	
-	<input type="button" name="cancel" value="<spring:message code="category.cancel" />" onclick="window.location='category/admin/list.do'" /> <br />
+	<input type="button" name="cancel" class="btn btn-danger"  value="<spring:message code="category.cancel" />" onclick="window.location='category/admin/list.do'" /> <br />
 
-</form:form>
+            
+  </form:form>
 <br/>
