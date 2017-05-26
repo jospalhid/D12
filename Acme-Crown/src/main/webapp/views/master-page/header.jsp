@@ -114,6 +114,7 @@
 				<li><a href="contest/available.do"><spring:message code="master.page.contest.available" /></a></li>
 				<security:authorize access="hasRole('ADMIN')">
 				<li><a href="contest/admin/create.do"><spring:message code="master.page.contest.create" /></a></li>
+				<li><a href="contest/admin/list.do"><spring:message code="master.page.contest.winer" /></a></li>
 				</security:authorize>
 			</ul>
 		</li>

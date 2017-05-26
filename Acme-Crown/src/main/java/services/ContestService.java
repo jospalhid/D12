@@ -93,6 +93,15 @@ public class ContestService {
 	public Collection<Contest> findAvailableContest(){
 		return this.contestRepository.findAvailableContest();
 	}
+	
+	public 	Collection<Contest> findNotWinner(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
+		return this.contestRepository.findNotWinner();
+	}
 
 	public Contest join(ContestForm contestForm) {
 		Contest contest = this.findOne(contestForm.getContestId());

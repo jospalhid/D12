@@ -42,7 +42,6 @@
 		<security:intercept-url pattern="/security/signin/crown.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/security/signin/bidder.do" access="isAnonymous()" />
 
-
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/project/available.do" access="permitAll" /> 
@@ -102,6 +101,7 @@
 		
 		<security:intercept-url pattern="/contest/admin/create.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/contest/admin/edit.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/contest/admin/list.do" access="hasRole('ADMIN')" /> 
 		
 		<security:intercept-url pattern="/sms/send.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/sms/received.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" />

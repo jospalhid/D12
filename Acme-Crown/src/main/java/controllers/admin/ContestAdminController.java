@@ -39,6 +39,19 @@ public class ContestAdminController extends AbstractController {
 	}
 
 	// Actions ---------------------------------------------------------------	
+	@RequestMapping(value="/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		
+		Collection<Contest> contests = this.contestService.findNotWinner();
+		
+		result = new ModelAndView("contest/winner");
+		result.addObject("contests", contests);
+		result.addObject("requestURI", "/contest/admin/list.do");
+		
+		return result;
+	}
+	
 	@RequestMapping(value="/create",method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
