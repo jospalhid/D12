@@ -30,7 +30,13 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"  href="security/login.do"><spring:message code="master.page.login" /><span class="caret"></span></a></li>
-			<li><a class="fNiv" href="security/signin.do"><spring:message code="master.page.signin" /></a></li>
+			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.signin" /><span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li></li>
+					<li><a href="security/signin/crown.do"><spring:message code="master.page.signin.crown" /></a></li>
+					<li><a href="security/signin/bidder.do"><spring:message code="master.page.signin.bidder" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
