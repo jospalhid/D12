@@ -24,18 +24,18 @@
 	<div>
 		<security:authorize access="hasRole('CROWN')">
 			<spring:message code="actor.crown" var="crowHeader" />
-		<jstl:out value="${crowHeader}" />
+			<h1><jstl:out value="${crowHeader}" /></h1>
 		</security:authorize>
 		<security:authorize access="hasRole('BIDDER')">
 			<spring:message code="actor.bidder" var="bidderHeader" />
-		<jstl:out value="${bidderHeader}" />
+			<h1><jstl:out value="${bidderHeader}" /></h1>
 		</security:authorize>
 	</div>
 	<div>
 		<img src="${actor.picture }" alt="${actor.name }" width="150"><br>
-		<spring:message code="actor.name"/>: <jstl:out value="${actor.name}"/><br>
-		<spring:message code="actor.surname"/>: <jstl:out value="${actor.surname}" /><br>
-		<spring:message code="actor.email"/>: <jstl:out value="${actor.email}" /><br>
-		<spring:message code="actor.phone"/>: <jstl:out value="${actor.phone}" /><br>
+		<strong><spring:message code="actor.name"/>: </strong><jstl:out value="${actor.name}"/><br>
+		<strong><spring:message code="actor.surname"/>:</strong> <jstl:out value="${actor.surname}" /><br>
+		<strong><spring:message code="actor.email"/>:</strong> <jstl:out value="${actor.email}" /><br>
+		<strong><spring:message code="actor.phone"/>:</strong><jstl:out value="${actor.phone}" /><br>
 	</div>
 </div>
