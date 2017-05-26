@@ -38,13 +38,14 @@
 		<strong><spring:message code="actor.surname"/>:</strong> <jstl:out value="${actor.surname}" /><br>
 		<strong><spring:message code="actor.email"/>:</strong> <jstl:out value="${actor.email}" /><br>
 		<strong><spring:message code="actor.phone"/>:</strong><jstl:out value="${actor.phone}" /><br>
-		<security:authorize access="hasRole('CROWN')">
+		
+	</div>
+	<br>
+	<security:authorize access="hasRole('CROWN')">
 			<jstl:if test="${actor.amount > 0.0 }">
 				<a href="crown/pay.do">
-	 				<spring:message code="crown.pay" var="payHeader" />
-		  			<jstl:out value="${payHeader}" />
+	 				<img src="./images/credit_card.png" alt="PayAmount" width="70">
 				</a>
 			</jstl:if>
-		</security:authorize>
-	</div>
+	</security:authorize>
 </div>
