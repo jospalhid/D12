@@ -636,7 +636,6 @@
 		<property name="descripcion" value="No te lo cuento" />
 		<property name="ttl" value="5" />
 		<property name="dibs" value="350" />
-		<property name="valid" value="false" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
