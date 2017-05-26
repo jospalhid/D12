@@ -70,6 +70,7 @@ public class BidService {
 		final Authority a = new Authority();
 		a.setAuthority(Authority.BIDDER);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a bidder to create a bid.");
+		Assert.isTrue(!this.getAllBids(bid.getConcept().getId()).contains(bid.getInput()),"No equal bids");
 		
 		final Bid res = this.bidRepository.save(bid);
 		return res;
