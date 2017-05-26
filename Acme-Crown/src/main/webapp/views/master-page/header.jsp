@@ -57,6 +57,9 @@
 					<security:authorize access="hasRole('ADMIN')">
 						<li><a href="moderator/admin/list.do"><spring:message code="master.page.moderators" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('CROWN') or hasRole('BIDDER')">
+						<li><a href="actor/display.do"><spring:message code="master.page.display" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

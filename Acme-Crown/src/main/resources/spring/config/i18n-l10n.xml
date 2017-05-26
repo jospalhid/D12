@@ -38,6 +38,7 @@
 		<value>/views/moderator/messages</value>
 		<value>/views/comment/messages</value>
 		<value>/views/concept/messages</value>
+		<value>/views/actor/messages</value>
 	</util:list>
 
 </beans>

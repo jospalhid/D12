@@ -38,6 +38,7 @@
 		<value>/views/moderator/tiles.xml</value>
 		<value>/views/comment/tiles.xml</value>
 		<value>/views/concept/tiles.xml</value>
+		<value>/views/actor/tiles.xml</value>
 	</util:list>
 
 </beans>
