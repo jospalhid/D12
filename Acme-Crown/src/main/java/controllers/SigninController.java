@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CrownService;
-import domain.Crown;
-import forms.CrownForm;
+import forms.ActorForm;
 
 @Controller
 @RequestMapping("/security")
@@ -39,36 +38,35 @@ public class SigninController extends AbstractController {
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signinUser() {
 		ModelAndView result;
-		final CrownForm crown = new CrownForm();
+		final ActorForm crown = new ActorForm();
 
 		result = new ModelAndView("security/signin");
-		result.addObject("crown2", crown);
+		result.addObject("actorForm", crown);
 
 		return result;
 	}
 
 	@RequestMapping(value = "/signin", method = RequestMethod.POST, params = "signin")
-	public ModelAndView user(final CrownForm actor, final BindingResult binding) {
+	public ModelAndView user(final ActorForm actor, final BindingResult binding) {
 		ModelAndView result;
-		Crown crown;
-		crown = this.crownService.reconstruct(actor, binding);
-
-		if (binding.hasErrors() || crown.getName().equals("Pass") || crown.getName().equals("Cond")) {
+//		Crown crown = this.crownService.reconstruct(actor, binding);
+		ActorForm res = this.crownService.validate(actor, binding);
+		if (binding.hasErrors() || res.getName().equals("Pass") || res.getName().equals("Cond")) {
 			result = new ModelAndView("security/signin");
-			result.addObject("crown2", actor);
-			if (crown.getName().equals("Pass"))
+			result.addObject("actorForm", actor);
+			if (res.getName().equals("Pass"))
 				result.addObject("message", "security.password.failed");
-			else if (crown.getName().equals("Cond"))
+			else if (res.getName().equals("Cond"))
 				result.addObject("message", "security.condition.failed");
 			else
 				result.addObject("errors", binding.getAllErrors());
 		} else
 			try {
-				this.crownService.save(crown);
+				this.crownService.reconstructAndSave(res);
 				result = new ModelAndView("redirect:login.do");
 			} catch (final Throwable oops) {
 				result = new ModelAndView("security/signin");
-				result.addObject("crown2", actor);
+				result.addObject("actorForm", actor);
 				result.addObject("message", "security.signin.failed");
 			}
 

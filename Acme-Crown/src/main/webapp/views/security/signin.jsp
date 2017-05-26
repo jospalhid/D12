@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="security/signin.do" modelAttribute="crown2">
+<form:form action="security/signin.do" modelAttribute="actorForm">
 	
 	<acme:textbox code="security.username" path="username"/>
 	<acme:password code="security.password" path="password1"/>
@@ -27,9 +27,5 @@
 	<br/><br/>
 	<input type="submit" name="signin" value="<spring:message code="security.submit" />" />
 	<input type="button" name="cancel" value="<spring:message code="security.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
-	
-	<div>
-		<jstl:out value="${errors}"/>
-	</div>
 	
 </form:form>

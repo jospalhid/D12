@@ -26,7 +26,7 @@ import domain.Moderator;
 import domain.Project;
 import domain.Reward;
 import domain.Sms;
-import forms.CrownForm;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -46,7 +46,7 @@ public class CrownService {
 	@Autowired
 	private UserAccountService	userAccountService;
 	@Autowired
-	private ConfigService	configService;
+	private ConfigService		configService;
 
 
 	//Constructors
@@ -153,46 +153,47 @@ public class CrownService {
 		this.save(crown);
 	}
 
-	public Crown reconstruct(final CrownForm actor, final BindingResult binding) {
+	public Crown reconstructAndSave(final ActorForm actor) {
 		Crown result;
-		final List<String> cond = Arrays.asList(actor.getConditions());
-		if (!actor.getPassword1().isEmpty() && !actor.getPassword2().isEmpty() && actor.getPassword1().equals(actor.getPassword2()) && cond.contains("acepto")) {
-			final UserAccount ua = this.userAccountService.create();
+		final UserAccount ua = this.userAccountService.create();
 
-			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-			final String hash = encoder.encodePassword(actor.getPassword1(), null);
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final String hash = encoder.encodePassword(actor.getPassword1(), null);
+		
+		ua.setUsername(actor.getUsername());
+		ua.setPassword(hash);
 
-			ua.setUsername(actor.getUsername());
-			ua.setPassword(hash);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		ua.getAuthorities().add(a);
 
-			final Authority a = new Authority();
-			a.setAuthority(Authority.CROWN);
-			ua.getAuthorities().add(a);
+		result = this.create(ua);
 
-			result = this.create(ua);
+		result.setName(actor.getName());
+		result.setSurname(actor.getSurname());
+		result.setEmail(actor.getEmail());
+		result.setPhone(actor.getPhone());
+		result.setPicture(actor.getPicture());
 
-			result.setName(actor.getName());
-			result.setSurname(actor.getSurname());
-			result.setEmail(actor.getEmail());
-			result.setPhone(actor.getPhone());
-			result.setPicture(actor.getPicture());
-
-			this.validator.validate(result, binding);
-		} else {
-			result = new Crown();
-			result.setName("Pass");
-			if (!cond.contains("acepto"))
-				result.setName("Cond");
-		}
-		return result;
-
+		return this.save(result);
 	}
 
 	public void auction() {
-		Crown crown = this.findByUserAccountId(LoginService.getPrincipal().getId());
-		crown.setAmount(crown.getAmount()+this.configService.find().getAuction());
+		final Crown crown = this.findByUserAccountId(LoginService.getPrincipal().getId());
+		crown.setAmount(crown.getAmount() + this.configService.find().getAuction());
 		this.save(crown);
-		
+
+	}
+
+	public ActorForm validate(ActorForm actor, BindingResult binding) {
+		validator.validate(actor, binding);
+		List<String> cond = Arrays.asList(actor.getConditions());
+		if (!actor.getPassword1().equals(actor.getPassword2()) || !cond.contains("acepto")) {
+			actor.setName("Pass");
+			if (!cond.contains("acepto"))
+				actor.setName("Cond");
+		}
+		return actor;
 	}
 
 }
