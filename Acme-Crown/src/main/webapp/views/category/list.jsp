@@ -23,9 +23,12 @@
 
 <div class="container">
 
-<!-- He quitado class="displaytag" del display:table -->
 <display:table name="categories" id="category" requestURI="${requestURI}" pagesize="10" class="table table-hover">
 
+	<display:column>
+		<img src="${category.picture }" alt="${category.name }" width="40">
+	</display:column>
+	
 	<thead> 
 		<tr> 
 			<th><spring:message code="category.name" var="nameHeader" /></th>
@@ -37,11 +40,6 @@
 			<td><display:column property="name" title="${nameHeader}" sortable="true" /> </td>
 			<td><display:column property="description" title="${descriptionHeader}" sortable="false" /> </td>
 	</tr>
-	
-	<display:column>
-		<img src="${category.picture }" alt="${category.name }" width="75">
-	</display:column>
-	
 	
 	<display:column>
 		<a href="category/admin/edit.do?categoryId=${category.id }">
