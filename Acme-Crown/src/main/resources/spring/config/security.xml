@@ -47,6 +47,7 @@
 		
 		<security:intercept-url pattern="/project/available.do" access="permitAll" /> 
 		<security:intercept-url pattern="/project/display.do" access="hasRole('CROWN') or hasRole('MODERATOR')" /> 
+		<security:intercept-url pattern="/project/list.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/project/crown/list.do" access="hasRole('CROWN')" />
 		<security:intercept-url pattern="/project/crown/create.do" access="hasRole('CROWN')" /> 
@@ -111,8 +112,10 @@
 		<security:intercept-url pattern="/comment/crown/save.do" access="hasRole('CROWN')" />
 		
 		<security:intercept-url pattern="/actor/display.do" access="hasRole('CROWN') or hasRole('BIDDER')" />        
-		<security:intercept-url pattern="/crown/edit.do" access="hasRole('CROWN')" />        
-		 
+		<security:intercept-url pattern="/crown/edit.do" access="hasRole('CROWN')" /> 
+		
+		<security:intercept-url pattern="/category/icontable.do" access="permitAll" /> 
+		       
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

@@ -90,5 +90,20 @@ public class ProjectController extends AbstractController {
 
 		return result;
 	}
+	
+	@RequestMapping("/list")
+	public ModelAndView listCategory(@RequestParam int categoryId) {
+		ModelAndView result;
+
+		final Collection<Project> projects = this.projectService.findProjectCategory(categoryId);
+
+		result = new ModelAndView("project/list");
+		result.addObject("projects", projects);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis() / 86400000);
+		result.addObject("requestURI", "/project/list.do");
+
+		return result;
+	}
+
 
 }

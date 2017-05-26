@@ -77,21 +77,23 @@
 		</li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('ADMIN')">
-		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.category" /><span class="caret"></span></a>
+		<security:authorize access="hasRole('ADMIN')">		
+			<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.category" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
-				<li><a href="category/admin/list.do"><spring:message code="master.page.category.list" /></a></li>
-				<li><a href="category/admin/create.do"><spring:message code="master.page.category.new" /></a></li>
+					<li><a href="category/admin/list.do"><spring:message code="master.page.category.list" /></a></li>
+					<li><a href="category/admin/create.do"><spring:message code="master.page.category.new" /></a></li>
 			</ul>
 		</li>
 		</security:authorize>
+		
 		
 		<security:authorize access="hasRole('ADMIN') or hasRole('CROWN') or hasRole('MODERATOR') or isAnonymous()">
 		<li class="dropdown"><a class="fNiv" class="dropdown-toggle" data-toggle="dropdown"><spring:message	code="master.page.project" /><span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li></li>
 				<li><a href="project/available.do"><spring:message code="master.page.project.available" /></a></li>
+				<li><a href="category/icontable.do"><spring:message code="master.page.category" /></a></li>
 				<security:authorize access="hasRole('CROWN')">
 					<li><a href="project/crown/create.do"><spring:message code="master.page.project.create" /></a></li>
 					<li><a href="project/crown/list.do"><spring:message code="master.page.project.list" /></a></li>

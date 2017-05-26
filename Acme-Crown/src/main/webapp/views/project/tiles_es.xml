@@ -70,5 +70,10 @@
 		<put-attribute name="title" value="Favoritos"/>
 		<put-attribute name="body" value="/views/project/list.jsp"/>		
 	</definition>
+	
+	<definition name="project/list" extends="master.page">
+		<put-attribute name="title" value="Lista de proyecto"/>
+		<put-attribute name="body" value="/views/project/list.jsp"/>		
+	</definition>
 		
 </tiles-definitions>

@@ -195,7 +195,11 @@ public class ProjectService {
 
 		return this.projectRepository.findMyFavs(ua.getId());
 	}
-
+	
+	public Collection<Project> findProjectCategory(int categoryId){
+		return this.projectRepository.findProjectCategory(categoryId);
+		
+	}
 	public Long getDaysToGo(final int projectId) {
 		final Project project = this.findOne(projectId);
 		final Long current = Calendar.getInstance().getTimeInMillis();
