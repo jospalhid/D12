@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.BidRepository;
 import security.Authority;
@@ -24,12 +26,15 @@ public class BidService {
 	@Autowired
 	private BidRepository	bidRepository;
 
-
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private BidderService bidderService;
+	@Autowired
+	private ConceptService conceptService;
 
 	//Constructors
 	public BidService() {
@@ -81,6 +86,17 @@ public class BidService {
 		Assert.isTrue(this.bidRepository.exists(bid.getId()));
 		
 		this.bidRepository.delete(bid);
+	}
+
+	public Bid reconstruct(int conceptId, Bid bid, BindingResult binding) {
+		Bidder bidder = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
+		Concept concept = this.conceptService.findOne(conceptId);
+		Bid res = this.create(bidder, concept);
+		res.setInput(bid.getInput());
+		
+		validator.validate(res, binding);
+		
+		return res;
 	}
 
 	//Utilites methods

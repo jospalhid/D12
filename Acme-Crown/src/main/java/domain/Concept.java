@@ -50,7 +50,7 @@ public class Concept extends DomainEntity{
 		this.descripcion = descripcion;
 	}
 	
-	@Range(min=1, max=11)
+	@Range(min=1, max=23)
 	public int getTtl() {
 		return ttl;
 	}

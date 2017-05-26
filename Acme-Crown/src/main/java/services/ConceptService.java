@@ -98,6 +98,16 @@ public class ConceptService {
 		
 		return this.conceptRepository.findMyConcept(ua.getId());
 	}
+	
+	public Collection<Concept> getAuction(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.BIDDER);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a bidder for this action.");
+		
+		return this.conceptRepository.getAuction();
+	}
 
 	public Concept reconstruct(Concept concept, BindingResult binding) {
 		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());

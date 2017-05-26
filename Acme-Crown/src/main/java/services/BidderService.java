@@ -12,7 +12,6 @@ import repositories.BidderRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Admin;
 import domain.Bid;
 import domain.Bidder;
 import domain.Sms;
@@ -84,7 +83,7 @@ public class BidderService {
 	}
 
 	//Utilites methods
-	public Admin findByUserAccountId(final int id) {
+	public Bidder findByUserAccountId(final int id) {
 		Assert.notNull(id);
 		return this.bidderRepository.findByUserAccountId(id);
 		}

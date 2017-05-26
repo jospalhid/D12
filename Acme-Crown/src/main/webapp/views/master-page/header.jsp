@@ -113,6 +113,9 @@
 				<li><a href="concept/crown/list.do"><spring:message code="master.page.concept.list" /></a></li>
 				<li><a href="concept/crown/create.do"><spring:message code="master.page.concept.create" /></a></li>
 				</security:authorize>
+				<security:authorize access="hasRole('BIDDER')">
+				<li><a href="concept/bidder/list.do"><spring:message code="master.page.concept.auction" /></a></li>
+				</security:authorize>
 			</ul>
 		</li>
 		</security:authorize>
