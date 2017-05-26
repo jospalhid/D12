@@ -32,6 +32,7 @@ public class Contest extends DomainEntity{
 	private String description;
 	private Date moment;
 	public double award;
+	public boolean win;
 	
 	@NotBlank
 	@SafeHtml
@@ -61,7 +62,7 @@ public class Contest extends DomainEntity{
 	}
 	
 	@NotNull
-	@Future
+//	@Future
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	public Date getMoment() {
@@ -79,6 +80,12 @@ public class Contest extends DomainEntity{
 		this.award = award;
 	}
 	
+	public boolean isWin() {
+		return win;
+	}
+	public void setWin(boolean win) {
+		this.win = win;
+	}
 
 	//---------------------Relationships--------------------------
 	private Collection<Project> projects;

@@ -375,6 +375,34 @@
 	
 	
 	<!-- Project -->
+	<bean id="project2" class="domain.Project">
+		<property name="title" value="Proyectillos varios" />
+		<property name="description" value="Cuatnas cosas" />
+		<property name="goal" value="3000" />
+		<property name="ttl" value="2017/05/30"/>
+		<property name="moment" value="2017/05/02"/>
+		<property name="banned" value="false" />
+		<property name="promoted" value="false" />
+		<property name="pictures">
+			<list>
+				<ref bean="picture3"/>
+			</list>
+		</property>
+		<property name="crown" ref="crown1"/>
+		<property name="category" ref="category4"/>
+		<property name="rewards">
+			<list></list>
+		</property>
+		<property name="extraRewards">
+			<list></list>
+		</property>
+		<property name="contests">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
 	<bean id="project1" class="domain.Project">
 		<property name="title" value="Save Sanji" />
 		<property name="description" value="Hay que salvarle" />
@@ -406,34 +434,7 @@
 		</property>
 	</bean>
 	
-	<bean id="project2" class="domain.Project">
-		<property name="title" value="Proyectillos varios" />
-		<property name="description" value="Cuatnas cosas" />
-		<property name="goal" value="3000" />
-		<property name="ttl" value="2017/05/30"/>
-		<property name="moment" value="2017/05/02"/>
-		<property name="banned" value="false" />
-		<property name="promoted" value="false" />
-		<property name="pictures">
-			<list>
-				<ref bean="picture3"/>
-			</list>
-		</property>
-		<property name="crown" ref="crown1"/>
-		<property name="category" ref="category4"/>
-		<property name="rewards">
-			<list></list>
-		</property>
-		<property name="extraRewards">
-			<list></list>
-		</property>
-		<property name="contests">
-			<list></list>
-		</property>
-		<property name="comments">
-			<list></list>
-		</property>
-	</bean>
+	
 	
 	
 	<bean id="project3" class="domain.Project">
@@ -547,7 +548,7 @@
 		<property name="title" value="Boats" />
 		<property name="topic" value="Navegar" />
 		<property name="description" value="Subete a bordo" />
-		<property name="moment" value="2019/05/02"/>
+		<property name="moment" value="2017/04/02"/>
 		<property name="award" value="100" />
 		<property name="projects">
 			<list>
@@ -598,7 +599,7 @@
 		<property name="title" value="Recordatorio" />	
 		<property name="moment" value="2016/10/28 11:25" />
 		<property name="text" value="Me gustaría colaborar en este proyecto" />
-		<property name="stars" value="3" />
+		<property name="stars" value="4" />
 		<property name="crown" ref="crown1" />
 		<property name="project" ref="project1" />
 	</bean>
@@ -637,6 +638,7 @@
 		<property name="ttl" value="23" />
 		<property name="dibs" value="350" />
 		<property name="valid" value="0" />
+		<property name="win" value="true" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
@@ -649,19 +651,20 @@
 		<property name="ttl" value="23" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
+		<property name="win" value="true" />
 		<property name="day" value="2017/05/01" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
 		</property>
 	</bean>
-	
-		<bean id="concept3" class="domain.Concept">
+	<bean id="concept3" class="domain.Concept">
 		<property name="title" value="Idea TOO GOOD" />	
 		<property name="descripcion" value="Too good for this life" />
 		<property name="ttl" value="10" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
+		<property name="win" value="true" />
 		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown2" />
 		<property name="bids">

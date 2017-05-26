@@ -56,9 +56,11 @@
 			<td><display:column property="award" title="${awardHeader}" sortable="true" /> </td>
 	</tr>
 	<display:column>
+	<security:authorize access="hasRole('CROWN')">
 		<a href="contest/display.do?contestId=${contest.id}">
 			<img src="./images/eye.png" alt="Display" width="25">
 		</a>
+	</security:authorize>
 	</display:column>
 	
 	<display:column>
@@ -71,37 +73,17 @@
 	</jstl:if>
 	</security:authorize>
 	</display:column>
-
-	<%-- <security:authorize access="hasRole('CHORBI')">
-	<jstl:if test="${own == true }">
-		<display:column>
-	  		<a href="event/chorbi/unregister.do?eventId=${event.id}">
-	 			<spring:message code="event.unregister" var="unregisterHeader" />
-		  		<jstl:out value="${unregisterHeader}" />
-			 </a>
-		</display:column>
-	</jstl:if>
-	<jstl:if test="${all == true }">
-		<display:column>
-	  		<a href="event/chorbi/register.do?eventId=${event.id}">
-	 			<spring:message code="event.register" var="registerHeader" />
-		  		<jstl:out value="${registerHeader}" />
-			 </a>
-		</display:column>
-	</jstl:if>
-	</security:authorize>
 	
-	
-	<security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${edit == true }">
 	<display:column>
-	  	<a href="event/manager/edit.do?eventId=${event.id}">
-	 			<spring:message code="event.edit" var="editHeader" />
-		  		<jstl:out value="${editHeader}" />
-		 </a>
+		<security:authorize access="hasRole('ADMIN')">
+		<jstl:if test="${up==true }">
+		<a href="contest/admin/winner.do?contestId=${contest.id}">
+			<img src="./images/winner.png" alt="Winner" width="25">
+		</a>
+		</jstl:if>
+		</security:authorize>
 	</display:column>
-	</jstl:if>
-	</security:authorize> --%>
+
 </tbody>
 
 </display:table>

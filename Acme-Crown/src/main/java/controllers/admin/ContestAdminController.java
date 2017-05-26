@@ -10,8 +10,10 @@
 
 package controllers.admin;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ContestService;
 import controllers.AbstractController;
 import domain.Contest;
+import domain.Project;
 
 @Controller
 @RequestMapping("/contest/admin")
@@ -48,6 +51,7 @@ public class ContestAdminController extends AbstractController {
 		result = new ModelAndView("contest/winner");
 		result.addObject("contests", contests);
 		result.addObject("requestURI", "/contest/admin/list.do");
+		result.addObject("up", true);
 		
 		return result;
 	}
@@ -136,6 +140,30 @@ public class ContestAdminController extends AbstractController {
 			result.addObject("message", "contest.commint.error");
 		}
 		
+		return result;
+	}
+	
+	@RequestMapping(value = "/winner", method = RequestMethod.GET)
+	public ModelAndView winner(@RequestParam final int contestId) {
+		ModelAndView result;
+
+		Collection<Contest> contests = this.contestService.findNotWinner();
+		
+		result = new ModelAndView("contest/winner");
+		result.addObject("contests", contests);
+		result.addObject("requestURI", "/contest/admin/list.do");
+		result.addObject("up", true);
+		
+		try{
+			List<Project> projects = new ArrayList<Project>();
+			projects.addAll(this.contestService.getWinner(contestId));
+			if(!projects.isEmpty()){
+				this.contestService.setWinner(contestId, projects.get(0));
+			}
+		}catch(Throwable oops){
+			result.addObject("message", "contest.commit.error");
+		}
+
 		return result;
 	}
 }

@@ -102,6 +102,7 @@
 		<security:intercept-url pattern="/contest/admin/create.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/contest/admin/edit.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/contest/admin/list.do" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/contest/admin/winner.do" access="hasRole('ADMIN')" /> 
 		
 		<security:intercept-url pattern="/sms/send.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/sms/received.do" access="hasRole('MODERATOR') or hasRole('CROWN') or hasRole('ADMIN')" />

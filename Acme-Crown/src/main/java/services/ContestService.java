@@ -43,6 +43,7 @@ public class ContestService {
 		Contest res;
 		res = new Contest();
 		res.setProjects(new ArrayList<Project>());
+		res.setWin(false);
 		return res;
 	}
 
@@ -103,6 +104,16 @@ public class ContestService {
 		return this.contestRepository.findNotWinner();
 	}
 
+	public Collection<Project> getWinner(int id){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
+		
+		return this.contestRepository.getWinner(id);
+	}
+	
 	public Contest join(ContestForm contestForm) {
 		Contest contest = this.findOne(contestForm.getContestId());
 		contest.getProjects().add(contestForm.getProject());
@@ -137,6 +148,15 @@ public class ContestService {
 		Contest fin = this.save(res);
 		
 		return fin;
+	}
+
+	public void setWinner(int contestId, Project project) {
+		Contest contest = this.findOne(contestId);
+		if(project!=null){
+			contest.setWinner(project);
+		}
+		contest.setWin(true);
+		this.save(contest);
 	}
 
 }
