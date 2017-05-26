@@ -111,6 +111,7 @@
 		<security:intercept-url pattern="/comment/crown/save.do" access="hasRole('CROWN')" />
 		
 		<security:intercept-url pattern="/actor/display.do" access="hasRole('CROWN') or hasRole('BIDDER')" />        
+		<security:intercept-url pattern="/crown/edit.do" access="hasRole('CROWN')" />        
 		 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

@@ -49,6 +49,7 @@
 					<li></li>
 					<security:authorize access="hasRole('CROWN')">
 						<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
+						<li><a href="crown/edit.do"><spring:message code="master.page.crown.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('MODERATOR')">
 						<li><a href="crown/moderator/list.do"><spring:message code="master.page.ban" /></a></li>

@@ -195,5 +195,32 @@ public class CrownService {
 		}
 		return actor;
 	}
+	
+	public Crown validateAndEdit(Crown crown, BindingResult binding) {
+		Crown c = this.findByUserAccountId(LoginService.getPrincipal().getId());
+		Crown res = this.create(c.getUserAccount());
+		res.setName(crown.getName());
+		res.setSurname(crown.getSurname());
+		res.setEmail(crown.getEmail());
+		res.setPhone(crown.getPhone());
+		res.setPicture(crown.getPicture());
+		
+		validator.validate(res, binding);
+		
+		return crown;
+	}
+	
+	public Crown reconstructAndEdit(Crown crown) {
+		Crown res = this.findByUserAccountId(LoginService.getPrincipal().getId());
+
+		res.setName(crown.getName());
+		res.setSurname(crown.getSurname());
+		res.setEmail(crown.getEmail());
+		res.setPhone(crown.getPhone());
+		res.setPicture(crown.getPicture());
+		
+
+		return this.save(res);
+	}
 
 }
