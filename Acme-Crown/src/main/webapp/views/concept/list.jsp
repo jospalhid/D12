@@ -66,6 +66,7 @@
 			</security:authorize>
 	</tr>
 	
+	<security:authorize access="hasRole('BIDDER')">
 	<display:column>
 		<form:form action="concept/bidder/bid.do?conceptId=${concept.id }" modelAttribute="bid">
 			
@@ -74,6 +75,7 @@
 			<input type="image" name="bid" src="./images/bid.png" alt="Bid" width="16">
 		</form:form>
 	</display:column>
+	</security:authorize>
 
 </tbody>
 

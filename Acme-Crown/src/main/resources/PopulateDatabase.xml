@@ -645,10 +645,10 @@
 	<bean id="concept2" class="domain.Concept">
 		<property name="title" value="Idea Regulera" />	
 		<property name="descripcion" value="No esta mal del todo" />
-		<property name="ttl" value="10" />
+		<property name="ttl" value="18" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="true" />
-		<property name="day" value="2017/05/01" />
+		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
