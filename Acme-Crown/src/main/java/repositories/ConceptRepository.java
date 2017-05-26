@@ -16,4 +16,7 @@ public interface ConceptRepository extends JpaRepository<Concept, Integer> {
 	
 	@Query("select c from Concept c where c.day is not null and day(current_date)=day(c.day) and month(current_date)=month(c.day) and year(current_date)=year(c.day) and hour(current_date)+1<c.ttl")
 	Collection<Concept> getAuction();
+	
+	@Query("select c from Concept c where c.valid is null")
+	Collection<Concept> findNotValid();
 }

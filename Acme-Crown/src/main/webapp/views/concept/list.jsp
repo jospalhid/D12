@@ -38,10 +38,10 @@
 	<thead> 
 		<tr> 
 			<th><spring:message code="concept.title" var="titleHeader" /></th>
-			<security:authorize access="hasRole('CROWN')">
+			<security:authorize access="hasRole('CROWN') or hasRole('ADMIN')">
 			<th><spring:message code="concept.dibs" var="dibsHeader" /></th>
 			</security:authorize>
-			<security:authorize access="hasRole('BIDDER')">
+			<security:authorize access="hasRole('BIDDER') or hasRole('ADMIN')">
 			<th><spring:message code="concept.descripcion" var="descripcionHeader" /></th>
 			</security:authorize>
 			<th><spring:message code="concept.ttl" var="ttlHeader" /></th>
@@ -50,12 +50,14 @@
 	<tbody>
 		<tr>
 			<td><display:column property="title" title="${titleHeader}" sortable="true" /> </td>
-			<security:authorize access="hasRole('CROWN')">
+			<security:authorize access="hasRole('CROWN') or hasRole('ADMIN')">
 			<td><display:column property="dibs" title="${dibsHeader}" sortable="true" /> </td>
 			<td><display:column property="ttl" title="${ttlHeader}" sortable="false" /> </td>
 			</security:authorize>
-			<security:authorize access="hasRole('BIDDER')">
+			<security:authorize access="hasRole('BIDDER') or hasRole('ADMIN')">
 			<td><display:column property="descripcion" title="${descripcionHeader}" sortable="false" /> </td>
+			</security:authorize>
+			<security:authorize access="hasRole('BIDDER')">
 			<td>
 				<display:column title="${ttlHeader}" sortable="true">
 					<jstl:out value="${hours}"/> <spring:message code="concept.hour" />, 
@@ -75,6 +77,17 @@
 			<input type="image" name="bid" src="./images/bid.png" alt="Bid" width="16">
 		</form:form>
 	</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="concept/admin/valid.do?conceptId=${concept.id}">
+				<img src="./images/valid.png" alt="Valid" width="16">
+			</a>
+			<a href="concept/admin/invalid.do?conceptId=${concept.id}">
+				<img src="./images/invalid.png" alt="Invalid" width="16">
+			</a>
+		</display:column>
 	</security:authorize>
 
 </tbody>

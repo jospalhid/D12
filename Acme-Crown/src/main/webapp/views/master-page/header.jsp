@@ -124,7 +124,7 @@
 				<security:authorize access="hasRole('BIDDER')">
 				<li><a href="concept/bidder/list.do"><spring:message code="master.page.concept.auction" /></a></li>
 				</security:authorize>
-				<security:authorize access="hasRole('BIDDER')">
+				<security:authorize access="hasRole('ADMIN')">
 				<li><a href="concept/admin/list.do"><spring:message code="master.page.concept.all" /></a></li>
 				</security:authorize>
 			</ul>

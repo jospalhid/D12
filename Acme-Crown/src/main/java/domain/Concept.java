@@ -29,7 +29,7 @@ public class Concept extends DomainEntity{
 	private String descripcion;
 	private int ttl;
 	public double dibs;
-	public boolean valid;
+	public Boolean valid;
 	public Date day;
 	
 	@NotBlank
@@ -66,10 +66,10 @@ public class Concept extends DomainEntity{
 		this.dibs = dibs;
 	}
 	
-	public boolean isValid() {
+	public Boolean isValid() {
 		return valid;
 	}
-	public void setValid(boolean valid) {
+	public void setValid(Boolean valid) {
 		this.valid = valid;
 	}
 	

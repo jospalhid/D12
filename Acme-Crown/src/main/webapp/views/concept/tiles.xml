@@ -31,4 +31,9 @@
 		<put-attribute name="body" value="/views/concept/edit.jsp"/>		
 	</definition>
 	
+	<definition name="concept/validate" extends="master.page">
+		<put-attribute name="title" value="Validate"/>
+		<put-attribute name="body" value="/views/concept/list.jsp"/>		
+	</definition>
+	
 </tiles-definitions>

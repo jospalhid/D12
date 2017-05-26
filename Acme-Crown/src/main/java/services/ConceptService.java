@@ -47,7 +47,6 @@ public class ConceptService {
 		res = new Concept();
 		res.setCrown(crown);
 		res.setBids(new ArrayList<Bid>());
-		res.setValid(false);
 		return res;
 	}
 
@@ -68,6 +67,13 @@ public class ConceptService {
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to create a concept.");
+		
+		final Concept res = this.conceptRepository.save(concept);
+		return res;
+	}
+	
+	public Concept saveAndValid(final Concept concept) {
+		Assert.notNull(concept);
 		
 		final Concept res = this.conceptRepository.save(concept);
 		return res;
@@ -99,6 +105,16 @@ public class ConceptService {
 		return this.conceptRepository.findMyConcept(ua.getId());
 	}
 	
+	public Collection<Concept> findNotValidate(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action.");
+		
+		return this.conceptRepository.findNotValid();
+	}
+	
 	public Collection<Concept> getAuction(){
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
@@ -120,6 +136,37 @@ public class ConceptService {
 		validator.validate(res, binding);
 		
 		return res;
+	}
+
+	public void valid(int conceptId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action.");
+		
+		Concept concept = this.findOne(conceptId);
+		
+		concept.setValid(true);
+//		concept.setDay(Calendar.getInstance().s)
+		
+		this.saveAndValid(concept);
+	}
+
+	public void unvalid(int conceptId) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.ADMIN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action.");
+		
+		Concept concept = this.findOne(conceptId);
+		
+		concept.setValid(false);
+//		concept.setDay(Calendar.getInstance().s)
+		
+		this.saveAndValid(concept);
+		
 	}
 
 }
