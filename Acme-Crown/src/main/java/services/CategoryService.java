@@ -88,6 +88,7 @@ public class CategoryService {
 		Category res = this.create();
 		res.setName(category.getName());
 		res.setDescription(category.getDescription());
+		res.setPicture(category.getPicture());
 		
 		validator.validate(res, binding);
 		
@@ -104,6 +105,7 @@ public class CategoryService {
 		
 		res.setName(category.getName());
 		res.setDescription(category.getDescription());
+		res.setPicture(category.getPicture());
 		
 		Category save = this.save(res);
 		

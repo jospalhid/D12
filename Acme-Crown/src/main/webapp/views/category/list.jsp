@@ -39,6 +39,11 @@
 	</tr>
 	
 	<display:column>
+		<img src="${category.picture }" alt="${category.name }" width="75">
+	</display:column>
+	
+	
+	<display:column>
 		<a href="category/admin/edit.do?categoryId=${category.id }">
 			<spring:message code="categor.edit" var="editHeader" />
 			<jstl:out value="${editHeader}" />

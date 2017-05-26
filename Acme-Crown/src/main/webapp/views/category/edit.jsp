@@ -26,6 +26,7 @@
 
 	<acme:textbox code="category.name" path="name"/>
 	<acme:textbox code="category.description" path="description"/>
+	<acme:textbox code="category.picture" path="picture"/>
 	  
 	<input type="submit" name="save" class="btn btn-success"  value="<spring:message code="category.save" />" /> 
      
