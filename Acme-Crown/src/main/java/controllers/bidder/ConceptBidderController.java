@@ -11,6 +11,7 @@
 package controllers.bidder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
@@ -100,8 +101,29 @@ public class ConceptBidderController extends AbstractController {
 		
 		if(!binding.hasErrors()){
 			if(!this.bidService.getAllBids(conceptId).contains(bid.getInput())){
-				this.bidService.save(res);
-				result.addObject("message", "concept.bid.success");
+				Calendar dateB =Calendar.getInstance();
+				dateB.setTime(res.getMoment());
+				int dayB=dateB.get(Calendar.DAY_OF_MONTH);
+				int monthB=dateB.get(Calendar.MONTH)+1;
+				int yearB=dateB.get(Calendar.YEAR);
+				int hour = dateB.get(Calendar.HOUR_OF_DAY);
+				
+				Calendar dateC =Calendar.getInstance();
+				dateC.setTime(res.getConcept().getDay());
+				int dayC=dateC.get(Calendar.DAY_OF_MONTH);
+				int monthC=dateC.get(Calendar.MONTH)+1;
+				int yearC=dateC.get(Calendar.YEAR);
+				
+				if(dayB==dayC && monthB==monthC && yearC==yearB && res.getConcept().getTtl()-hour+1>=0){
+					try{
+						this.bidService.save(res);
+						result.addObject("message", "concept.bid.success");
+					}catch(Throwable oops){
+						result.addObject("message", "concept.commit.error");
+					}
+				}else{
+					result.addObject("message", "concept.time.error");
+				}
 			}else{
 				result.addObject("message", "concept.bid.full");
 			}

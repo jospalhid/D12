@@ -71,6 +71,22 @@ public class BidService {
 		a.setAuthority(Authority.BIDDER);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a bidder to create a bid.");
 		Assert.isTrue(!this.getAllBids(bid.getConcept().getId()).contains(bid.getInput()),"No equal bids");
+		if(bid.getConcept().getDay()!=null){
+			Calendar dateB =Calendar.getInstance();
+			dateB.setTime(bid.getMoment());
+			int dayB=dateB.get(Calendar.DAY_OF_MONTH);
+			int monthB=dateB.get(Calendar.MONTH)+1;
+			int yearB=dateB.get(Calendar.YEAR);
+			int hour = dateB.get(Calendar.HOUR_OF_DAY);
+			
+			Calendar dateC =Calendar.getInstance();
+			dateC.setTime(bid.getConcept().getDay());
+			int dayC=dateC.get(Calendar.DAY_OF_MONTH);
+			int monthC=dateC.get(Calendar.MONTH)+1;
+			int yearC=dateC.get(Calendar.YEAR);
+			//concept.ttl-currentHour+1
+			Assert.isTrue(dayB==dayC && monthB==monthC && yearC==yearB && bid.getConcept().getTtl()-hour+1>=0,"The bid must be in time"); //3,6e+6
+		}
 		
 		final Bid res = this.bidRepository.save(bid);
 		return res;

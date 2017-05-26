@@ -14,7 +14,7 @@ public interface ConceptRepository extends JpaRepository<Concept, Integer> {
 	@Query("select c from Concept c where c.crown.userAccount.id=?1 order by c.valid asc")
 	Collection<Concept> findMyConcept(int id);
 	
-	@Query("select c from Concept c where c.day is not null and day(current_date)=day(c.day) and month(current_date)=month(c.day) and year(current_date)=year(c.day) and hour(current_date)+1<c.ttl")
+	@Query("select c from Concept c where c.day is not null and day(current_date)=day(c.day) and month(current_date)=month(c.day) and year(current_date)=year(c.day) order by c.ttl desc")
 	Collection<Concept> getAuction();
 	
 	@Query("select c from Concept c where c.valid=0")

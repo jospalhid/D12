@@ -634,9 +634,10 @@
 	<bean id="concept1" class="domain.Concept">
 		<property name="title" value="Idea Revolucionaria" />	
 		<property name="descripcion" value="No te lo cuento" />
-		<property name="ttl" value="5" />
+		<property name="ttl" value="23" />
 		<property name="dibs" value="350" />
 		<property name="valid" value="0" />
+		<property name="day" value="2017/05/26" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
@@ -645,7 +646,7 @@
 	<bean id="concept2" class="domain.Concept">
 		<property name="title" value="Idea Regulera" />	
 		<property name="descripcion" value="No esta mal del todo" />
-		<property name="ttl" value="18" />
+		<property name="ttl" value="23" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
 		<property name="day" value="2017/05/01" />
@@ -658,7 +659,7 @@
 		<bean id="concept3" class="domain.Concept">
 		<property name="title" value="Idea TOO GOOD" />	
 		<property name="descripcion" value="Too good for this life" />
-		<property name="ttl" value="20" />
+		<property name="ttl" value="10" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
 		<property name="day" value="2017/05/26" />
@@ -671,7 +672,7 @@
 	<!-- Bid -->
 	<bean id="bid" class="domain.Bid">
 		<property name="input" value="120" />	
-		<property name="moment" value="2017/05/01 17:45" />
+		<property name="moment" value="2017/05/01 01:15" />
 		<property name="bidder" ref="bidder1" />
 		<property name="concept" ref="concept2" />
 	</bean>
