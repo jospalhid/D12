@@ -669,6 +669,19 @@
 		</property>
 	</bean>
 	
+	<bean id="concept4" class="domain.Concept">
+		<property name="title" value="Nueva" />	
+		<property name="descripcion" value="Nueva" />
+		<property name="ttl" value="20" />
+		<property name="dibs" value="50" />
+		<property name="valid" value="1" />
+		<property name="day" value="2017/05/27" />
+		<property name="crown" ref="crown1" />
+		<property name="bids">
+			<list></list>
+		</property>
+	</bean>
+	
 	<!-- Bid -->
 	<bean id="bid" class="domain.Bid">
 		<property name="input" value="120" />	
