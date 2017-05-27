@@ -22,7 +22,7 @@
 
 
 <div class="container">
-	<div class="error">
+	<div class="exito">
 		<jstl:out value="${patron}"/>
 	</div>
 	
@@ -233,7 +233,7 @@
 		<jstl:if test="${project.banned==false}">
 		<jstl:if test="${crown.id == project.crown.id}">
 		<jstl:if test="${days>0}">
-			<p><a href="extrareward/crown/create.do?projectId=${project.id }">
+			<p><a href="extrareward/crown/create.do?projectId=${project.id }" class="btn btn-primary">
 	 			<spring:message code="project.extrareward.add" var="addExtraRewardHeader" />
 				<jstl:out value="${addExtraRewardHeader}" />
 			</a></p>
@@ -245,7 +245,7 @@
 		
 		
 		<jstl:forEach var="row" items="${project.extraRewards}">
-			<div style="border:solid 1px; width:180px; margin:5px; padding:10px">
+			<div class="extraRecompensa">
 				<jstl:out value="${row.goal}"/>$
 				<h3><jstl:out value="${row.title}"/></h3>
 				<p><jstl:out value="${row.description}"/></p>

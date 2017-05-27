@@ -6875,8 +6875,7 @@ button.close {
 .recompensas{
     outline: solid 2px;
     outline-color: #FF9800;
-    width: 600px;
-    height: 100px;
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6964,5 +6963,46 @@ button.close {
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.exito{
+	color: green;
+	font-weight: bolder;
+	font-size: xx-large;
+}
+
+									/*#Join*/
+				
+.extraRecompensa{
+    outline: solid 2px;
+    outline-color: green;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: large;
+}
+
+.extraRecompensa>h3{
+	margin: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+    align-content: center;
+}
+
+.extraRecompensa>p{
+	margin: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: normal;
+    align-content: center;
 }
 

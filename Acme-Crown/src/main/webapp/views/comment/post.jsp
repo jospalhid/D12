@@ -31,5 +31,6 @@
 	<button type="submit" name="save" class="btn btn-success">
 		<i class="glyphicon glyphicon-floppy-save"></i> <spring:message code="comment.save" />
 	</button>
+	
 	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${comment.project.id}'" /> <br />
 </form:form>
