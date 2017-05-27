@@ -46,7 +46,7 @@ public class Comment extends DomainEntity {
 		this.text = text;
 	}
 
-	@Range(min = 0, max = 5)
+	@Range(min = 1, max = 5)
 	public int getStars() {
 		return this.stars;
 	}

@@ -41,6 +41,7 @@ public class CommentCrownController extends AbstractController {
 		final Project project = this.projectService.findOne(projectId);
 
 		final Comment res = this.commentService.create(sender, project);
+		res.setStars(2);
 
 		result = new ModelAndView("comment/post");
 		result.addObject("comment", res);

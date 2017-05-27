@@ -548,7 +548,7 @@
 		<property name="title" value="Boats" />
 		<property name="topic" value="Navegar" />
 		<property name="description" value="Subete a bordo" />
-		<property name="moment" value="2017/04/02"/>
+		<property name="moment" value="2017/09/02"/>
 		<property name="award" value="100" />
 		<property name="projects">
 			<list>

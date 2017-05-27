@@ -62,7 +62,7 @@ public class Contest extends DomainEntity{
 	}
 	
 	@NotNull
-//	@Future
+	@Future
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	public Date getMoment() {

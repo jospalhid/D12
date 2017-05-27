@@ -26,7 +26,8 @@
   	<acme:textbox code="comment.title" path="title"/>
   	<acme:textarea code="comment.text" path="text"/>
   	<%-- <acme:stars code="comment.stars" path="stars"/> --%>
-  	<input id="input-1" name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="2.5">
+  	<input id="input-1" name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="2">
+  	<form:errors path="stars" cssClass="error" />
 	
 	<button type="submit" name="save" class="btn btn-success">
 		<i class="glyphicon glyphicon-floppy-save"></i> <spring:message code="comment.save" />
