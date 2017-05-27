@@ -138,6 +138,9 @@
 			</ul>
 		</li>
 		</security:authorize>
+		
+	<li><a class="fNiv" href="aboutUs/acme.do"><spring:message code="master.page.about" /></a></li>
+		
 	</ul>
 </div>
 

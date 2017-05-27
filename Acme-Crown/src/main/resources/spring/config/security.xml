@@ -117,6 +117,9 @@
 		<security:intercept-url pattern="/crown/pay.do" access="hasRole('CROWN')" /> 
 		
 		<security:intercept-url pattern="/category/icontable.do" access="permitAll" /> 
+		
+		
+		<security:intercept-url pattern="/aboutUs/acme.do" access="permitAll" />
 		       
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

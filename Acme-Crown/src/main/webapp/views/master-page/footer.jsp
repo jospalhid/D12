@@ -29,56 +29,14 @@
 
 <b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme-Crown Co., Inc.</b>
 
-<div id="overbox3">
-    <div id="infobox3">
-    <spring:message></spring:message>
-        <p>Esta web utiliza cookies para obtener datos estadísticos de la navegación de sus usuarios. Si continúas navegando consideramos que aceptas su uso.
-        <a onclick="aceptar_cookies();" style="cursor:pointer;">X Cerrar</a></p>
-    </div>
+<div class="popup" onclick="myFunction()"> <spring:message code="cookies"/> 
+  <span class="popuptext" id="myPopup"> <spring:message code="cookies_text"/>  </span>
 </div>
 
 <script>
-function GetCookie(name) {
-    var arg=name+"=";
-    var alen=arg.length;
-    var clen=document.cookie.length;
-    var i=0;
-    while (i<clen) {
-        var j=i+alen;
- 
-        if (document.cookie.substring(i,j)==arg)
-            return "1";
-        i=document.cookie.indexOf(" ",i)+1;
-        if (i==0)
-             break;
-     }
-    return null;
+// When the user clicks on <div>, open the popup
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
 }
- 
-function aceptar_cookies(){
-    var expire=new Date();
-    expire=new Date(expire.getTime()+7776000000);
-    document.cookie="cookies_surestao=aceptada; expires="+expire;
- 
-    var visit=GetCookie("cookies_surestao");
-    if (visit==1){
-        popbox3();
-    }
-}
- 
-jQuery(function() {
-    var visit=GetCookie("cookies_surestao");
-    if (visit==1){
-        $('#overbox3').toggle();
-    } else {
-        var expire=new Date();
-        expire=new Date(expire.getTime()+7776000000);
-        document.cookie="cookies_surestao=aceptada; expires="+expire;
-    }
-});
- 
-function popbox3() {
-    $('#overbox3').toggle();
-}
-
-</script>
+</script> 

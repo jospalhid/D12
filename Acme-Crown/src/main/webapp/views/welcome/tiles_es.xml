@@ -21,4 +21,10 @@
 		<put-attribute name="body" value="/views/welcome/index.jsp" />
 	</definition>
 	
+		<definition name="welcome/aboutUs" extends="master.page">	
+		<put-attribute name="title" value="Sobre nosotros" />
+		<put-attribute name="body" value="/views/welcome/aboutUs.jsp" />
+	</definition>
+	
+	
 </tiles-definitions>

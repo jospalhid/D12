@@ -7008,29 +7008,61 @@ button.close {
 
 
 
-#overbox3 {
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    z-index: 999999;
-    display: block;
-}
-#infobox3 {
-    margin: auto;
+
+/* Popup container */
+.popup {
     position: relative;
-    top: 0px;
-    height: 58px;
-    width: 100%;
-    text-align:center;
-    background-color: #eeeeee;
+    display: inline-block;
+    cursor: pointer;
+     font: bold;
+     color: green;
+     
+
 }
-#infobox3 p {
-    line-height:58px;
-    font-size:12px;
-    text-align:center;
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+ 
 }
-#infobox3 p a {
-    margin-right:5px;
-    text-decoration: underline;
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
 }
