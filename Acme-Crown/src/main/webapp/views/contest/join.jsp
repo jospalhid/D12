@@ -26,9 +26,10 @@
 	
 	<acme:join items="${projects }" itemLabel="title" code="contest.project" path="project" />
 	
-	<input type="submit" name="save" value="<spring:message code="project.save"/>" class="btn btn-success" />
-
+	<button type="submit" name="save" class="btn btn-success">
+	<i class="glyphicon glyphicon-floppy-saved"></i> <spring:message code="project.save"/>
+	</button>
 	
-	<input type="button" name="cancel" value="<spring:message code="project.cancel" />" class="btn btn-danger"  onclick="window.location='contest/display.do?contestId=${contestForm.contestId}'" /> <br />
+	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="project.cancel" />" class="btn btn-danger"  onclick="window.location='contest/display.do?contestId=${contestForm.contestId}'" /> <br />
 </form:form>
 <br/>

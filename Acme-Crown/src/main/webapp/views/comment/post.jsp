@@ -28,6 +28,8 @@
   	<%-- <acme:stars code="comment.stars" path="stars"/> --%>
   	<input id="input-1" name="stars" class="rating rating-loading" data-min="0" data-max="5" data-step="1" value="2.5">
 	
-	<input type="submit" name="save" value="<spring:message code="comment.save" />" />
-	<input type="button" name="cancel" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${comment.project.id}'" /> <br />
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-save"></i> <spring:message code="comment.save" />
+	</button>
+	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="comment.cancel" />" onclick="window.location='project/display.do?projectId=${comment.project.id}'" /> <br />
 </form:form>

@@ -66,7 +66,7 @@
 	<div >
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div>
+	<div style="margin-left:45px">
 		<h1>
 			<tiles:insertAttribute name="title" />
 		</h1>

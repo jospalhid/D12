@@ -30,16 +30,19 @@
 	<acme:textbox code="contest.moment" path="moment"/>
 	<acme:textbox code="contest.award" path="award"/>
 
-	<input type="submit" name="save" value="<spring:message code="category.save" />" />
-	
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-remove"></i> <spring:message code="category.save" />
+	</button>
 	<jstl:if test="${contest.id != 0}">
 		<jstl:if test="${borrar == true}">
-		<input type="submit" name="delete" value="<spring:message code="category.delete" />" onclick="return confirm('<spring:message code="category.confirm.delete" />')" />&nbsp;
+		<button type="submit" name="delete" class="btn btn-danger">
+			<i class="glyphicon glyphicon-floppy-remove"></i> <spring:message code="category.delete" />
+		</button>
 		</jstl:if>
-		<input type="button" name="cancel" value="<spring:message code="category.cancel" />" onclick="window.location='contest/available.do'" /> <br />
+		<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="category.cancel" />" onclick="window.location='contest/available.do'" /> <br />
 	</jstl:if>
 	<jstl:if test="${contest.id == 0}">
-		<input type="button" name="cancel" value="<spring:message code="category.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+		<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="category.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 	</jstl:if>
 		
 </form:form>

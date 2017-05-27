@@ -27,9 +27,11 @@
 	<acme:textbox code="concept.ttl" path="ttl"/>
 	<acme:textbox code="concept.dibs" path="dibs"/>
 
-	<input type="submit" name="save" value="<spring:message code="concept.save" />" />
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-saved"></i> <spring:message code="concept.save" />
+	</button>
 	
-	<input type="button" name="cancel" value="<spring:message code="concept.cancel" />" onclick="window.location='concept/crown/list.do'" /> <br />
+	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="concept.cancel" />" onclick="window.location='concept/crown/list.do'" /> <br />
 
 </form:form>
 <br/>

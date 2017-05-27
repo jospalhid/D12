@@ -27,9 +27,12 @@
 	<acme:textarea code="sms.body" path="body"/>
 	<acme:select items="${actors}" itemLabel="userAccount.username" code="sms.recipient" path="recipient"/>
 	
-	<input type="submit" name="save" value="<spring:message code="sms.save" />" />
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-saved"></i> <spring:message code="sms.save" />
 	
-	<input type="button" name="cancel" value="<spring:message code="sms.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+	</button>
+	
+	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="sms.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 	
 	<div>
 		<jstl:out value="${errors}"/>

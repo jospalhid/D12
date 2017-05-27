@@ -36,21 +36,24 @@
 	
 	<acme:select items="${categories }" itemLabel="name" code="project.category" path="category"/>
 
-	<input type="submit" name="save" value="<spring:message code="project.save" />" />
-	
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-saved"></i> <spring:message code="project.save" />
+	</button>
 	<jstl:if test="${projectForm.id != 0}">
 	<jstl:if test="${borrar == true}">
-		<input type="submit" name="delete" value="<spring:message code="project.delete" />" onclick="return confirm('<spring:message code="project.confirm.delete" />')" />&nbsp;
+		<button type="submit" name="delete" class="btn btn-danger">
+			<i class="glyphicon glyphicon-floppy-remove"></i> <spring:message code="project.delete" />
+		</button>
 	</jstl:if>
 	</jstl:if>
 	
 	<jstl:choose>
 			<jstl:when test="${projectForm.id==0}">
-				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+				<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="project.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 			</jstl:when>
 			
 			<jstl:otherwise>
-				<input type="button" name="cancel" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${projectForm.id}'" /> <br />
+				<input type="button" name="cancel" class="ben btn-danger" value="<spring:message code="project.cancel" />" onclick="window.location='project/display.do?projectId=${projectForm.id}'" /> <br />
 			</jstl:otherwise>
 	</jstl:choose>
 </form:form>

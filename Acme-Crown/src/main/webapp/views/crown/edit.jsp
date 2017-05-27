@@ -30,8 +30,10 @@
 	<acme:textbox code="crown.phone" path="phone"/>
 	<acme:textbox code="crown.picture" path="picture"/>
 	
-	<input type="submit" name="save" value="<spring:message code="crown.save" />" />
-	<input type="button" name="cancel" value="<spring:message code="crown.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
+	<button type="submit" name="save" class="btn btn-success">
+		<i class="glyphicon glyphicon-floppy-saved"></i> <spring:message code="crown.save" />
+	</button>
+	<input type="button" name="cancel" class="btn btn-danger" value="<spring:message code="crown.cancel" />" onclick="window.location='welcome/index.do'" /> <br />
 	
 	<%-- <div>
 		<jstl:out value="${errors}"/>
