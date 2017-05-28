@@ -117,6 +117,9 @@
 				<li><a href="contest/admin/create.do"><spring:message code="master.page.contest.create" /></a></li>
 				<li><a href="contest/admin/list.do"><spring:message code="master.page.contest.winer" /></a></li>
 				</security:authorize>
+				<security:authorize access="hasRole('CROWN')">
+				<li><a href="contest/crown/list.do"><spring:message code="master.page.contest.list.win" /></a></li>
+				</security:authorize>
 			</ul>
 		</li>
 		</security:authorize>

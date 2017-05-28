@@ -103,6 +103,16 @@ public class ContestService {
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a admin for this action");
 		return this.contestRepository.findNotWinner();
 	}
+	
+	public Collection<Contest> findMyWins(){
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown for this action");
+		
+		return this.contestRepository.findMyWins(ua.getId());
+	}
 
 	public Collection<Project> getWinner(int id){
 		final UserAccount ua = LoginService.getPrincipal();

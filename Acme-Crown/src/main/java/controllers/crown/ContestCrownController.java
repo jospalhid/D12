@@ -10,6 +10,7 @@
 
 package controllers.crown;
 
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,20 @@ public class ContestCrownController extends AbstractController {
 			result.addObject("projects", projects);
 			result.addObject("message", "contest.commint.error");
 		}
+		return result;
+	}
+	
+	@RequestMapping("/list")
+	public ModelAndView list() {
+		ModelAndView result;
+		
+		Collection<Contest> contests = this.contestService.findMyWins();
+		
+		result = new ModelAndView("contest/wins");
+		result.addObject("contests", contests);
+		result.addObject("current", Calendar.getInstance().getTimeInMillis()/86400000);
+		result.addObject("requestURI", "contest/crown/list.do");
+
 		return result;
 	}
 		
