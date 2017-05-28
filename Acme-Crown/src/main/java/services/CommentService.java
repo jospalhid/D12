@@ -48,6 +48,7 @@ public class CommentService {
 		res.setProject(project);
 		res.setMoment(Calendar.getInstance().getTime());
 		res.setStars(0);
+		res.setBanned(false);
 
 		return res;
 	}
