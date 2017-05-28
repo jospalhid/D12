@@ -67,42 +67,15 @@
 	
 			<td><display:column property="category.name" title="${categoryHeader}" sortable="true" /> </td>
 	</tr>
+	
+	<security:authorize access="isAnonymous() or hasRole('CROWN') or hasRole('MODERATOR')">
 	<display:column>
 		<a href="project/display.do?projectId=${project.id}">
 			<img src="./images/eye.png" alt="Display" width="25">
 		</a>
 	</display:column>
-
-	<%-- <security:authorize access="hasRole('CHORBI')">
-	<jstl:if test="${own == true }">
-		<display:column>
-	  		<a href="event/chorbi/unregister.do?eventId=${event.id}">
-	 			<spring:message code="event.unregister" var="unregisterHeader" />
-		  		<jstl:out value="${unregisterHeader}" />
-			 </a>
-		</display:column>
-	</jstl:if>
-	<jstl:if test="${all == true }">
-		<display:column>
-	  		<a href="event/chorbi/register.do?eventId=${event.id}">
-	 			<spring:message code="event.register" var="registerHeader" />
-		  		<jstl:out value="${registerHeader}" />
-			 </a>
-		</display:column>
-	</jstl:if>
 	</security:authorize>
-	
-	
-	<security:authorize access="hasRole('MANAGER')">
-	<jstl:if test="${edit == true }">
-	<display:column>
-	  	<a href="event/manager/edit.do?eventId=${event.id}">
-	 			<spring:message code="event.edit" var="editHeader" />
-		  		<jstl:out value="${editHeader}" />
-		 </a>
-	</display:column>
-	</jstl:if>
-	</security:authorize> --%>
+
 </tbody>
 
 </display:table>
