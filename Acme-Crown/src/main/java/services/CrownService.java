@@ -188,12 +188,16 @@ public class CrownService {
 	public ActorForm validate(ActorForm actor, BindingResult binding) {
 		validator.validate(actor, binding);
 		List<String> cond = Arrays.asList(actor.getConditions());
+		ActorForm res;
 		if (!actor.getPassword1().equals(actor.getPassword2()) || !cond.contains("acepto")) {
-			actor.setName("Pass");
+			res = new ActorForm();
+			res.setName("Pass");
 			if (!cond.contains("acepto"))
-				actor.setName("Cond");
+				res.setName("Cond");
+		}else{
+			res = actor;
 		}
-		return actor;
+		return res;
 	}
 	
 	public Crown validateAndEdit(Crown crown, BindingResult binding) {
