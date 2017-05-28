@@ -129,18 +129,18 @@ public class ModeratorAdminController extends AbstractController {
 	public ModelAndView toMod(@RequestParam int crownId) {
 		ModelAndView result;
 		
-		Collection<Crown> crowns = this.crownService.findAllNotBanned();
 		
-		result = new ModelAndView("crown/ascend");
-		result.addObject("crowns", crowns);
-		result.addObject("requestURI", "/moderator/admin/ascend.do");
-		
-//		try{
+		try{
 			this.moderatorService.crownToMod(crownId);
-			result.addObject("message", "crown.commit.success");
-//		}catch(Throwable oops){
-//			result.addObject("message", "crown.commit.error");
-//		}
+			result = new ModelAndView("redirect:list.do");
+		}catch(Throwable oops){
+			Collection<Crown> crowns = this.crownService.findAllNotBanned();
+			
+			result = new ModelAndView("crown/ascend");
+			result.addObject("crowns", crowns);
+			result.addObject("requestURI", "/moderator/admin/ascend.do");
+			result.addObject("message", "crown.commit.error");
+		}
 
 		return result;
 	}
