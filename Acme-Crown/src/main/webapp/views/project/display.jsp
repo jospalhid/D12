@@ -273,6 +273,15 @@
 			<td><display:column property="crown.userAccount.username" title="${crownHeader}" sortable="true" /> </td>
 			<td><display:column property="stars" title="${starsHeader}" sortable="true" /> </td>
 	</tr>
+		
+		<security:authorize access="hasRole('MODERATOR')">
+		<display:column>
+		<a href="comment/moderator/ban.do?commentId=${comment.id}">
+			<img src="./images/banC.png" alt="Ban" width="20">
+		</a>
+		</display:column>
+		</security:authorize>
+	
 	</tbody>
 	</display:table>
 	

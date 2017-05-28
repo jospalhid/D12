@@ -96,4 +96,11 @@ public class CommentService {
 
 		return res;
 	}
+
+	public void ban(Comment comment) {
+		comment.setBanned(true);
+		
+		this.save(comment);
+		
+	}
 }
