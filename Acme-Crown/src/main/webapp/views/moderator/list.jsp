@@ -28,6 +28,7 @@
 	
 	<thead> 
 		<tr> 
+			<th><spring:message code="moderator.user" var="userHeader" /></th>
 			<th><spring:message code="moderator.name" var="nameHeader" /></th>
 			<th><spring:message code="moderator.surname" var="surnameHeader" /></th>
 			<th><spring:message code="moderator.email" var="emailHeader" /></th>
@@ -37,6 +38,7 @@
 	</thead>
 	<tbody>
 		<tr>
+			<td><display:column property="userAccount.username" title="${userHeader}" sortable="true" /> </td>
 			<td><display:column property="name" title="${nameHeader}" sortable="true" /> </td>
 			<td><display:column property="surname" title="${surnameHeader}" sortable="true" /> </td>
 			<td><display:column property="email" title="${emailHeader}" sortable="true" /> </td>

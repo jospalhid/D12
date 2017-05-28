@@ -46,6 +46,7 @@
 		<img src="${crown.picture }" alt="${crown.surname }" width="75">
 	</display:column>
 	
+	<security:authorize access="hasRole('MODERATOR')">
 	<jstl:if test="${level>1}">
 	<display:column>
 		<jstl:choose>
@@ -62,6 +63,15 @@
 		</jstl:choose>
 	</display:column>
 	</jstl:if>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+		<a href="moderator/admin/toMod.do?crownId=${crown.id}">
+			<img src="./images/up.png" alt="Ascend" width="20">
+		</a>
+	</display:column>
+	</security:authorize>
 	
 	
 	</tbody>

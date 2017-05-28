@@ -1,9 +1,11 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -12,6 +14,8 @@ import repositories.ModeratorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountService;
+import domain.Crown;
 import domain.Moderator;
 import domain.Sms;
 
@@ -29,6 +33,10 @@ public class ModeratorService {
 //	private Validator validator;
 	
 	//Supporting services
+	@Autowired
+	private CrownService crownService;
+	@Autowired
+	private UserAccountService userAccountService;
 
 	//Constructors
 	public ModeratorService() {
@@ -44,6 +52,7 @@ public class ModeratorService {
 		res.setReceivedMessages(new ArrayList<Sms>());
 		res.setSendMessages(new ArrayList<Sms>());
 		res.setBanned(false);
+		res.setLevel(1);
 		return res;
 	}
 
@@ -144,6 +153,42 @@ public class ModeratorService {
 		}
 		
 		this.save(moderator);
+	}
+
+	public Moderator crownToMod(int crownId) {
+		final UserAccount uax = LoginService.getPrincipal();
+		Assert.notNull(uax);
+		final Authority az = new Authority();
+		az.setAuthority(Authority.ADMIN);
+		Assert.isTrue(uax.getAuthorities().contains(az), "You must to be a admin for this action");
+		
+		Crown crown = this.crownService.findOne(crownId);
+		
+		Moderator result;
+		final UserAccount ua = this.userAccountService.create();
+
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final String hash = encoder.encodePassword(crown.getUserAccount().getUsername()+Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+Calendar.getInstance().get(Calendar.MONTH), null);
+		
+		ua.setUsername(crown.getUserAccount().getUsername()+Calendar.getInstance().get(Calendar.DAY_OF_MONTH)+Calendar.getInstance().get(Calendar.MONTH));
+		ua.setPassword(hash);
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		ua.getAuthorities().add(a);
+
+		result = this.create(ua);
+
+		result.setName(crown.getName());
+		result.setSurname(crown.getSurname());
+		result.setEmail(crown.getEmail());
+		result.setPhone(crown.getPhone());
+		result.setPicture(crown.getPicture());
+		result.setCrown(crown);
+		
+		Moderator res = this.save(result);
+		
+		return res;
 	}
 
 }

@@ -21,6 +21,11 @@
 		<put-attribute name="body" value="/views/crown/list.jsp"/>		
 	</definition>
 	
+	<definition name="crown/ascend" extends="master.page">
+		<put-attribute name="title" value="Ascender"/>
+		<put-attribute name="body" value="/views/crown/list.jsp"/>		
+	</definition>
+	
 	<definition name="crown/edit" extends="master.page">
 		<put-attribute name="title" value="Editar mi perfil"/>
 		<put-attribute name="body" value="/views/crown/edit.jsp"/>		

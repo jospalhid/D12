@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.CrownService;
 import services.ModeratorService;
 import controllers.AbstractController;
+import domain.Crown;
 import domain.Moderator;
 
 @Controller
@@ -29,6 +31,8 @@ public class ModeratorAdminController extends AbstractController {
 	
 	@Autowired
 	private ModeratorService moderatorService;
+	@Autowired
+	private CrownService crownService;
 	
 	// Constructors -----------------------------------------------------------
 
@@ -104,6 +108,39 @@ public class ModeratorAdminController extends AbstractController {
 		}catch(Throwable oops){
 			result.addObject("message", "crow.commit.error");
 		}
+
+		return result;
+	}
+	
+	@RequestMapping(value="/ascend",method = RequestMethod.GET)
+	public ModelAndView ascend() {
+		ModelAndView result;
+		
+		Collection<Crown> crowns = this.crownService.findAllNotBanned();
+		
+		result = new ModelAndView("crown/ascend");
+		result.addObject("crowns", crowns);
+		result.addObject("requestURI", "/moderator/admin/ascend.do");
+
+		return result;
+	}
+	
+	@RequestMapping(value="/toMod",method = RequestMethod.GET)
+	public ModelAndView toMod(@RequestParam int crownId) {
+		ModelAndView result;
+		
+		Collection<Crown> crowns = this.crownService.findAllNotBanned();
+		
+		result = new ModelAndView("crown/ascend");
+		result.addObject("crowns", crowns);
+		result.addObject("requestURI", "/moderator/admin/ascend.do");
+		
+//		try{
+			this.moderatorService.crownToMod(crownId);
+			result.addObject("message", "crown.commit.success");
+//		}catch(Throwable oops){
+//			result.addObject("message", "crown.commit.error");
+//		}
 
 		return result;
 	}
