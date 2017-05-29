@@ -147,10 +147,10 @@ public class ContestAdminController extends AbstractController {
 	public ModelAndView winner(@RequestParam final int contestId) {
 		ModelAndView result;
 
-		Collection<Contest> contests = this.contestService.findNotWinner();
+		
 		
 		result = new ModelAndView("contest/winner");
-		result.addObject("contests", contests);
+	
 		result.addObject("requestURI", "/contest/admin/list.do");
 		result.addObject("up", true);
 		
@@ -159,10 +159,15 @@ public class ContestAdminController extends AbstractController {
 			projects.addAll(this.contestService.getWinner(contestId));
 			if(!projects.isEmpty()){
 				this.contestService.setWinner(contestId, projects.get(0));
+			}else{
+				this.contestService.setWinner(contestId);
 			}
 		}catch(Throwable oops){
 			result.addObject("message", "contest.commit.error");
 		}
+		
+		Collection<Contest> contests = this.contestService.findNotWinner();
+		result.addObject("contests", contests);
 
 		return result;
 	}

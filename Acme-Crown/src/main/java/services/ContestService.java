@@ -166,10 +166,13 @@ public class ContestService {
 			contest.setWinner(project);
 		}
 		contest.setWin(true);
-		Contest res =this.save(contest);
-		if(res!=null){
-			System.out.println("hol");
-		}
+		this.save(contest);
+	}
+
+	public void setWinner(int contestId) {
+		Contest contest = this.findOne(contestId);
+		contest.setWin(true);
+		this.save(contest);
 	}
 
 }
