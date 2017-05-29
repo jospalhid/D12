@@ -41,7 +41,8 @@
 		<security:intercept-url pattern="/security/signin.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/security/signin/crown.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/security/signin/bidder.do" access="isAnonymous()" />
-
+		<security:intercept-url pattern="/security/moderator/signin.do" access="hasRole('ADMIN')" />
+		
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 		
 		<security:intercept-url pattern="/project/available.do" access="permitAll" /> 

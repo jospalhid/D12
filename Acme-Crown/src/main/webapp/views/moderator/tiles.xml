@@ -21,4 +21,9 @@
 		<put-attribute name="body" value="/views/moderator/list.jsp"/>		
 	</definition>
 	
+	<definition name="moderator/signin" extends="master.page">
+		<put-attribute name="title" value="Moderator Signin" />
+		<put-attribute name="body" value="/views/moderator/signin.jsp" />
+	</definition>
+	
 </tiles-definitions>

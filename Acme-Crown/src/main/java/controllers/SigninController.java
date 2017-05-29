@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BidderService;
 import services.CrownService;
+import services.ModeratorService;
+import domain.Moderator;
 import forms.ActorForm;
 
 @Controller
@@ -30,7 +34,9 @@ public class SigninController extends AbstractController {
 	private CrownService	crownService;
 	@Autowired
 	private BidderService	bidderService;
-
+	@Autowired
+	private ModeratorService moderatorService;
+	
 
 	// Constructors -----------------------------------------------------------
 
@@ -112,6 +118,48 @@ public class SigninController extends AbstractController {
 				result = new ModelAndView("security/signin/bidder");
 				result.addObject("actorForm", actor);
 				result.addObject("tipo","bidder");
+				result.addObject("message", "security.signin.failed");
+			}
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/moderator/signin", method = RequestMethod.GET)
+	public ModelAndView signinUserModerator() {
+		ModelAndView result;
+		final ActorForm moderator = new ActorForm();
+
+		result = new ModelAndView("moderator/signin");
+		result.addObject("actorForm", moderator);
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/moderator/signin", method = RequestMethod.POST, params = "moderator")
+	public ModelAndView userModerator(final ActorForm actor, final BindingResult binding) {
+		ModelAndView result;
+		ActorForm res = this.moderatorService.validate(actor, binding);
+		if (binding.hasErrors() || res.getName().equals("Pass") || res.getName().equals("Cond")) {
+			result = new ModelAndView("moderator/signin");
+			result.addObject("actorForm", actor);
+			if (res.getName().equals("Pass"))
+				result.addObject("message", "security.password.failed");
+			else if (res.getName().equals("Cond"))
+				result.addObject("message", "security.condition.failed");
+			else
+				result.addObject("errors", binding.getAllErrors());
+		} else
+			try {
+				this.moderatorService.reconstructAndSave(res);
+				Collection<Moderator> moderators = this.moderatorService.findAll();
+		
+				result = new ModelAndView("moderator/list");
+				result.addObject("moderators", moderators);
+				result.addObject("requestURI", "/moderator/admin/list.do");
+
+			} catch (Throwable oops) {
+				result = new ModelAndView("moderator/signin");
+				result.addObject("actorForm", actor);
 				result.addObject("message", "security.signin.failed");
 			}
 

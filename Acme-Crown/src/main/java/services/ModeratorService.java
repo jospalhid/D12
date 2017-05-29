@@ -1,14 +1,18 @@
 package services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ModeratorRepository;
 import security.Authority;
@@ -18,6 +22,7 @@ import security.UserAccountService;
 import domain.Crown;
 import domain.Moderator;
 import domain.Sms;
+import forms.ActorForm;
 
 @Service
 @Transactional
@@ -29,8 +34,8 @@ public class ModeratorService {
 
 
 	//Validator
-//	@Autowired
-//	private Validator validator;
+	@Autowired
+	private Validator validator;
 	
 	//Supporting services
 	@Autowired
@@ -189,6 +194,46 @@ public class ModeratorService {
 		Moderator res = this.save(result);
 		
 		return res;
+	}
+	
+	public ActorForm validate(ActorForm actor, BindingResult binding) {
+		validator.validate(actor, binding);
+		List<String> cond = Arrays.asList(actor.getConditions());
+		ActorForm res;
+		if (!actor.getPassword1().equals(actor.getPassword2()) || !cond.contains("acepto")) {
+			res = new ActorForm();
+			res.setName("Pass");
+			if (!cond.contains("acepto"))
+				res.setName("Cond");
+		}else{
+			res = actor;
+		}
+		return res;
+	}
+	
+	public Moderator reconstructAndSave(final ActorForm actor) {
+		Moderator result;
+		final UserAccount ua = this.userAccountService.create();
+
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		final String hash = encoder.encodePassword(actor.getPassword1(), null);
+		
+		ua.setUsername(actor.getUsername());
+		ua.setPassword(hash);
+
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		ua.getAuthorities().add(a);
+
+		result = this.create(ua);
+
+		result.setName(actor.getName());
+		result.setSurname(actor.getSurname());
+		result.setEmail(actor.getEmail());
+		result.setPhone(actor.getPhone());
+		result.setPicture(actor.getPicture());
+
+		return this.save(result);
 	}
 
 }
