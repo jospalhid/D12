@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.AdminService;
+import services.BidderService;
 import services.CrownService;
 import services.ModeratorService;
 import services.SmsService;
@@ -38,6 +39,8 @@ public class WelcomeController extends AbstractController {
 	private ModeratorService moderatorService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private BidderService bidderService;
 	@Autowired
 	private SmsService smsService;
 	
@@ -78,8 +81,11 @@ public class WelcomeController extends AbstractController {
 			Actor actor = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
 			if(actor==null){
 				actor = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
-			}else{
+			}
+			if(actor == null){
 				actor = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			}else{
+				actor = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
 			}
 			result.addObject("unread", this.smsService.unreadCount());
 		}catch(Throwable ooops){}
