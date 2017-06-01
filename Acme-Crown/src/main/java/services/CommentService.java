@@ -12,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CommentRepository;
+import security.Authority;
 import security.LoginService;
+import security.UserAccount;
 import domain.Comment;
 import domain.Crown;
 import domain.Project;
@@ -98,6 +100,12 @@ public class CommentService {
 	}
 
 	public void ban(Comment comment) {
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.MODERATOR);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a moderator for this action.");
+		
 		comment.setBanned(true);
 		
 		this.save(comment);
