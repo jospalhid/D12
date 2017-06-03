@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.CrownService;
+import services.AdminService;
 import services.ModeratorService;
 import utilities.AbstractTest;
-import domain.Crown;
+import domain.Admin;
 import domain.Moderator;
 
 @ContextConfiguration(locations = {
@@ -24,24 +24,26 @@ import domain.Moderator;
 })
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
-public class BanAProjectTest extends AbstractTest{
+public class BanModeratorTest extends AbstractTest{
 	
-	/* *----Banear un proyecto-----*
+	/* *----Banear un moderador-----*
 	  -El orden de los parámetros es: Usuario que se va a autenticar, error esperado
 	  
 	  Cobertura del test:
-	  		//El usuario autenticado es un moderador de rango oro y puede bloquear (test positivo)
+	  		//El usuario autenticado es administrador y puede bloquear (test positivo)
 			//El usuario no está autenticado y por lo tanto no puede bloquear (test negativo)
 				
 	 */
 	
 	@Autowired
-	private CrownService crownService;
+	private AdminService adminService;
 	
 	@Autowired
 	private ModeratorService moderatorService;
 	
 	private List<Moderator> moderators;
+	private List<Admin> admins;
+	
 	
 	@Before
     public void setup() {
@@ -49,13 +51,16 @@ public class BanAProjectTest extends AbstractTest{
 		this.moderators.addAll(this.moderatorService.findAll());
 		
 		Collections.shuffle(this.moderators);
+		
+		this.admins =  new ArrayList<Admin>();
+		this.admins.addAll(this.adminService.findAll());
 	}
 	
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
 			{
-				this.moderators.get(0).getUserAccount().getUsername(), null
+				this.admins.get(0).getUserAccount().getUsername(), null
 			}, {
 				null, IllegalArgumentException.class
 			},
@@ -72,14 +77,8 @@ public class BanAProjectTest extends AbstractTest{
 		try {
 			this.authenticate(username);
 			
-			List<Crown> crowns = new ArrayList<Crown>();
-			crowns.addAll(crownService.findAllNotBanned());
-			Collections.shuffle(crowns);
-			
-			if(!crowns.isEmpty()){
-				Crown c = crowns.get(0);
-				this.crownService.ban(c.getId());
-			}
+			Moderator m = moderators.get(0);
+			moderatorService.ban(m.getId());
 			
 			this.unauthenticate();
 		} catch (final Throwable oops) {

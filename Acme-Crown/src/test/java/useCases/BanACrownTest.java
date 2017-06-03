@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import security.LoginService;
 import services.CrownService;
 import services.ModeratorService;
 import utilities.AbstractTest;
@@ -30,7 +31,7 @@ public class BanACrownTest extends AbstractTest{
 	  -El orden de los parámetros es: Usuario que se va a autenticar, error esperado
 	  
 	  Cobertura del test:
-	  		//El usuario autenticado es un admin y puede bloquear (test positivo)
+	  		//El usuario autenticado es un moderador y puede bloquear (test positivo)
 			//El usuario no está autenticado y por lo tanto no puede bloquear (test negativo)
 				
 	 */
@@ -72,6 +73,9 @@ public class BanACrownTest extends AbstractTest{
 		try {
 			this.authenticate(username);
 			
+			Moderator m = moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
+			
+			m.setLevel(2);
 			List<Crown> crowns = new ArrayList<Crown>();
 			crowns.addAll(crownService.findAllNotBanned());
 			Collections.shuffle(crowns);

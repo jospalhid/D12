@@ -32,7 +32,7 @@ public class BanACommentTest extends AbstractTest{
 	  -El orden de los parámetros es: Usuario que se va a autenticar, error esperado
 	  
 	  Cobertura del test:
-	  		//El usuario autenticado es un admin y puede bloquear (test positivo)
+	  		//El usuario autenticado es un moderador y puede bloquear (test positivo)
 			//El usuario no está autenticado y por lo tanto no puede bloquear (test negativo)
 				
 	 */
