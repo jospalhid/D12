@@ -86,6 +86,8 @@ public class ProjectService {
 		a.setAuthority(Authority.CROWN);
 		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to save a project.");
 
+		Assert.isTrue(project.getGoal()>0,"No puede ser menor");
+		
 		final Integer days = this.getDaysToLive(project);
 		Assert.isTrue(days <= 90 && days > 0, "The ttl must be 90 or less");
 		Assert.isTrue(!project.getTitle().isEmpty());
