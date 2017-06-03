@@ -80,14 +80,17 @@ public class CreateRewardTest extends AbstractTest {
 			
 			List<Project> projects = new ArrayList<Project>();
 			projects.addAll(c.getProjects());
-			Project p = projects.get(0);
 			
-			Reward r= rewardService.create(p);
-			r.setCost(cost);
-			r.setTitle(titulo);
-			r.setDescription(description);
-			
-			rewardService.save(r);			
+			if(!projects.isEmpty()){
+				Project p = projects.get(0);
+				
+				Reward r= rewardService.create(p);
+				r.setCost(cost);
+				r.setTitle(titulo);
+				r.setDescription(description);
+				
+				rewardService.save(r);	
+			}
 			this.unauthenticate();
 
 		} catch (final Throwable oops) {
