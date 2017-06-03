@@ -88,7 +88,8 @@ public class ProjectService {
 
 		final Integer days = this.getDaysToLive(project);
 		Assert.isTrue(days <= 90 && days > 0, "The ttl must be 90 or less");
-
+		Assert.isTrue(!project.getTitle().isEmpty());
+		Assert.isTrue(project.getGoal()>=0);
 		//		project.setMoment(Calendar.getInstance().getTime());
 
 		final Project res = this.projectRepository.save(project);

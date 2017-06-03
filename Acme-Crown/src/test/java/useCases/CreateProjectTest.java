@@ -43,6 +43,13 @@ public class CreateProjectTest extends AbstractTest {
 	 * -El usuario no está autenticado y no se puede crear un nuevo proyecto(test negativo)
 	 * -El usuario es un administrador y no se puede crear un nuevo proyecto(test negativo)
 	 * -El usuario es un moderador y no se puede crear un nuevo proyecto(test negativo)
+	 * -El título está vacío por lo que no se puede crear un proyecto(test negativo)
+	 * -El objetivo es negativo por lo que no se puede crear un proyecto(test negativo)
+	 * -El objetivo es 0 por lo que se puede crear un proyecto(test positivo)
+	 * -El objetivo es una unidad por debajo de lo permitido por lo que no se puede 
+	 * crear un proyecto(test negativo)
+	 *  -El objetivo es una unidad por encima de lo permitido por lo que se puede 
+	 * crear un proyecto(test positivo)
 
 	 */
 	@Autowired
@@ -95,7 +102,11 @@ public class CreateProjectTest extends AbstractTest {
 				{null,"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
 				{this.admins.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
 				{this.moderators.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
-				{this.crowns.get(0).getUserAccount().getUsername(),"","descripcion",-70,categories.get(0), null},
+				{this.crowns.get(0).getUserAccount().getUsername(),"","descripcion",70,categories.get(0), IllegalArgumentException.class},
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",-70,categories.get(0), IllegalArgumentException.class},
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",0,categories.get(0), null},
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",-1,categories.get(0), IllegalArgumentException.class},
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",1,categories.get(0), null},
 
 		};
 
