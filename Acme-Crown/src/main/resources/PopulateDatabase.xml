@@ -379,8 +379,8 @@
 		<property name="title" value="Proyectillos varios" />
 		<property name="description" value="Cuatnas cosas" />
 		<property name="goal" value="3000" />
-		<property name="ttl" value="2017/05/30"/>
-		<property name="moment" value="2017/05/02"/>
+		<property name="ttl" value="2017/06/30"/>
+		<property name="moment" value="2017/05/30"/>
 		<property name="banned" value="false" />
 		<property name="promoted" value="false" />
 		<property name="pictures">
@@ -407,7 +407,7 @@
 		<property name="title" value="Save Sanji" />
 		<property name="description" value="Hay que salvarle" />
 		<property name="goal" value="100" />
-		<property name="ttl" value="2017/05/12"/>
+		<property name="ttl" value="2017/06/01"/>
 		<property name="moment" value="2017/05/02"/>
 		<property name="banned" value="false" />
 		<property name="promoted" value="false" />
@@ -675,7 +675,7 @@
 		<property name="ttl" value="20" />
 		<property name="dibs" value="50" />
 		<property name="valid" value="1" />
-		<property name="day" value="2017/05/28" />
+		<property name="day" value="2017/06/02" />
 		<property name="crown" ref="crown1" />
 		<property name="bids">
 			<list></list>
