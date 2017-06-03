@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import security.LoginService;
 import services.CrownService;
+import services.ProjectService;
 import services.RewardService;
 import utilities.AbstractTest;
 import domain.Crown;
@@ -47,6 +48,9 @@ public class DeleteRewardTest extends AbstractTest {
 	
 	@Autowired
 	private RewardService rewardService;
+	
+	@Autowired
+	private ProjectService projectService;
 	
 	
 	private List<Crown> crowns;
@@ -85,16 +89,18 @@ public class DeleteRewardTest extends AbstractTest {
 			Crown c= crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 			
 			List<Project> projects = new ArrayList<Project>();
-			projects.addAll(c.getProjects());
-			Project p = projects.get(0);
-			
-			Reward r= rewardService.create(p);
-			r.setCost(cost);
-			r.setTitle(titulo);
-			r.setDescription(description);
-			
-			rewardService.save(r);	
-			rewardService.delete(r);
+			projects.addAll(this.projectService.findMyProjects(c.getUserAccount().getId()));
+			if(!projects.isEmpty()){
+				Project p = projects.get(0);
+				
+				Reward r= rewardService.create(p);
+				r.setCost(cost);
+				r.setTitle(titulo);
+				r.setDescription(description);
+				
+				Reward res = rewardService.save(r);	
+				rewardService.delete(res);
+			}
 			this.unauthenticate();
 
 		} catch (final Throwable oops) {

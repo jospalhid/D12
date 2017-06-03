@@ -104,7 +104,7 @@ public class ContestAdminController extends AbstractController {
 					result = new ModelAndView("contest/edit");
 				}
 				result.addObject("contest", contest);
-				result.addObject("message", "contest.commint.error");
+				result.addObject("message", "contest.commit.error");
 			}
 		}else{
 			if(contest.getId()==0){
@@ -137,7 +137,7 @@ public class ContestAdminController extends AbstractController {
 
 			result = new ModelAndView("contest/edit");
 			result.addObject("contest", contest);
-			result.addObject("message", "contest.commint.error");
+			result.addObject("message", "contest.commit.error");
 		}
 		
 		return result;
