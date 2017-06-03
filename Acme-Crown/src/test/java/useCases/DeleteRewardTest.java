@@ -28,21 +28,16 @@ import domain.Reward;
 public class DeleteRewardTest extends AbstractTest {
 
 	/*
-	 * Create an event - Manager
+	 * Borrar una recompensa- Manager
 	 *
-	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar, Error esperado
+	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar,
+	 * titulo, descripcion, coste y Error esperado
 	 * 
 	 * Cobertura del test:
-	 * -El usuario autenticado existe y se puede crear el nuevo evento(test positivo)
-	 * -El usuario no está autenticado y no se puede crear un nuevo evento(test negativo)
-	 * -El usuario autenticado existe pero introduce un día erróneo (un día despues de lo que se puede) (test negativo)
-	 * -El usuario autenticado existe e introduce un día erróneo (día negativo) (test negativo)
-	 * -El usuario autenticado existe pero introduce un mes erróneo (un mes despues de lo que se puede) (test negativo)
-	 * -El usuario autenticado existe pero introduce un mes erróneo (mes negativo )(test negativo)
-	 * -El usuario autenticado existe pero introduce una hora errónea (una hora despues de lo que se puede) (test negativo)
-	 * -El usuario autenticado existe pero introduce los minutos erróneos (un minuto despues de lo que se puede) (test negativo)
-	 * -El usuario autenticado existe pero introduce los minutos errónos (minutos negativos) (test negativo)
-	 */
+	 * -El usuario autenticado existe, es el creador de la recompensa y nadie ha pagado por
+	 * ella (test positivo)
+	 * -El usuario no está autenticado y no puede borrar la recompensa(test negativo)
+	*/
 	@Autowired
 	private CrownService crownService;
 	

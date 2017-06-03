@@ -24,7 +24,7 @@ import domain.Crown;
 public class ProjectFavTest extends AbstractTest {
 
 	/*
-	 * Dar favorito a un proyecto - Manager
+	 * Listar mis proyectos favoritos - Crown
 	 *
 	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar, Error esperado
 	 * 

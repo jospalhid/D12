@@ -15,9 +15,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import services.CrownService;
 import services.ModeratorService;
+import services.ProjectService;
 import utilities.AbstractTest;
 import domain.Crown;
 import domain.Moderator;
+import domain.Project;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -37,6 +39,9 @@ public class BanAProjectTest extends AbstractTest{
 	
 	@Autowired
 	private CrownService crownService;
+	
+	@Autowired
+	private ProjectService projectService;
 	
 	@Autowired
 	private ModeratorService moderatorService;
@@ -78,6 +83,10 @@ public class BanAProjectTest extends AbstractTest{
 			
 			if(!crowns.isEmpty()){
 				Crown c = crowns.get(0);
+				if(!c.getProjects().isEmpty()){
+					List<Project> ps = (List<Project>) c.getProjects();
+					projectService.saveBan(ps.get(0));
+				}
 				this.crownService.ban(c.getId());
 			}
 			

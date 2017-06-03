@@ -27,7 +27,7 @@ import domain.Reward;
 public class CreateRewardTest extends AbstractTest {
 
 	/*
-	 * Create an event - Manager
+	 * Crear una recompensa- Manager
 	 *
 	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar,
 	 * titulo, descripcion, coste y Error esperado

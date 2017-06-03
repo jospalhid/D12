@@ -1,8 +1,8 @@
 package useCases;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,12 +15,16 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import security.LoginService;
+import services.AdminService;
 import services.CategoryService;
 import services.CrownService;
+import services.ModeratorService;
 import services.ProjectService;
 import utilities.AbstractTest;
+import domain.Admin;
 import domain.Category;
 import domain.Crown;
+import domain.Moderator;
 import domain.Project;
 
 @ContextConfiguration(locations = { "classpath:spring/junit.xml" })
@@ -29,14 +33,17 @@ import domain.Project;
 public class CreateProjectTest extends AbstractTest {
 
 	/*
-	 * Create an event - Manager
+	 * Crear un poyecto - Manager
 	 *
-	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar,título,
+	 * -El orden de los parámetros es: Usuario (Crown) que se va a autenticar,título,
 	 * descripcion, objetivo, tiempo de vida y Error esperado
 	 * 
 	 * Cobertura del test:
 	 * -El usuario autenticado existe y se puede crear el nuevo proyecto(test positivo)
 	 * -El usuario no está autenticado y no se puede crear un nuevo proyecto(test negativo)
+	 * -El usuario es un administrador y no se puede crear un nuevo proyecto(test negativo)
+	 * -El usuario es un moderador y no se puede crear un nuevo proyecto(test negativo)
+
 	 */
 	@Autowired
 	private CrownService crownService;
@@ -46,10 +53,18 @@ public class CreateProjectTest extends AbstractTest {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private AdminService adminService;
+	
+	@Autowired
+	private ModeratorService moderatorService;
 
 	
 	private List<Crown> crowns;
 	private List<Category> categories;
+	private List<Admin> admins;
+	private List<Moderator> moderators;
 	
 	@Before
     public void setup() {
@@ -60,27 +75,41 @@ public class CreateProjectTest extends AbstractTest {
 		
 		this.categories = new ArrayList<Category>();
 		this.categories.addAll(this.categoryService.findAll());
+		
+		Collections.shuffle(this.categories);
+		
+		this.admins = new ArrayList<Admin>();
+		this.admins.addAll(this.adminService.findAll());
+		
+		Collections.shuffle(this.admins);
+		
+		this.moderators = new ArrayList<Moderator>();
+		this.moderators.addAll(this.moderatorService.findAll());
+		
+		Collections.shuffle(moderators);
 	}
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
-				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,new Date(2017/05/30),new Date(2017/05/28),categories.get(0), null },
-				{null,"titulo","descripcion",30,new Date(2017/05/30),new Date(2017/05/28),categories.get(0), null },
-				};
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0), null },
+				{null,"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
+				{this.admins.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
+				{this.moderators.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
+				{this.crowns.get(0).getUserAccount().getUsername(),"","descripcion",-70,categories.get(0), null},
+
+		};
 
 		for (int i = 0; i < testingData.length; i++)
 			this.template((String) testingData[i][0],
 					(String) testingData[i][1],
 					(String) testingData[i][2],
 					(int) testingData[i][3],
-					(Date) testingData[i][4],
-					(Date) testingData[i][5],
-					(Category) testingData[i][6],
-					(Class<?>) testingData[i][7]);
+					(Category) testingData[i][4],
+					(Class<?>) testingData[i][5]);
 	}
 
 	protected void template(String username,String title, String description, int goal,
-			Date ttl, Date moment,Category category,final Class<?> expected) {
+			 Category category,final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 		try {
@@ -90,8 +119,10 @@ public class CreateProjectTest extends AbstractTest {
 			p.setTitle(title);
 			p.setDescription(description);
 			p.setGoal(goal);
-			p.setTtl(ttl);
-			p.setMoment(moment);
+			Calendar time= Calendar.getInstance();
+			time.set(2017, 06, 30);
+			
+			p.setTtl(time.getTime());
 
 			projectService.save(p);
 			

@@ -26,9 +26,9 @@ import domain.Crown;
 public class CreateCreditCardTest extends AbstractTest {
 
 	/*
-	 * Create an event - Manager
+	 * Crear una tarjeta de crédito - Crown
 	 *
-	 * -El orden de los parámetros es: Usuario (Manager) que se va a autenticar,holder,
+	 * -El orden de los parámetros es: Usuario (Crown) que se va a autenticar,holder,
 	 * brand, number, expiration month, expiration year, cvv y Error esperado
 	 * 
 	 * Cobertura del test:
