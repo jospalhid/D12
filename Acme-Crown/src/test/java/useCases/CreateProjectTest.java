@@ -33,7 +33,7 @@ import domain.Project;
 public class CreateProjectTest extends AbstractTest {
 
 	/*
-	 * Crear un poyecto - Manager
+	 * Crear un poyecto - Crown
 	 *
 	 * -El orden de los parámetros es: Usuario (Crown) que se va a autenticar,título,
 	 * descripcion, objetivo, tiempo de vida y Error esperado
@@ -99,12 +99,12 @@ public class CreateProjectTest extends AbstractTest {
 	public void driver() {
 		final Object testingData[][] = {
 				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0), null },
-				{null,"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
+				{"no","titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
 				{this.admins.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
 				{this.moderators.get(0).getUserAccount().getUsername(),"titulo","descripcion",30,categories.get(0),IllegalArgumentException.class},
 				{this.crowns.get(0).getUserAccount().getUsername(),"","descripcion",70,categories.get(0), IllegalArgumentException.class},
 				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",-70,categories.get(0), IllegalArgumentException.class},
-				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",0,categories.get(0), null},
+				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","",1,categories.get(0), null},
 				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",-1,categories.get(0), IllegalArgumentException.class},
 				{this.crowns.get(0).getUserAccount().getUsername(),"titulo","descripcion",1,categories.get(0), null},
 
