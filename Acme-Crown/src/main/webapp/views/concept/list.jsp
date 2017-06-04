@@ -75,8 +75,8 @@
 			<jstl:if test="${hours>0 }">
 			<td>
 				<display:column title="${ttlHeader}" sortable="true">
-					<jstl:out value="${hours}"/> <spring:message code="concept.hour" />, 
-					<jstl:out value="${mins}"/> <spring:message	code="concept.minutes" /> <spring:message	code="concept.and" />  
+					<jstl:out value="${hours-1}"/> <spring:message code="concept.hour" />, 
+					<jstl:out value="${mins-1}"/> <spring:message	code="concept.minutes" /> <spring:message	code="concept.and" />  
 					<jstl:out value="${segs}"/> <spring:message	code="concept.seconds" /> <spring:message code="concept.left" />
 				</display:column>
 			</td>

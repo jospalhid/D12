@@ -133,7 +133,11 @@ public class ConceptBidderController extends AbstractController {
 				result.addObject("bid", newBid);
 			}
 		}else{
-			result.addObject("bid", bid);
+			if(!concepts.isEmpty()){
+				Bid bidd = this.bidService.create(bidder, concepts.get(0));
+				result.addObject("bid", bidd);
+			}
+			result.addObject("message", "concept.bid.neg");
 		}
 
 
