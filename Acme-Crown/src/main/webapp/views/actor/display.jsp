@@ -43,6 +43,7 @@
 	<br>
 	<security:authorize access="hasRole('CROWN')">
 			<jstl:if test="${actor.amount > 0.0 }">
+			<strong><spring:message code="actor.amount"/>: </strong><jstl:out value="${actor.amount}" /><br>
 				<a href="crown/pay.do">
 	 				<img src="./images/credit_card.png" alt="PayAmount" width="70">
 				</a>
