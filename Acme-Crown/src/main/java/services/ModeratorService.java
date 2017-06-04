@@ -72,7 +72,7 @@ public class ModeratorService {
 	}
 
 	public Moderator save(final Moderator moderator) {
-		Assert.notNull(moderator, "The crown to save cannot be null.");
+		Assert.notNull(moderator, "The moderator to save cannot be null.");
 		final UserAccount ua = LoginService.getPrincipal();
 		Assert.notNull(ua);
 		final Authority a = new Authority();

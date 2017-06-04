@@ -97,15 +97,19 @@ public class ModeratorAdminController extends AbstractController {
 	public ModelAndView level(@RequestParam int moderatorId) {
 		ModelAndView result;
 		
-		Collection<Moderator> moderators = this.moderatorService.findAll();
-		
-		result = new ModelAndView("moderator/list");
-		result.addObject("moderators", moderators);
-		result.addObject("requestURI", "/moderator/admin/list.do");
-		
 		try{
 			this.moderatorService.level(moderatorId);
+			Collection<Moderator> moderators = this.moderatorService.findAll();
+			
+			result = new ModelAndView("moderator/list");
+			result.addObject("moderators", moderators);
+			result.addObject("requestURI", "/moderator/admin/list.do");
 		}catch(Throwable oops){
+			Collection<Moderator> moderators = this.moderatorService.findAll();
+			
+			result = new ModelAndView("moderator/list");
+			result.addObject("moderators", moderators);
+			result.addObject("requestURI", "/moderator/admin/list.do");
 			result.addObject("message", "crow.commit.error");
 		}
 
