@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.AdminService;
+import services.BidderService;
 import services.CrownService;
 import services.ModeratorService;
 import services.SmsService;
@@ -33,6 +34,8 @@ public class SmsController extends AbstractController {
 	private ModeratorService	moderatorService;
 	@Autowired
 	private AdminService		adminService;
+	@Autowired
+	private BidderService bidderService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -90,12 +93,15 @@ public class SmsController extends AbstractController {
 			sender = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (sender == null)
 			sender = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if (sender == null)
+			sender = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
 
 		final Sms res = this.smsService.create(sender, sender);
 		final Collection<Actor> actors = new ArrayList<Actor>();
 		actors.addAll(this.crownService.findAllNotBanned());
 		actors.addAll(this.moderatorService.findAllNotBanned());
 		actors.addAll(this.adminService.findAll());
+		actors.addAll(this.bidderService.findAll());
 
 		result = new ModelAndView("sms/create");
 		result.addObject("sms", res);
@@ -105,7 +111,7 @@ public class SmsController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST, params = "save")
-	public ModelAndView sendSms(final Sms sms, final BindingResult binding) {
+	public ModelAndView sendSms(Sms sms, final BindingResult binding) {
 		ModelAndView result;
 		final Sms res = this.smsService.reconstruct(sms, binding);
 
@@ -121,6 +127,7 @@ public class SmsController extends AbstractController {
 				actors.addAll(this.crownService.findAllNotBanned());
 				actors.addAll(this.moderatorService.findAllNotBanned());
 				actors.addAll(this.adminService.findAll());
+				actors.addAll(this.bidderService.findAll());
 				
 				result = new ModelAndView("sms/create");
 				result.addObject("sms", sms);
@@ -132,6 +139,7 @@ public class SmsController extends AbstractController {
 			actors.addAll(this.crownService.findAll());
 			actors.addAll(this.moderatorService.findAll());
 			actors.addAll(this.adminService.findAll());
+			actors.addAll(this.bidderService.findAll());
 			
 			result = new ModelAndView("sms/create");
 			result.addObject("sms", sms);

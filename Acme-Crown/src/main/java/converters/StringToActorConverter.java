@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import repositories.AdminRepository;
+import repositories.BidderRepository;
 import repositories.CrownRepository;
 import repositories.ModeratorRepository;
 import domain.Actor;
@@ -20,6 +21,8 @@ public class StringToActorConverter implements Converter<String, Actor>{
 	CrownRepository crownRepository;
 	@Autowired
 	ModeratorRepository moderatorRepository;
+	@Autowired
+	BidderRepository bidderRepository;
 
 	@Override
 	public Actor convert(String text) {
@@ -36,6 +39,9 @@ public class StringToActorConverter implements Converter<String, Actor>{
 			}
 			if(result==null){
 				result = moderatorRepository.findOne(id);
+			}
+			if(result == null){
+				result = bidderRepository.findOne(id);
 			}
 			
 			

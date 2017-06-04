@@ -31,6 +31,8 @@ public class SmsService {
 	private ModeratorService	moderatorService;
 	@Autowired
 	private AdminService		adminService;
+	@Autowired
+	private BidderService		bidderService;
 
 	//Validator
 	@Autowired
@@ -127,7 +129,9 @@ public class SmsService {
 			sender = this.moderatorService.findByUserAccountId(LoginService.getPrincipal().getId());
 		if (sender == null)
 			sender = this.adminService.findByUserAccountId(LoginService.getPrincipal().getId());
-
+		if (sender == null)
+			sender = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
+		
 		final Sms res = this.create(sender, sms.getRecipient());
 		res.setMoment(Calendar.getInstance().getTime());
 		res.setSubject(sms.getSubject());
