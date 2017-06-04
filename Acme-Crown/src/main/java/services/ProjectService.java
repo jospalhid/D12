@@ -109,6 +109,20 @@ public class ProjectService {
 		final Project res = this.projectRepository.save(project);
 		return res;
 	}
+	
+	public Project saveAndEdit(Project project) {
+		Assert.notNull(project, "The project to save cannot be null.");
+		final UserAccount ua = LoginService.getPrincipal();
+		Assert.notNull(ua);
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CROWN);
+		Assert.isTrue(ua.getAuthorities().contains(a), "You must to be a crown to promote a project.");
+
+		Assert.isTrue(project.getCrown().getUserAccount().equals(ua), "You are not the owner of this project");
+		
+		final Project res = this.projectRepository.save(project);
+		return res;
+	}
 
 	public void delete(final Project project) {
 		final UserAccount ua = LoginService.getPrincipal();
@@ -311,25 +325,5 @@ public class ProjectService {
 		this.validator.validate(project, binding);
 		return project;
 	}
-
-	//	public Set<String> getErrores(BindingResult binding) {
-	//		List<ObjectError> errors = binding.getAllErrors();
-	//		Set<String> res = new HashSet<String>();
-	//		for(ObjectError wrong: errors){
-	//			if(wrong.toString().contains("title")){
-	//				res.add("Title: "+wrong.getDefaultMessage()+". ");
-	//			}
-	//			if(wrong.toString().contains("goal")){
-	//				res.add("Goal: "+wrong.getDefaultMessage()+". ");
-	//			}
-	//			if(wrong.toString().contains("ttl")){
-	//				res.add("Time to live: "+wrong.getDefaultMessage()+". ");
-	//			}
-	//			if(wrong.toString().contains("url")){
-	//				res.add("Picture: "+wrong.getDefaultMessage()+". ");
-	//			}
-	//		}
-	//		return res;
-	//	}
 
 }

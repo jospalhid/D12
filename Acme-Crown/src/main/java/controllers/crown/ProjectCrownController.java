@@ -370,34 +370,64 @@ public class ProjectCrownController extends AbstractController {
 		ModelAndView result;
 
 		final Project project = this.projectService.findOne(projectId);
-		project.setPromoted(true);
-		final Project res = this.projectService.save(project);
+		try{
+			project.setPromoted(true);
+			final Project res = this.projectService.saveAndEdit(project);
+			
+			final Long days = this.projectService.getDaysToGo(projectId);
+			final Integer brackers = this.projectService.getBackers(projectId);
+			final Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 
-		final Long days = this.projectService.getDaysToGo(projectId);
-		final Integer brackers = this.projectService.getBackers(projectId);
-		final Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+			crown1.setAmount(crown1.getAmount() + this.configService.find().getFee());
+			final Crown crown = this.crownService.save(crown1);
 
-		crown1.setAmount(crown1.getAmount() + this.configService.find().getFee());
-		final Crown crown = this.crownService.save(crown1);
+			result = new ModelAndView("project/display");
+			result.addObject("project", res);
+			Double currentGoal = this.projectService.getCurrentGoal(projectId);
+			if (currentGoal == null)
+				currentGoal = 0.0;
+			result.addObject("currentGoal", currentGoal);
+			result.addObject("days", days);
+			result.addObject("brackers", brackers);
+			result.addObject("crown", crown);
+			result.addObject("promotedSMS", "proyect.promoted.success");
+			result.addObject("promoted", true);
+			if (crown.getFavs().contains(project))
+				result.addObject("fav", true);
+			else
+				result.addObject("fav", false);
+			final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+			result.addObject("comments", comments);
 
-		result = new ModelAndView("project/display");
-		result.addObject("project", res);
-		Double currentGoal = this.projectService.getCurrentGoal(projectId);
-		if (currentGoal == null)
-			currentGoal = 0.0;
-		result.addObject("currentGoal", currentGoal);
-		result.addObject("days", days);
-		result.addObject("brackers", brackers);
-		result.addObject("crown", crown);
-		result.addObject("promotedSMS", "proyect.promoted.success");
-		result.addObject("promoted", true);
-		if (crown.getFavs().contains(project))
-			result.addObject("fav", true);
-		else
-			result.addObject("fav", false);
-		final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
-		result.addObject("comments", comments);
+		}catch(Throwable oops){
+			final Long days = this.projectService.getDaysToGo(projectId);
+			final Integer brackers = this.projectService.getBackers(projectId);
+			final Crown crown1 = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
 
+			crown1.setAmount(crown1.getAmount() + this.configService.find().getFee());
+			final Crown crown = this.crownService.save(crown1);
+
+			result = new ModelAndView("project/display");
+			result.addObject("project", project);
+			Double currentGoal = this.projectService.getCurrentGoal(projectId);
+			if (currentGoal == null)
+				currentGoal = 0.0;
+			result.addObject("currentGoal", currentGoal);
+			result.addObject("days", days);
+			result.addObject("brackers", brackers);
+			result.addObject("crown", crown);
+			result.addObject("promotedSMS", "proyect.promoted.success");
+			result.addObject("promoted", true);
+			if (crown.getFavs().contains(project))
+				result.addObject("fav", true);
+			else
+				result.addObject("fav", false);
+			final Collection<Comment> comments = this.commentService.findReceivedComments(projectId);
+			result.addObject("comments", comments);
+			result.addObject("message", "project.commit.error");
+		}
+
+		
 		return result;
 	}
 
