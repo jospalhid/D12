@@ -68,5 +68,8 @@
 
 </div>
 
+<security:authorize access="hasRole('BIDDER')">
+		<br><spring:message code="copyright"/>
+</security:authorize>
 
 
