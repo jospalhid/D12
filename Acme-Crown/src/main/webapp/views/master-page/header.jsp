@@ -48,7 +48,6 @@
 				<ul class="dropdown-menu">
 					<li></li>
 					<security:authorize access="hasRole('CROWN')">
-						<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
 						<li><a href="crown/edit.do"><spring:message code="master.page.crown.edit" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('MODERATOR')">
@@ -61,6 +60,7 @@
 						<li><a href="security/moderator/signin.do"><spring:message code="master.page.signin.moderator" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('CROWN') or hasRole('BIDDER')">
+						<li><a href="creditCard/edit.do"><spring:message code="master.page.creditCard" /></a></li>
 						<li><a href="actor/display.do"><spring:message code="master.page.display" /></a></li>
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>

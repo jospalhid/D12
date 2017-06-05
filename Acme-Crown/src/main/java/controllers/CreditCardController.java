@@ -20,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.BidderService;
 import services.CreditCardService;
 import services.CrownService;
 import domain.CreditCard;
-import domain.Crown;
+import domain.SuperUser;
 
 @Controller
 @RequestMapping("/creditCard")
@@ -31,6 +32,8 @@ public class CreditCardController extends AbstractController {
 	
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private BidderService bidderServie;
 	@Autowired
 	private CreditCardService creditCardService;
 	
@@ -45,12 +48,15 @@ public class CreditCardController extends AbstractController {
 	@RequestMapping(value="/edit",method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		CreditCard creditCard = crown.getCreditCard();
+		SuperUser superUser = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if(superUser==null){
+			superUser= this.bidderServie.findByUserAccountId(LoginService.getPrincipal().getId());
+		}
+		CreditCard creditCard = superUser.getCreditCard();
 		result = new ModelAndView("creditCard/edit");
 		
 		if(creditCard==null){
-			creditCard= this.creditCardService.create(crown);
+			creditCard= this.creditCardService.create(superUser);
 			result = new ModelAndView("creditCard/create");
 		}
 		

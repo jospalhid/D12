@@ -14,7 +14,6 @@ import repositories.CreditCardRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.CreditCard;
-import domain.Crown;
 import domain.SuperUser;
 
 @Service
@@ -33,6 +32,8 @@ public class CreditCardService {
 	//Supporting services
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private BidderService bidderService;
 	
 	//Constructors
 	public CreditCardService() {
@@ -59,7 +60,7 @@ public class CreditCardService {
 	}
 
 	public CreditCard save(final CreditCard card) {
-		Assert.notNull(card, "The crown to save cannot be null.");
+		Assert.notNull(card, "The card to save cannot be null.");
 		
 		int year = Calendar.getInstance().get(Calendar.YEAR);
 		int month = Calendar.getInstance().get(Calendar.MONTH)+1;
@@ -82,8 +83,11 @@ public class CreditCardService {
 	}
 
 	public CreditCard validate(CreditCard creditCard, BindingResult binding) {
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		CreditCard res =this.create(crown);
+		SuperUser superUser = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if(superUser==null){
+			superUser = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
+		}
+		CreditCard res =this.create(superUser);
 		res.setHolder(creditCard.getHolder());
 		res.setBrand(creditCard.getBrand());
 		res.setNumber(creditCard.getNumber());
@@ -97,8 +101,14 @@ public class CreditCardService {
 	}
 	
 	public CreditCard reconstructAndSave(CreditCard creditCard){
-		Crown crown = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
-		CreditCard res = crown.getCreditCard();
+		SuperUser superUser = this.crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		if(superUser==null){
+			superUser = this.bidderService.findByUserAccountId(LoginService.getPrincipal().getId());
+		}
+		CreditCard res = superUser.getCreditCard();
+		if(res==null){
+			res = this.create(superUser);
+		}
 		if(res!=null){
 			res.setHolder(creditCard.getHolder());
 			res.setBrand(creditCard.getBrand());

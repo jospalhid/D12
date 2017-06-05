@@ -81,7 +81,7 @@
 		<security:intercept-url pattern="/category/admin/edit.do" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/category/admin/create.do" access="hasRole('ADMIN')" /> 
 		
-		<security:intercept-url pattern="/creditCard/edit.do" access="hasRole('CROWN')" /> 
+		<security:intercept-url pattern="/creditCard/edit.do" access="hasRole('CROWN') or hasRole('BIDDER')" /> 
 		
 		<security:intercept-url pattern="/project/moderator/list.do" access="hasRole('MODERATOR')" />
 		<security:intercept-url pattern="/project/moderator/ban.do" access="hasRole('MODERATOR')" />
