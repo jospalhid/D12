@@ -376,8 +376,9 @@
 	
 	<!-- Project -->
 	<bean id="project2" class="domain.Project">
-		<property name="title" value="Proyectillos varios" />
-		<property name="description" value="Cuatnas cosas" />
+		<property name="title" value="Open the film" />
+		<property name="description" value="Ang Lorem Ipsum ay ginagamit na modelo
+		 ng industriya ng pagpriprint at pagtytypeset." />
 		<property name="goal" value="3000" />
 		<property name="ttl" value="2017/06/30"/>
 		<property name="moment" value="2017/05/30"/>
@@ -405,7 +406,9 @@
 	</bean>
 	<bean id="project1" class="domain.Project">
 		<property name="title" value="Save Sanji" />
-		<property name="description" value="Hay que salvarle" />
+		<property name="description" value="Matagal na nating alam na nakukuha 
+		ang atensyon ng nagbabasa ang nababasa na nilalaman ng pahina kapag 
+		tinitignan ang pagkakaayo pinamumuka nitong nababasa." />
 		<property name="goal" value="100" />
 		<property name="ttl" value="2017/06/01"/>
 		<property name="moment" value="2017/05/02"/>
