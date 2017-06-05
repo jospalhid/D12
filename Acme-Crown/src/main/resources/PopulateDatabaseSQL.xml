@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- Config -->
+	<bean id="config1" class="domain.Config">
+		<property name="auction" value="2.5" />
+		<property name="fee" value="0.50" />
+	</bean>
+	
+	<!-- User accounts -->
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Category -->
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="Art" />
+		<property name="description" value="Todo un artista" />
+		<property name="picture" value="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/art.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="Craft" />
+		<property name="description" value="La magia tambien cuenta" />
+		<property name="picture" value="http://findicons.com/files/icons/1182/quickpix_2009/128/captain_hammer.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="Fashion" />
+		<property name="description" value="¿Que es la moda sin ti?" />
+		<property name="picture" value="http://findicons.com/files/icons/2787/beautiful_flat_icons/128/fashion.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category4" class="domain.Category">
+		<property name="name" value="Cine" />
+		<property name="description" value="Haz tus propias peliculas" />
+		<property name="picture" value="http://findicons.com/files/icons/51/capital_suite/113/film_reel.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category5" class="domain.Category">
+		<property name="name" value="Games" />
+		<property name="description" value="Jugar solo es siempre mejor" />
+		<property name="picture" value="http://findicons.com/files/icons/1620/crystal_project/128/agt_games.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category6" class="domain.Category">
+		<property name="name" value="Music" />
+		<property name="description" value="Un casco para cada persona" />
+		<property name="picture" value="http://findicons.com/files/icons/1226/agua_extras_vol_1/128/music.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category7" class="domain.Category">
+		<property name="name" value="Technology" />
+		<property name="description" value="La vida en si misma" />
+		<property name="picture" value="https://openclipart.org/image/2400px/svg_to_png/183383/tech-rings.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	<bean id="category8" class="domain.Category">
+		<property name="name" value="Others" />
+		<property name="description" value="Todo lo demas" />
+		<property name="picture" value="http://findicons.com/files/icons/638/magic_people/128/magic_ball.png"/>
+		<property name="projects">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- Admin -->
+	<bean id="admin1" class="domain.Admin">
+		<property name="name" value="Doflamingo" />
+		<property name="surname" value="Donquixote" />
+		<property name="email" value="jose@us.es" />
+		<property name="phone" value="+034 321 321654" />
+		<property name="picture" value="http://vignette3.wikia.nocookie.net/villains/images/d/df/12080535_1032194690185519_885736237_n.jpg/revision/latest?cb=20160801234725" />
+		<property name="userAccount" ref="userAccount1"/>
+		<property name="sendMessages">
+			<list></list>
+		</property>
+		<property name="receivedMessages">
+			<list></list>
+		</property>
+	</bean>
+	
+</beans>
