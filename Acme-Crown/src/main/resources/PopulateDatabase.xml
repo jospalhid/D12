@@ -309,7 +309,7 @@
 		<property name="phone" value="+034 321 321614" />
 		<property name="picture" value="http://1.bp.blogspot.com/-Plx_r7N_ncQ/TaWXtolvKmI/AAAAAAAAAAw/An42UiZ_k9I/s760/prueba_piloto_gratis.jpg" />
 		<property name="level" value="1" />
-		<property name="banned" value="false" />
+		<property name="banned" value="true" />
 		<property name="userAccount" ref="userAccount6"/>
 		<property name="sendMessages">
 			<list></list>
