@@ -13,10 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.CrownService;
 import services.ModeratorService;
+import services.ProjectService;
 import utilities.AbstractTest;
-import domain.Crown;
 import domain.Moderator;
 import domain.Project;
 
@@ -36,9 +35,10 @@ public class BanAProjectTest extends AbstractTest{
 				
 	 */
 	
-	@Autowired
-	private CrownService crownService;
+
 	
+	@Autowired
+	private ProjectService projectService;
 	
 	@Autowired
 	private ModeratorService moderatorService;
@@ -59,7 +59,7 @@ public class BanAProjectTest extends AbstractTest{
 			{
 				this.moderators.get(0).getUserAccount().getUsername(), null
 			}, {
-				null, IllegalArgumentException.class
+				"no", IllegalArgumentException.class
 			},
 		};
 
@@ -74,19 +74,10 @@ public class BanAProjectTest extends AbstractTest{
 		try {
 			this.authenticate(username);
 			
-			List<Crown> crowns = new ArrayList<Crown>();
-			crowns.addAll(crownService.findAllNotBanned());
-			Collections.shuffle(crowns);
-			
-			if(!crowns.isEmpty()){
-				Crown c = crowns.get(0);
-				if(!c.getProjects().isEmpty()){
-					List<Project> ps = (List<Project>) c.getProjects();
-					Project p= ps.get(0);
-					p.setBanned(true);
-				}
-				this.crownService.ban(c.getId());
-			}
+			List<Project> ps = (List<Project>) projectService.findAvailableProjects();
+			Project p = ps.get(0);
+			p.setBanned(true);
+
 			
 			this.unauthenticate();
 		} catch (final Throwable oops) {
