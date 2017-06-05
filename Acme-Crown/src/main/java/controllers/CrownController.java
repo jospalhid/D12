@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.CreditCardService;
 import services.CrownService;
+import domain.CreditCard;
 import domain.Crown;
 
 @Controller
@@ -18,6 +22,8 @@ public class CrownController extends AbstractController{
 	// Service
 	@Autowired
 	private CrownService crownService;
+	@Autowired
+	private CreditCardService creditCardService;
 
 	// Constructors -----------------------------------------------------------
 
@@ -61,12 +67,28 @@ public class CrownController extends AbstractController{
 	public ModelAndView pay() {
 		ModelAndView result;
 		Crown crown = crownService.findByUserAccountId(LoginService.getPrincipal().getId());
+		CreditCard card = crown.getCreditCard();
+
 		try{
-			crown.setAmount(0);
-			Crown res= crownService.save(crown);
-			result = new ModelAndView("actor/display");
-			result.addObject("actor", res);
-			result.addObject("message", "crown.pay.success");
+			if (card != null) {
+				final int year = Calendar.getInstance().get(Calendar.YEAR);
+				final int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+				if ((card.getExpirationYear() + 2000) > year || (card.getExpirationYear() + 2000) == year && card.getExpirationMonth() >= month) {
+					crown.setAmount(0);
+					Crown res= crownService.save(crown);
+					result = new ModelAndView("actor/display");
+					result.addObject("actor", res);
+					result.addObject("message", "crown.pay.success");
+				}else{
+					result = new ModelAndView("actor/display");
+					result.addObject("actor", crown);
+					result.addObject("message", "crown.invalid.creditCard");
+				}
+			}else {
+				result = new ModelAndView("creditCard/create");
+				result.addObject("creditCard", this.creditCardService.create(crown));
+				result.addObject("message", "crown.invalid.creditCard");
+			}
 		}catch(Throwable oops){
 			result = new ModelAndView("actor/display");
 			result.addObject("actor", crown);

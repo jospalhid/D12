@@ -225,7 +225,7 @@
 		<property name="phone" value="+034 321 321654" />
 		<property name="picture" value="https://pbs.twimg.com/profile_images/570673930470309888/KPTHOfuA.jpeg" />
 		<property name="banned" value="false" />
-		<property name="amount" value="0" />
+		<property name="amount" value="100" />
 		<property name="userAccount" ref="userAccount3"/>
 		<property name="projects">
 			<list></list>
